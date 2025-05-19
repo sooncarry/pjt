@@ -154,7 +154,10 @@ const sendEmailVerification = () => {
   alert('이메일 인증 전송 기능은 추후 구현 예정입니다.')
 }
 
-const handleSubmit = () => {
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+const handleSubmit = async () => {
   if (!isPasswordValid.value) {
     alert('비밀번호 조건을 확인해주세요.')
     return
@@ -165,15 +168,31 @@ const handleSubmit = () => {
     return
   }
 
-  const fullBirth = `${form.birthYear}-${String(form.birthMonth).padStart(2, '0')}-${String(form.birthDay).padStart(2, '0')}`
+  const signupData = {
+    username: form.username,
+    email: form.email,
+    password: form.password,
+    password_confirm: form.passwordConfirm,
+    first_name: form.name,
+    birth: `${form.birthYear}-${String(form.birthMonth).padStart(2, '0')}-${String(form.birthDay).padStart(2, '0')}`,
+    phone: form.phone,
+    address: form.address,
+    job: form.job,
+    risk_type: form.riskType
+  }
 
-  console.log('회원가입 제출 데이터:', {
-    ...form,
-    birth: fullBirth,
-  })
-
-  alert('제출 완료! (콘솔 확인)')
+  try {
+    const res = await axios.post('/api/signup/', signupData)
+    if (res.status === 201) {
+      alert('회원가입 성공!')
+      router.push('/login')  
+    }
+  } catch (err) {
+    console.error('회원가입 실패:', err.response?.data || err)
+    alert('회원가입 실패: ' + JSON.stringify(err.response?.data))
+  }
 }
+
 </script>
 
 <style scoped>
