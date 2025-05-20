@@ -4,10 +4,13 @@ from rest_framework import status
 from .serializers import SignupSerializer
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import permission_classes
 
 User = get_user_model()
 
 @api_view(['POST'])
+@permission_classes([AllowAny]) 
 def signup_view(request):
     serializer = SignupSerializer(data=request.data)
     if serializer.is_valid():

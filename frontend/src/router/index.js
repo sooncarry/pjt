@@ -13,6 +13,10 @@ import Education from '../views/Education.vue'
 import Saving from '../views/Saving.vue'
 import Community from '../views/Community.vue'
 
+// 커뮤니티 게시판 페이지지
+import PostDetail from '../views/PostDetail.vue'
+import PostForm from '../views/PostForm.vue'
+
 const routes = [
   { path: '/', name: 'Home', component: Home },
   { path: '/login', name: 'Login', component: Login },
@@ -25,6 +29,13 @@ const routes = [
   { path: '/education', name: 'Education', component: Education },
   { path: '/saving', name: 'Saving', component: Saving },
   { path: '/community', name: 'Community', component: Community },
+
+  // 커뮤니티 게시판 CRUD
+  { path: '/community/:id', name: 'PostDetail', component: PostDetail },
+  { path: '/community/create', name: 'PostCreate', component: PostForm },
+  { path: '/community/:id/edit', name: 'PostEdit', component: PostForm },
+  { path: '/community/category/:category', name: 'CommunityCategory', component: Community },
+
 ]
 
 const router = createRouter({
