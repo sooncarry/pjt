@@ -17,7 +17,6 @@ from dotenv import load_dotenv
 
 load_dotenv()  # .env 파일 읽기
 FINLIFE_API_KEY = os.getenv('FINLIFE_API_KEY')
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,14 +36,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # 'boards',
+    'boards',
     'finance',
     'rest_framework',
     'corsheaders',
     'accounts',
     # 위에까지 새로 추가한
     'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth', 
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -144,4 +143,3 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
-

@@ -10,5 +10,5 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # 로그인
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # 토큰 갱신
     path('', include('finance.urls')),
-    # path('api/boards/', include('boards.urls')),
+    path('api/boards/', include('boards.urls')),
 ]
