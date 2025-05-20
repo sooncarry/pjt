@@ -7,7 +7,7 @@ import Signup from '../views/Signup.vue'
 import MyPage from '../views/MyPage.vue'
 
 // 주요 기능 페이지
-import Deposit from '../views/Deposit.vue'
+import Finance from '../views/Finance.vue'
 import Stock from '../views/Stock.vue'
 import Education from '../views/Education.vue'
 import Saving from '../views/Saving.vue'
@@ -20,7 +20,7 @@ const routes = [
   { path: '/mypage', name: 'MyPage', component: MyPage, meta: { requiresAuth: true } },
 
   // 주요 뷰 경로
-  { path: '/deposit', name: 'Deposit', component: Deposit },
+  { path: '/finance', name: 'Finance', component: Finance },
   { path: '/stock', name: 'Stock', component: Stock },
   { path: '/education', name: 'Education', component: Education },
   { path: '/saving', name: 'Saving', component: Saving },

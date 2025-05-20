@@ -2,7 +2,7 @@
   <nav class="navbar">
     <div class="nav-left">
       <router-link to="/">홈</router-link>
-      <router-link to="/deposit">예금</router-link>
+      <router-link to="/finance">금융</router-link>
       <router-link to="/stock">주식</router-link>
       <router-link to="/education">금융 교육</router-link>
       <router-link to="/saving">저축</router-link>
