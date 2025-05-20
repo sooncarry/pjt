@@ -1,4 +1,3 @@
-<!-- src/views/Finance.vue -->
 <template>
   <div class="finance-view">
     <!-- 상단 배너 -->

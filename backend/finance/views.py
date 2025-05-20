@@ -28,3 +28,21 @@ class DepositProductData(APIView):
             return Response({"error": "API 요청 실패", "detail": str(e)}, status=500)
         except Exception as e:
             return Response({"error": "알 수 없는 오류", "detail": str(e)}, status=500)
+
+class SavingProductData(APIView):
+    def get(self, request):
+        api_key = settings.FINLIFE_API_KEY
+        url = "http://finlife.fss.or.kr/finlifeapi/savingProductsSearch.json"
+        params = {
+            "auth": api_key,
+            "topFinGrpNo": "020000",  # 은행
+            "pageNo": "1"
+        }
+
+        try:
+            res = requests.get(url, params=params)
+            res.raise_for_status()
+            data = res.json().get("result", {}).get("baseList", [])
+            return Response(data)
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
