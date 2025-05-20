@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>관심 종목 정보 검색</h1>
+    <h1>금융 교육</h1>
     <p>정연이</p>
   </div>
 </template>

@@ -2,12 +2,10 @@
   <nav class="navbar">
     <div class="nav-left">
       <router-link to="/">홈</router-link>
-      <router-link to="/interest">예적금 금리 비교</router-link>
-      <router-link to="/commodity">현물 상품 비교</router-link>
-      <router-link to="/recommend">금융 상품 추천</router-link>
-      <router-link to="/deposit">관심 종목 검색</router-link>
-      <router-link to="/savings">저축</router-link>
-      <router-link to="/nearby-bank">근처 은행 검색</router-link>
+      <router-link to="/deposit">예금</router-link>
+      <router-link to="/stock">주식</router-link>
+      <router-link to="/education">금융 교육</router-link>
+      <router-link to="/saving">저축</router-link>
       <router-link to="/community">커뮤니티</router-link>
     </div>
 

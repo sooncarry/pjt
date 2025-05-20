@@ -6,14 +6,12 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import MyPage from '../views/MyPage.vue'
 
-// 기타 기능 페이지
-import Community from '../views/Community.vue'
-import NearbyBank from '../views/NearbyBank.vue'
-import Interest from '../views/Interest.vue'
-import Recommend from '../views/Recommend.vue'
-import Savings from '../views/Savings.vue'
-import Commodity from '../views/Commodity.vue'
+// 주요 기능 페이지
 import Deposit from '../views/Deposit.vue'
+import Stock from '../views/Stock.vue'
+import Education from '../views/Education.vue'
+import Saving from '../views/Saving.vue'
+import Community from '../views/Community.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -21,14 +19,12 @@ const routes = [
   { path: '/signup', name: 'Signup', component: Signup },
   { path: '/mypage', name: 'MyPage', component: MyPage, meta: { requiresAuth: true } },
 
-  // 한글 메뉴에 대응하는 영문 path
-  { path: '/interest', name: 'Interest', component: Deposit },         // 예적금 금리 비교
-  { path: '/commodity', name: 'Commodity', component: Commodity },     // 현물 상품 비교
-  { path: '/recommend', name: 'Recommend', component: Recommend },     // 금융 상품 추천
-  { path: '/savings', name: 'Savings', component: Savings },           // 저축
-  { path: '/deposit', name: 'Deposit', component: Interest },          // 예금
-  { path: '/nearby-bank', name: 'NearbyBank', component: NearbyBank },// 근처 은행 검색
-  { path: '/community', name: 'Community', component: Community },     // 커뮤니티
+  // 주요 뷰 경로
+  { path: '/deposit', name: 'Deposit', component: Deposit },
+  { path: '/stock', name: 'Stock', component: Stock },
+  { path: '/education', name: 'Education', component: Education },
+  { path: '/saving', name: 'Saving', component: Saving },
+  { path: '/community', name: 'Community', component: Community },
 ]
 
 const router = createRouter({
@@ -45,4 +41,4 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-export default router;
+export default router
