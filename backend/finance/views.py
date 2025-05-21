@@ -4,9 +4,10 @@ import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.conf import settings
-
+from rest_framework.permissions import AllowAny
 
 class DepositProductData(APIView):
+    permission_classes = [AllowAny]
     def get(self, request):
         api_key = settings.FINLIFE_API_KEY  # 금감원에서 발급한 실제 인증키 사용
         url = "http://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json"
