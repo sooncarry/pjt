@@ -53,11 +53,6 @@ class CommentUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def perform_update(self, serializer):
-        if self.request.user != self.get_object().author:
-            raise PermissionError("수정 권한 없음")
-        serializer.save()
-
     def perform_destroy(self, instance):
         if self.request.user != instance.author:
             raise PermissionError("삭제 권한 없음")

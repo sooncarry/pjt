@@ -1,25 +1,16 @@
-<!-- src/components/CommentForm.vue -->
 <template>
   <div class="comment-form">
     <textarea v-model="localContent" placeholder="댓글을 입력하세요"></textarea>
-    <button @click="submit">{{ isEdit ? '수정' : '등록' }}</button>
-    <button v-if="isEdit" @click="$emit('cancel')">취소</button>
+    <button @click="submit">등록</button>
   </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
-const props = defineProps({
-  content: String,
-  isEdit: Boolean,
-})
-const emit = defineEmits(['submit', 'cancel'])
+import { ref } from 'vue'
+const props = defineProps({ content: String })
+const emit = defineEmits(['submit'])
 
 const localContent = ref(props.content || '')
-
-watch(() => props.content, (newVal) => {
-  localContent.value = newVal
-})
 
 const submit = () => {
   if (!localContent.value.trim()) return
@@ -34,6 +25,6 @@ const submit = () => {
   height: 60px;
 }
 .comment-form button {
-  margin-right: 0.5rem;
+  margin-top: 0.5rem;
 }
 </style>

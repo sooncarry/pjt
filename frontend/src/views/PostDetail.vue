@@ -1,67 +1,47 @@
 <template>
   <div v-if="post">
     <h2>{{ post.title }}</h2>
+    <p>{{ post.author_username }}</p>
     <p>{{ post.content }}</p>
 
-    <!-- 수정/삭제 버튼 (작성자만 보임) -->
-    <div v-if="isMine(post.author_username)">
-      <button @click="goToEditPage">수정</button>
+    <div v-if="isLoggedIn && isMine(post.author_username)">
+      <button @click="goEdit">수정</button>
       <button @click="deletePost">삭제</button>
     </div>
 
-    <!-- 댓글 목록 -->
-    <h3>댓글</h3>
-    <div v-for="comment in post.comments" :key="comment.id" class="comment">
-      <p>
-        <strong>{{ comment.author_username }}</strong>: {{ comment.content }}
-      </p>
-      <div v-if="comment.id === editingCommentId">
-        <CommentForm
-          :content="comment.content"
-          :isEdit="true"
-          @submit="updateComment(comment.id)"
-          @cancel="editingCommentId = null"
-        />
-      </div>
-      <div v-else>
-        <button v-if="isMine(comment.author_username)" @click="startEdit(comment.id, comment.content)">수정</button>
-        <button v-if="isMine(comment.author_username)" @click="deleteComment(comment.id)">삭제</button>
-        <button @click="toggleReply(comment.id)">답글</button>
-      </div>
-
-      <!-- 대댓글 -->
-      <div class="reply" v-for="reply in comment.replies" :key="reply.id">
-        <p>
-          ↳ <strong>{{ reply.author_username }}</strong>: {{ reply.content }}
-        </p>
-        <div v-if="reply.id === editingCommentId">
-          <CommentForm
-            :content="reply.content"
-            :isEdit="true"
-            @submit="updateComment(reply.id)"
-            @cancel="editingCommentId = null"
-          />
-        </div>
-        <div v-else>
-          <button v-if="isMine(reply.author_username)" @click="startEdit(reply.id, reply.content)">수정</button>
-          <button v-if="isMine(reply.author_username)" @click="deleteComment(reply.id)">삭제</button>
-        </div>
-      </div>
-
-      <!-- 대댓글 입력창 -->
-      <div v-if="replyTargetId === comment.id">
-        <CommentForm @submit="submitComment(comment.id)" />
-      </div>
+    <div class="like-section">
+      <button @click="toggleLike" :disabled="!isLoggedIn" class="heart-button">
+        <span v-if="liked">❤️</span>
+        <span v-else>🤍</span>
+      </button>
+      <span>{{ likesCount }}명이 좋아합니다</span>
     </div>
 
-    <!-- 일반 댓글 작성 -->
+    <h3>댓글</h3>
+    <div v-if="post.comments && post.comments.length">
+      <!-- 기존 댓글 렌더링 부분 안에 추가 -->
+      <div v-for="comment in post.comments" :key="comment.id" class="comment">
+        <p><strong>{{ comment.author_username }}</strong>: {{ comment.content }}</p>
+        <button v-if="isLoggedIn && isMine(comment.author_username)" @click="deleteComment(comment.id)">삭제</button>
+      </div>
+
+    </div>
+    <div v-else>
+      <p>댓글이 없습니다.</p>
+    </div>
+
     <h4>댓글 작성</h4>
-    <CommentForm @submit="submitComment(null)" />
+    <div v-if="isLoggedIn">
+      <CommentForm @submit="(content) => submitComment(null, content)" />
+    </div>
+    <div v-else>
+      <p style="color: gray;">댓글을 작성하시려면 로그인 해주세요.</p>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import CommentForm from '@/components/CommentForm.vue'
@@ -69,65 +49,62 @@ import CommentForm from '@/components/CommentForm.vue'
 const route = useRoute()
 const router = useRouter()
 const post = ref(null)
-const newComment = ref('')
-const editingCommentId = ref(null)
-const editingContent = ref('')
-const replyTargetId = ref(null)
-
 const currentUsername = localStorage.getItem('username')
+const liked = ref(false)
+const likesCount = ref(0)
+const isLoggedIn = !!localStorage.getItem('access_token')
 
 onMounted(async () => {
   const res = await axios.get(`/api/boards/${route.params.id}/`)
   post.value = res.data
+  console.log('작성자:', post.value.author_username)
+  console.log('현재 사용자:', currentUsername)
+
+  liked.value = post.value.likes?.includes(currentUsername)  // 서버 응답에 포함되는 경우
+  likesCount.value = post.value.likes_count
 })
 
 const isMine = (author) => author === currentUsername
 
-const submitComment = async (parentId = null, content = null) => {
+const goEdit = () => router.push(`/community/${route.params.id}/edit`)
+
+const deletePost = async () => {
+  if (confirm('정말 삭제하시겠습니까?')) {
+    await axios.delete(`/api/boards/${route.params.id}/`)
+    router.push('/community')
+  }
+}
+
+const submitComment = async (parentId = null, content = '') => {
+  if (!content.trim()) return
+
   await axios.post('/api/boards/comments/', {
     post: post.value.id,
-    content: content || newComment.value,
+    content: content,
     parent: parentId
   })
+
   const updated = await axios.get(`/api/boards/${route.params.id}/`)
   post.value = updated.data
-  newComment.value = ''
-  replyTargetId.value = null
-}
-
-const startEdit = (id, content) => {
-  editingCommentId.value = id
-  editingContent.value = content
-}
-
-const updateComment = (id) => async (newContent) => {
-  await axios.put(`/api/boards/comments/${id}/`, { content: newContent })
-  const updated = await axios.get(`/api/boards/${route.params.id}/`)
-  post.value = updated.data
-  editingCommentId.value = null
 }
 
 const deleteComment = async (id) => {
-  await axios.delete(`/api/boards/comments/${id}/`)
-  const updated = await axios.get(`/api/boards/${route.params.id}/`)
-  post.value = updated.data
+  if (confirm('댓글을 삭제할까요?')) {
+    await axios.delete(`/api/boards/comments/${id}/`)
+    const updated = await axios.get(`/api/boards/${route.params.id}/`)
+    post.value = updated.data
+  }
 }
 
-const toggleReply = (commentId) => {
-  replyTargetId.value = replyTargetId.value === commentId ? null : commentId
-}
+const toggleLike = async () => {
+  if (!isLoggedIn) {
+    alert('로그인 후 이용 가능합니다.')
+    return
+  }
 
-// 게시글 수정/삭제용 함수
-const goToEditPage = () => {
-  router.push(`/community/edit/${post.value.id}`)
-}
-
-const deletePost = async () => {
-  const confirmed = confirm('정말 삭제하시겠습니까?')
-  if (!confirmed) return
-  await axios.delete(`/api/boards/${post.value.id}/`)
-  alert('삭제 완료')
-  router.push('/community')
+  const res = await axios.post(`/api/boards/${route.params.id}/like/`)
+  liked.value = res.data.liked
+  likesCount.value = res.data.likes_count
 }
 </script>
 
@@ -139,5 +116,21 @@ const deletePost = async () => {
   margin-left: 1.5rem;
   font-size: 0.95rem;
   color: #555;
+}
+.heart-button {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.heart-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.like-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
 }
 </style>

@@ -19,6 +19,8 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const form = reactive({
   username: '',
@@ -38,6 +40,8 @@ const handleLogin = async () => {
     // 토큰 저장
     localStorage.setItem('access_token', response.data.access)
     localStorage.setItem('refresh_token', response.data.refresh)
+    localStorage.setItem('username', form.username) 
+    router.push('/')
 
     // axios 기본 Authorization 헤더 설정
     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`
