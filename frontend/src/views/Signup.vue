@@ -142,7 +142,7 @@ const checkUsername = async () => {
   }
 
   try {
-    const response = await axios.get(`/accounts/check-username/?username=${form.username}`)
+    const response = await axios.get(`/api/check-username/?username=${form.username}`)
     usernameStatus.value = response.data.is_taken ? 'taken' : 'available'
   } catch (err) {
     alert('중복 확인 실패')
@@ -182,7 +182,7 @@ const handleSubmit = async () => {
   }
 
   try {
-    const res = await axios.post('/accounts/signup/', signupData)
+    const res = await axios.post('/api/signup/', signupData)
     if (res.status === 201) {
       alert('회원가입 성공!')
       router.push('/login')  

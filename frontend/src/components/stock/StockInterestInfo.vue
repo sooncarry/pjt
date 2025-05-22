@@ -1,15 +1,246 @@
 <template>
-  <div>
-    <h3 class="text-xl font-semibold mb-4">🔍 관심 종목 정보 검색</h3>
-    <p>관심 종목의 커뮤니티 댓글, 뉴스, 공시 등의 정보를 종합적으로 제공합니다.</p>
+  <div class="p-6" @click.self="hideSuggestions">
+    <h2 class="text-xl font-bold mb-4">📢 공시 정보 검색</h2>
+
+    <!-- 검색창 + 자동완성 + 버튼 -->
+    <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-6 relative">
+      <div class="relative w-full sm:w-auto">
+        <input
+          v-model="companyName"
+          @input="fetchSuggestions"
+          @focus="showSuggestions = true"
+          type="text"
+          placeholder="기업명을 입력하세요"
+          class="border rounded px-4 py-2 w-full sm:w-64"
+        />
+        <!-- 자동완성 드롭다운 -->
+        <ul
+          v-if="suggestions.length && showSuggestions"
+          class="absolute z-10 bg-white border rounded w-full max-h-48 overflow-auto shadow"
+        >
+          <li
+            v-for="(s, index) in suggestions"
+            :key="index"
+            @click="selectSuggestion(s.name)"
+            class="px-4 py-2 hover:bg-blue-100 cursor-pointer"
+          >
+            {{ s.name }}
+          </li>
+        </ul>
+      </div>
+      <button
+        @click="fetchDisclosures(true)"
+        class="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 text-sm"
+      >
+        🔍 검색
+      </button>
+
+      <div class="flex gap-2 flex-wrap">
+        <button
+          v-for="(label, value) in periods"
+          :key="value"
+          @click="setPeriod(value)"
+          :class="[
+            'px-3 py-1 rounded border text-sm',
+            selectedPeriod === value ? 'bg-blue-600 text-white' : 'bg-white text-gray-600'
+          ]"
+        >
+          {{ label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- 로딩 -->
+    <div v-if="loading" class="text-gray-500 mb-4">⏳ 공시 정보를 불러오는 중...</div>
+
+    <!-- 공시 카드 리스트 -->
+    <div v-else-if="disclosures.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div
+        v-for="(item, index) in pagedDisclosures"
+        :key="index"
+        class="border rounded-lg shadow hover:shadow-md transition p-4 bg-white"
+      >
+        <h3 class="font-semibold text-blue-700 mb-2">{{ item.title }}</h3>
+        <p class="text-sm text-gray-500 mb-1">📅 {{ formatDate(item.date) }}</p>
+        <p class="text-sm text-gray-600 mb-2">🏢 {{ item.corp_name }}</p>
+        <a
+          :href="item.link"
+          target="_blank"
+          class="text-sm text-white bg-blue-600 px-3 py-1 rounded hover:bg-blue-700"
+        >
+          공시 보기 →
+        </a>
+      </div>
+    </div>
+
+    <!-- 페이지네이션 그룹 -->
+    <div v-if="!loading && totalPages > 1" class="mt-6 flex justify-center gap-2 flex-wrap text-sm">
+      <button
+        v-if="pageGroup > 1"
+        @click="prevPageGroup"
+        class="px-3 py-1 border rounded bg-white hover:bg-gray-100"
+      >
+        ◀ 이전
+      </button>
+
+      <button
+        v-for="n in visiblePages"
+        :key="n"
+        @click="page = n"
+        :class="[
+          'px-3 py-1 border rounded',
+          page === n ? 'bg-blue-600 text-white font-bold' : 'bg-white text-gray-700'
+        ]"
+      >
+        {{ n }}
+      </button>
+
+      <button
+        v-if="pageGroup * pageGroupSize < totalPages"
+        @click="nextPageGroup"
+        class="px-3 py-1 border rounded bg-white hover:bg-gray-100"
+      >
+        다음 ▶
+      </button>
+    </div>
+
+    <div v-else-if="!loading && !disclosures.length" class="text-gray-500">📭 공시가 없습니다.</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'StockInterestInfo',
-}
+  name: "StockInterestInfo",
+  data() {
+    return {
+      companyName: "",
+      selectedPeriod: 30, // ✅ "today" 기준으로 변경
+      periods: {
+        30: "1개월",
+        90: "3개월",
+        180: "6개월",
+        365: "12개월",
+        all: "전체보기",
+      },
+      disclosures: [],
+      loading: false,
+      page: 1,
+      pageSize: 15,
+      pageGroup: 1,
+      pageGroupSize: 5,
+      suggestions: [],
+      showSuggestions: false,
+      debounceTimeout: null,
+    };
+  },
+  computed: {
+    pagedDisclosures() {
+      const start = (this.page - 1) * this.pageSize;
+      return this.disclosures.slice(start, start + this.pageSize);
+    },
+    totalPages() {
+      return Math.ceil(this.disclosures.length / this.pageSize);
+    },
+    visiblePages() {
+      const start = (this.pageGroup - 1) * this.pageGroupSize + 1;
+      const end = Math.min(start + this.pageGroupSize - 1, this.totalPages);
+      const pages = [];
+      for (let i = start; i <= end; i++) pages.push(i);
+      return pages;
+    },
+  },
+  methods: {
+    hideSuggestions() {
+      this.showSuggestions = false;
+    },
+    setPeriod(days) {
+      this.selectedPeriod = days;
+      this.page = 1;
+      this.pageGroup = 1;
+      this.fetchDisclosures(true);
+    },
+    fetchSuggestions() {
+      if (this.debounceTimeout) clearTimeout(this.debounceTimeout);
+
+      this.debounceTimeout = setTimeout(() => {
+        if (this.companyName.trim().length < 1) {
+          this.suggestions = [];
+          this.showSuggestions = false;
+          return;
+        }
+
+        fetch(`/api/stock/search/?query=${encodeURIComponent(this.companyName.trim())}`)
+          .then((res) => res.json())
+          .then((data) => {
+            this.suggestions = data;
+            this.showSuggestions = true;
+          });
+      }, 200);
+    },
+    selectSuggestion(name) {
+      this.companyName = name;
+      this.showSuggestions = false;
+      this.page = 1;
+      this.pageGroup = 1;
+      this.fetchDisclosures(true);
+    },
+    fetchDisclosures(reset = false) {
+      this.loading = true;
+      if (reset) {
+        this.page = 1;
+        this.pageGroup = 1;
+      }
+
+      const today = new Date();
+      let bgnDate = "20000101";
+      if (this.selectedPeriod !== "all") {
+        const start = new Date(today);
+        start.setDate(today.getDate() - this.selectedPeriod);
+        bgnDate = start.toISOString().slice(0, 10).replace(/-/g, "");
+      }
+
+      const query = this.companyName.trim();
+      const url = query
+        ? `/api/stock/disclosures/?query=${encodeURIComponent(query)}&bgn_de=${bgnDate}&page_group=1`
+        : `/api/stock/disclosures/?bgn_de=${bgnDate}&page_group=1`;
+
+      fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+          this.disclosures = data.disclosures || [];
+          this.loading = false;
+        })
+        .catch((err) => {
+          console.error("공시 로딩 실패:", err);
+          this.loading = false;
+        });
+    },
+    nextPageGroup() {
+      this.pageGroup++;
+      this.page = (this.pageGroup - 1) * this.pageGroupSize + 1;
+      this.fetchDisclosures();
+    },
+    prevPageGroup() {
+      if (this.pageGroup > 1) {
+        this.pageGroup--;
+        this.page = (this.pageGroup - 1) * this.pageGroupSize + 1;
+        this.fetchDisclosures();
+      }
+    },
+    formatDate(dateStr) {
+      return `${dateStr.slice(0, 4)}-${dateStr.slice(4, 6)}-${dateStr.slice(6)}`;
+    },
+  },
+  mounted() {
+    this.fetchDisclosures();
+  },
+};
 </script>
 
 <style scoped>
+input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
 </style>
