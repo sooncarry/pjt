@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from .models import User
 from rest_framework import serializers
+from .models import FinancialProfile
 
 class SignupSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -31,3 +32,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'birth_date', 'phone_number']
+
+
+class FinancialProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FinancialProfile
+        fields = ['saving_style', 'spending_style', 'title', 'checklist_submitted']
