@@ -17,3 +17,5 @@ class SavingChallengeSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavingChallenge
         fields = '__all__'
+        read_only_fields = ['user', 'weekly_saving', 'total_weeks']
+        

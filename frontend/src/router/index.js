@@ -38,6 +38,23 @@ const routes = [
   { path: '/community/:id/edit', name: 'PostEdit', component: PostForm },
   { path: '/community/category/:category', name: 'CommunityCategory', component: Community },
 
+  // 저축 
+  {
+    path: '/saving/challenges',
+    name: 'ChallengeSelect',
+    component: () => import('@/views/ChallengeSelect.vue')
+  },
+  {
+    path: '/saving/challenges/:id',
+    name: 'ChallengeDetail',
+    component: () => import('@/views/ChallengeDetail.vue')
+  },
+  {
+    path: '/saving/recommend',
+    name: 'SavingRecommend',
+    component: { template: '<div style="padding: 2rem;">(예적금 추천은 준비 중입니다.)</div>' }
+  }
+
 ]
 
 const router = createRouter({
