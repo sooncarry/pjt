@@ -46,7 +46,7 @@ export default {
   },
   async mounted() {
     try {
-      const res = await axios.get('/api/deposit-products')
+      const res = await axios.get('/api/finance/deposit-products')
       console.log('✅ API 응답 결과:', res.data)
       this.products = res.data?.baseList || []
     } catch (err) {
