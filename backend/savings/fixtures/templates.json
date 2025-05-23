@@ -1,0 +1,35 @@
+[
+{
+  "model": "savings.challengetemplate",
+  "pk": 1,
+  "fields": {
+    "name": "비상금 챌린지",
+    "description": "비상시를 대비한 저축",
+    "default_goal_amount": 600000,
+    "default_total_units": 12,
+    "default_unit": "week"
+  }
+},
+{
+  "model": "savings.challengetemplate",
+  "pk": 2,
+  "fields": {
+    "name": "여행 자금 챌린지",
+    "description": "여행을 위한 저축",
+    "default_goal_amount": 1200000,
+    "default_total_units": 24,
+    "default_unit": "month"
+  }
+},
+{
+  "model": "savings.challengetemplate",
+  "pk": 3,
+  "fields": {
+    "name": "하루 한 잔 커피값 저축",
+    "description": "매일 3000원씩 저축",
+    "default_goal_amount": 90000,
+    "default_total_units": 30,
+    "default_unit": "day"
+  }
+}
+]
