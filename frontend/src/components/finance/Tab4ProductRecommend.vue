@@ -61,6 +61,9 @@
 <script setup>
 import { ref, computed } from 'vue'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const inputType = ref('salary')
 const yearlyIncome = ref(40000000)
@@ -79,6 +82,15 @@ const monthlyIncome = computed(() =>
 const fetchRecommendations = async () => {
   fetched.value = false
   try {
+    // 1. 사용자 프로필 체크
+    const profileRes = await axios.get('http://localhost:8000/api/finance/check-profile/')
+    if (!profileRes.data.has_profile) {
+      alert('재무 성향 체크가 필요합니다. 마이페이지로 이동합니다.')
+      router.push('/mypage')
+      return
+    }
+
+    // 2. 추천 상품 호출
     const params = new URLSearchParams({
       monthly_income: monthlyIncome.value,
       type: productType.value,
@@ -88,8 +100,13 @@ const fetchRecommendations = async () => {
     const { data } = await axios.get(`http://localhost:8000/api/finance/recommend-products/?${params}`)
     recommendations.value = data
   } catch (error) {
-    console.error('추천 API 호출 실패:', error)
-    recommendations.value = []
+    if (error.response && error.response.status === 401) {
+      alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.')
+      router.push('/signin')
+    } else {
+      console.error('추천 API 호출 실패:', error)
+      recommendations.value = []
+    }
   } finally {
     fetched.value = true
   }
