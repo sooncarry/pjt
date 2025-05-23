@@ -1,4 +1,4 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import SignupSerializer
@@ -11,6 +11,8 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer
 from .models import FinancialProfile
 from .serializers import FinancialProfileSerializer
+from django.utils import timezone
+
 
 User = get_user_model()
 
@@ -98,3 +100,4 @@ def financial_profile_view(request):
 
         serializer = FinancialProfileSerializer(profile)
         return Response(serializer.data)
+    

@@ -13,3 +13,4 @@ class FinancialProfile(models.Model):
     spending_style = models.CharField(max_length=10)
     title = models.CharField(max_length=30)         # 예: '절제된 야망가'
     checklist_submitted = models.BooleanField(default=False)  # 첫 진입 여부
+

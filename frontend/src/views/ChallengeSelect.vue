@@ -1,74 +1,64 @@
 <template>
   <div class="select-page">
-    <h2>🔥 원하는 챌린지를 선택해 시작해보세요</h2>
+    <h2>🔥 여러 챌린지를 선택해 시작해보세요</h2>
     <div class="template-list">
       <div
-        class="template-card"
         v-for="tpl in templates"
         :key="tpl.id"
-        @click="goToChallenge(tpl)"
+        :class="['template-card', {
+          selected: selectedIds.includes(tpl.id),
+          disabled: activeTemplateIds.includes(tpl.id)
+        }]"
+        @click="!activeTemplateIds.includes(tpl.id) && toggleSelect(tpl.id)"
       >
         <h3>{{ tpl.name }}</h3>
         <p>{{ tpl.description }}</p>
+        <p v-if="activeTemplateIds.includes(tpl.id)" class="badge">진행중</p>
       </div>
     </div>
+    <button class="start-btn" @click="startChallenges" :disabled="selectedIds.length === 0">
+      선택한 챌린지 시작하기 ({{ selectedIds.length }})
+    </button>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const templates = ref([
-  {
-    id: 1,
-    name: '비상금 챌린지',
-    description: '예상치 못한 상황에 대비한 나만의 비상금 모으기',
-    goal_amount: 600000,
-    total_weeks: 12,
-    weekly_saving: 50000,
-  },
-  {
-    id: 2,
-    name: '여행 자금 챌린지',
-    description: '버킷리스트 여행을 위해 매주 저축해보세요',
-    goal_amount: 1200000,
-    total_weeks: 24,
-    weekly_saving: 50000,
-  },
-  {
-    id: 3,
-    name: '커피 절약 챌린지',
-    description: '하루 커피값을 아끼면 한 달에 10만 원 절약!',
-    goal_amount: 100000,
-    total_weeks: 10,
-    weekly_saving: 10000,
-  },
-  {
-    id: 4,
-    name: '내 집 마련 챌린지',
-    description: '내 집 마련의 첫걸음, 지금부터 차근차근 준비',
-    goal_amount: 10000000,
-    total_weeks: 100,
-    weekly_saving: 100000,
-  },
-  {
-    id: 5,
-    name: '결혼 자금 챌린지',
-    description: '소중한 날을 위해 계획적인 저축을 시작하세요',
-    goal_amount: 5000000,
-    total_weeks: 50,
-    weekly_saving: 100000,
-  }
-])
+const templates = ref([])
+const selectedIds = ref([])
+const activeTemplateIds = ref([])
 
-const goToChallenge = (tpl) => {
-  router.push({
-    name: 'ChallengeDetail',
-    params: { id: tpl.id },
-    state: tpl  // ← Router로 데이터 넘기기 (또는 store에 저장)
-  })
+onMounted(async () => {
+  const res1 = await axios.get('/api/savings/templates/')
+  templates.value = res1.data
+
+  const res2 = await axios.get('/api/savings/active/')
+  activeTemplateIds.value = res2.data.map(ch => ch.template)
+})
+
+const toggleSelect = (id) => {
+  if (selectedIds.value.includes(id)) {
+    selectedIds.value = selectedIds.value.filter(i => i !== id)
+  } else {
+    selectedIds.value.push(id)
+  }
+}
+
+const startChallenges = async () => {
+  for (const id of selectedIds.value) {
+    const tpl = templates.value.find(t => t.id === id)
+    await axios.post('/api/savings/start/', {
+      template: tpl.id,
+      goal_amount: tpl.default_goal_amount,
+      total_units: tpl.default_total_units,
+      unit: tpl.default_unit
+    })
+  }
+  router.push('/saving/challenges')
 }
 </script>
 
@@ -80,6 +70,7 @@ const goToChallenge = (tpl) => {
 }
 .template-list {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
@@ -87,12 +78,41 @@ const goToChallenge = (tpl) => {
 .template-card {
   border: 2px solid #ddd;
   padding: 1rem;
-  width: 200px;
+  width: 220px;
   border-radius: 10px;
   cursor: pointer;
   transition: 0.3s;
+  background-color: white;
 }
-.template-card:hover {
-  background-color: #f3f3f3;
+.template-card.selected {
+  border-color: #4caf50;
+  background-color: #f0fff0;
+}
+.template-card.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.badge {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: white;
+  background-color: #f44336;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.start-btn {
+  margin-top: 2rem;
+  background-color: #4caf50;
+  color: white;
+  font-size: 1rem;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.start-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 </style>

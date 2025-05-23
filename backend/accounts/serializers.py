@@ -3,11 +3,11 @@ from .models import User
 from rest_framework import serializers
 from .models import FinancialProfile
 
+
 class SignupSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     password_confirm = serializers.CharField(write_only=True)
 
-    #birth = serializers.DateField(format='%Y-%m-%d', input_formats=['%Y-%m-%d'])
 
     class Meta:
         model = User
