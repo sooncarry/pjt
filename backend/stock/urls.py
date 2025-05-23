@@ -1,7 +1,9 @@
 from django.urls import path
-from . import views
+from .views import compare_stocks, search_stock_autocomplete, disclosures_view
 
 urlpatterns = [
-    path('disclosures/', views.disclosures_view),
-    path('search/', views.search_corporations),  # 자동완성용 검색 API
+    path('disclosures/', disclosures_view),
+    path('autocomplete/', search_stock_autocomplete),
+    path('compare/', compare_stocks),
+    
 ]
