@@ -6,21 +6,17 @@
     <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-6 relative">
       <div class="relative w-full sm:w-auto">
         <input
-          ref="companyInput"
           v-model="companyName"
           @input="fetchSuggestions"
           @focus="showSuggestions = true"
-          @keydown.enter="handleEnterKey"
-          @blur="handleBlur"
           type="text"
           placeholder="기업명을 입력하세요"
           class="border rounded px-4 py-2 w-full sm:w-64"
         />
         <!-- 자동완성 드롭다운 -->
         <ul
-          class="autocomplete-dropdown absolute z-10 bg-white border rounded w-full max-h-48 overflow-auto shadow"
           v-if="suggestions.length && showSuggestions"
-          @mousedown.prevent
+          class="absolute z-10 bg-white border rounded w-full max-h-48 overflow-auto shadow"
         >
           <li
             v-for="(s, index) in suggestions"
@@ -33,7 +29,7 @@
         </ul>
       </div>
       <button
-        @click="onSearchClick"
+        @click="fetchDisclosures(true)"
         class="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 text-sm"
       >
         🔍 검색
@@ -118,7 +114,7 @@ export default {
   data() {
     return {
       companyName: "",
-      selectedPeriod: 30,
+      selectedPeriod: 30, // ✅ "today" 기준으로 변경
       periods: {
         30: "1개월",
         90: "3개월",
@@ -135,7 +131,6 @@ export default {
       suggestions: [],
       showSuggestions: false,
       debounceTimeout: null,
-      fetchedPageGroup: 1,
     };
   },
   computed: {
@@ -158,24 +153,10 @@ export default {
     hideSuggestions() {
       this.showSuggestions = false;
     },
-    handleEnterKey() {
-      this.showSuggestions = false;
-      this.fetchDisclosures(true);
-    },
-    handleBlur() {
-      setTimeout(() => {
-        this.showSuggestions = false;
-      }, 100);
-    },
-    onSearchClick() {
-      this.showSuggestions = false;
-      this.fetchDisclosures(true);
-    },
     setPeriod(days) {
       this.selectedPeriod = days;
       this.page = 1;
       this.pageGroup = 1;
-      this.fetchedPageGroup = 1;
       this.fetchDisclosures(true);
     },
     fetchSuggestions() {
@@ -201,17 +182,13 @@ export default {
       this.showSuggestions = false;
       this.page = 1;
       this.pageGroup = 1;
-      this.fetchedPageGroup = 1;
       this.fetchDisclosures(true);
     },
     fetchDisclosures(reset = false) {
       this.loading = true;
-      const pageGroupToFetch = reset ? 1 : this.fetchedPageGroup + 1;
-
       if (reset) {
         this.page = 1;
         this.pageGroup = 1;
-        this.disclosures = [];
       }
 
       const today = new Date();
@@ -224,14 +201,13 @@ export default {
 
       const query = this.companyName.trim();
       const url = query
-        ? `/api/stock/disclosures/?query=${encodeURIComponent(query)}&bgn_de=${bgnDate}&page_group=${pageGroupToFetch}`
-        : `/api/stock/disclosures/?bgn_de=${bgnDate}&page_group=${pageGroupToFetch}`;
+        ? `/api/stock/disclosures/?query=${encodeURIComponent(query)}&bgn_de=${bgnDate}&page_group=1`
+        : `/api/stock/disclosures/?bgn_de=${bgnDate}&page_group=1`;
 
       fetch(url)
         .then((res) => res.json())
         .then((data) => {
-          this.disclosures = [...this.disclosures, ...(data.disclosures || [])];
-          this.fetchedPageGroup = pageGroupToFetch;
+          this.disclosures = data.disclosures || [];
           this.loading = false;
         })
         .catch((err) => {
@@ -240,41 +216,23 @@ export default {
         });
     },
     nextPageGroup() {
-      const nextPage = (this.pageGroup + 1 - 1) * this.pageGroupSize + 1;
-      const requiredCount = nextPage * this.pageSize;
-      if (this.disclosures.length < requiredCount) {
-        this.fetchDisclosures();
-      }
       this.pageGroup++;
       this.page = (this.pageGroup - 1) * this.pageGroupSize + 1;
+      this.fetchDisclosures();
     },
     prevPageGroup() {
       if (this.pageGroup > 1) {
         this.pageGroup--;
         this.page = (this.pageGroup - 1) * this.pageGroupSize + 1;
+        this.fetchDisclosures();
       }
     },
     formatDate(dateStr) {
       return `${dateStr.slice(0, 4)}-${dateStr.slice(4, 6)}-${dateStr.slice(6)}`;
     },
-    handleClickOutside(e) {
-      const inputEl = this.$refs.companyInput;
-      const dropdownEl = document.querySelector('.autocomplete-dropdown');
-      if (
-        inputEl &&
-        !inputEl.contains(e.target) &&
-        (!dropdownEl || !dropdownEl.contains(e.target))
-      ) {
-        this.showSuggestions = false;
-      }
-    },
   },
   mounted() {
     this.fetchDisclosures();
-    window.addEventListener("click", this.handleClickOutside);
-  },
-  beforeUnmount() {
-    window.removeEventListener("click", this.handleClickOutside);
   },
 };
 </script>

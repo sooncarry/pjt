@@ -14,10 +14,9 @@ import Education from '../views/Education.vue'
 import Saving from '../views/Saving.vue'
 import Community from '../views/Community.vue'
 
-// 커뮤니티 게시판 페이지
+// 커뮤니티 게시판 페이지지
 import PostDetail from '../views/PostDetail.vue'
 import PostForm from '../views/PostForm.vue'
-
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -38,6 +37,24 @@ const routes = [
   { path: '/community/create', name: 'PostCreate', component: PostForm },
   { path: '/community/:id/edit', name: 'PostEdit', component: PostForm },
   { path: '/community/category/:category', name: 'CommunityCategory', component: Community },
+
+  // 저축 
+  {
+    path: '/saving/challenges',
+    name: 'ChallengeSelect',
+    component: () => import('@/views/ChallengeSelect.vue')
+  },
+  {
+    path: '/saving/challenges/:id',
+    name: 'ChallengeDetail',
+    component: () => import('@/views/ChallengeDetail.vue')
+  },
+  {
+    path: '/saving/recommend',
+    name: 'SavingRecommend',
+    component: { template: '<div style="padding: 2rem;">(예적금 추천은 준비 중입니다.)</div>' }
+  }
+
 ]
 
 const router = createRouter({

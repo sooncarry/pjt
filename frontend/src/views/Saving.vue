@@ -1,8 +1,87 @@
+<script setup>
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth.js'
+import { onMounted } from 'vue'
+import { useChallengeStore } from '@/stores/challenge.js'
+
+const store = useChallengeStore()
+
+const router = useRouter()
+const auth = useAuthStore()
+
+const goToChallenge = () => {
+  if (!auth.isLoggedIn) {
+    alert('챌린지를 시작하려면 로그인해야 합니다.')
+    router.push('/login')
+  } else {
+    if (store.activeChallenge) {
+      router.push(`/saving/challenges/${store.activeChallenge.id}`)  // ✅ 디테일 페이지로
+    } else {
+      router.push('/saving/challenges')  // 새로운 챌린지 시작
+    }
+  }
+}
+
+const goToRecommend = () => {
+  if (!auth.isLoggedIn) {
+    alert('예적금 추천은 로그인 후 이용할 수 있습니다.')
+    router.push('/login')
+  } else {
+    router.push('/saving/recommend')
+  }
+}
+</script>
+
 <template>
-  <div>
-    <h1>저축</h1>
-    <p>저축 페이지. 이 친구는 비로그인일 때 어떻게 표시할지 생각하면 좋을듯..!</p>
+  <div class="saving-main">
+    <h1>💸 매일 한 걸음씩, 더 나은 금융 습관!</h1>
+    <p class="subtext">
+      오늘부터 나만의 저축 챌린지를 시작하고,<br />
+      당신의 금융 습관을 멋지게 바꿔보세요.
+    </p>
+
+    <div class="button-group">
+      <button class="btn-main" @click="goToChallenge">
+        {{ store.activeChallenge ? '진행 중인 챌린지 보기' : '챌린지 진행하기' }}
+      </button>
+      <button class="btn-sub" @click="goToRecommend">
+        예적금 추천받기
+      </button>
+    </div>
   </div>
 </template>
 
-<script setup></script>
+
+<style scoped>
+
+.saving-main {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.subtext {
+  margin: 1.5rem 0;
+  font-size: 1.25rem;
+}
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.btn-main, .btn-sub {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.btn-main {
+  background-color: #4caf50;
+  color: white;
+}
+.btn-sub {
+  background-color: #2196f3;
+  color: white;
+}
+</style>

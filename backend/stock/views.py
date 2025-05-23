@@ -2,34 +2,25 @@ from django.http import JsonResponse
 from django.conf import settings
 from django.views.decorators.http import require_GET
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime
 import pandas as pd
 import os
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from .utils.stock_compare import get_stock_comparison_data
 from rest_framework.permissions import AllowAny
 import yfinance as yf
-
-def load_corp_codes_df():
-    path = os.path.join(os.path.dirname(__file__), 'utils', 'corp_codes.csv')
-    if not os.path.exists(path):
-        return pd.DataFrame()
-    df = pd.read_csv(path, dtype={'corp_code': str, 'stock_code': str})
-    return df[['corp_name', 'corp_code', 'stock_code']].dropna()
-
-CORP_CODE_DF = load_corp_codes_df()
+from .utils.stock_compare import get_stock_comparison_data
 
 # CSV 로드 함수
 def load_corp_codes():
     path = os.path.join(os.path.dirname(__file__), 'utils', 'corp_codes.csv')
     if not os.path.exists(path):
-        return {}
-    df = pd.read_csv(path, dtype={'corp_code': str})
-    return dict(zip(df['corp_name'], df['corp_code']))
+        return pd.DataFrame(columns=['corp_name', 'corp_code', 'stock_code'])
+    return pd.read_csv(path, dtype=str)
 
-CORP_CODE_MAP = load_corp_codes()
+CORP_CODE_DF = load_corp_codes()
+CORP_CODE_MAP = dict(zip(CORP_CODE_DF['corp_name'], CORP_CODE_DF['corp_code']))
 
 # 기업명으로 corp_code 조회
 def get_corp_code(name):
@@ -37,11 +28,25 @@ def get_corp_code(name):
 
 # 🔍 자동완성용 검색 API
 @require_GET
-def search_corp(request):
+def search_stock_autocomplete(request):
     query = request.GET.get('query', '').strip()
-    if not query:
+    if not query or CORP_CODE_DF.empty:
         return JsonResponse([], safe=False)
-    result = [{'name': name} for name in CORP_CODE_MAP.keys() if query in name][:20]
+
+    matched = CORP_CODE_DF[
+        CORP_CODE_DF['corp_name'].str.contains(query) &
+        CORP_CODE_DF['stock_code'].notna() &
+        (CORP_CODE_DF['stock_code'] != '') &
+        (CORP_CODE_DF['stock_code'] != '0')
+    ]
+
+    result = [
+        {
+            'name': row['corp_name'],
+            'code': str(row['stock_code']).zfill(6)
+        }
+        for _, row in matched.head(20).iterrows()
+    ]
     return JsonResponse(result, safe=False)
 
 # 📄 공시정보 API
@@ -52,19 +57,17 @@ def disclosures_view(request):
     if query and not corp_code:
         return JsonResponse({'disclosures': []})
 
-    # 날짜 파라미터
     bgn_de = request.GET.get('bgn_de', '')
     end_de = request.GET.get('end_de', datetime.today().strftime('%Y%m%d'))
 
-    # 몇 그룹의 페이지인지 (한 그룹은 100건)
     page_group = int(request.GET.get('page_group', '1'))
     page_count = 100 * page_group
-    page_no = int(request.GET.get('page_no', '1'))  # 기본 1페이지
+    page_no = int(request.GET.get('page_no', '1'))
     params = {
         'crtfc_key': settings.DART_API_KEY,
         'bgn_de': bgn_de,
         'end_de': end_de,
-        'page_count': 100,  # 고정
+        'page_count': 100,
         'page_no': page_no,
     }
     if corp_code:
@@ -86,13 +89,13 @@ def disclosures_view(request):
             'title': item.get('report_nm'),
             'date': item.get('rcept_dt'),
             'corp_name': item.get('corp_name'),
-            'link': f"https://dart.fss.or.kr/dsaf001/main.do?rcpNo={item.get('rcept_no')}",
+            'link': f"https://dart.fss.or.kr/dsaf001/main.do?rcpNo={item.get('rcept_no')}"
         })
 
     return JsonResponse({'disclosures': result})
 
 @api_view(['POST'])
-@permission_classes([AllowAny])  # ✅ 누구나 접근 가능
+@permission_classes([AllowAny])
 def compare_stocks(request):
     codes = request.data.get('codes', [])
     start_date = request.data.get('start_date')
@@ -117,67 +120,34 @@ def compare_stocks(request):
                     'amount': 0,
                     'yield': 0.0,
                     'date': '-'
-                }
+                },
+                'per': None,
+                'pbr': None,
+                'market_cap': None,
+                'sector': '-',
+                'industry': '-',
+                'history': []
             })
 
     return Response(result, status=status.HTTP_200_OK)
 
-def get_stock_comparison_data(code, start_date, end_date):
-    try:
-        suffix = '.KS' if code.startswith('0') else '.KQ'
-        ticker = yf.Ticker(code + suffix)
-        df = ticker.history(start=start_date, end=end_date)
 
-        if df.empty:
-            return None
-
-        price_change = ((df['Close'].iloc[-1] - df['Close'].iloc[0]) / df['Close'].iloc[0]) * 100
-        avg_volume = int(df['Volume'].mean())
-        info = ticker.info
-
-        # ✅ 종가 시계열 데이터 추가
-        close_data = [{'date': date.strftime('%Y-%m-%d'), 'close': round(price, 2)}
-                      for date, price in df['Close'].items()]
-
-        return {
-            'code': code,
-            'name': info.get('shortName', 'Unknown'),
-            'price_change_rate': round(price_change, 2),
-            'avg_volume': avg_volume,
-            'dividend': {
-                'amount': info.get('dividendRate', 0),
-                'yield': round(info.get('dividendYield', 0) * 100, 2) if info.get('dividendYield') else 0,
-                'date': info.get('exDividendDate', '-')
-            },
-            'per': info.get('trailingPE', None),
-            'pbr': info.get('priceToBook', None),
-            'market_cap': info.get('marketCap', None),
-            'sector': info.get('sector', '-'),
-            'industry': info.get('industry', '-'),
-            'history': close_data  # 👈 추가된 종가 시계열
-        }
-    except Exception as e:
-        print(f"[ERROR] {code}: {e}")
-        return None
-
-@require_GET
-def search_stock_autocomplete(request):
-    query = request.GET.get('query', '').strip()
-    if not query or CORP_CODE_DF.empty:
-        return JsonResponse([], safe=False)
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def search_stock_name(request):
+    code = request.GET.get('code', '').strip()
+    if not code or CORP_CODE_DF.empty:
+        return Response({'error': '코드가 제공되지 않았습니다.'}, status=400)
 
     matched = CORP_CODE_DF[
-        CORP_CODE_DF['corp_name'].str.contains(query) &
         CORP_CODE_DF['stock_code'].notna() &
         (CORP_CODE_DF['stock_code'] != '') &
-        (CORP_CODE_DF['stock_code'] != '0')
+        (CORP_CODE_DF['stock_code'] != '0') &
+        (CORP_CODE_DF['stock_code'] == code.zfill(6))
     ]
 
-    result = [
-        {
-            'name': row['corp_name'],
-            'code': str(row['stock_code']).zfill(6)
-        }
-        for _, row in matched.head(20).iterrows()
-    ]
-    return JsonResponse(result, safe=False)
+    if matched.empty:
+        return Response({'error': '일치하는 기업이 없습니다.'}, status=404)
+
+    corp_name = matched.iloc[0]['corp_name']
+    return Response({'name': corp_name})
