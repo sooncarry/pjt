@@ -3,6 +3,6 @@ from django.urls import path
 from .views import DepositProductData, SavingProductData
 
 urlpatterns = [
-    path('api/deposit-products/', DepositProductData.as_view(), name='deposit_products'),
-    path('api/saving-products/', SavingProductData.as_view(), name='saving_products'),
+    path('deposit-products/', DepositProductData.as_view(), name='deposit_products'),
+    path('saving-products/', SavingProductData.as_view(), name='saving_products'),
 ]

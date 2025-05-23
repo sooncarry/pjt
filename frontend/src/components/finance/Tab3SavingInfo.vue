@@ -43,7 +43,7 @@ export default {
   },
   async mounted() {
     try {
-      const res = await axios.get('/api/saving-products')
+      const res = await axios.get('/api/finance/saving-products')
       this.products = res.data || []
     } catch (err) {
       console.error('❌ 적금 API 호출 실패:', err)
