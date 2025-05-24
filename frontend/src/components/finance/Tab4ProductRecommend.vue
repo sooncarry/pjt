@@ -8,13 +8,44 @@
       <label class="ml-4"><input type="radio" value="allowance" v-model="inputType" /> 월 용돈 입력</label>
     </div>
 
-    <!-- 연봉 or 용돈 입력 -->
+    <!-- 연봉 입력 및 실수령 월급 -->
     <div v-if="inputType === 'salary'" class="mb-2">
-      <input v-model.number="yearlyIncome" type="number" placeholder="연봉 입력 (원)" class="input" />
-      <p class="text-sm text-gray-500 mt-1">실수령 월급: {{ monthlyIncome.toLocaleString() }}원</p>
+      <input
+        v-model="formattedSalary"
+        type="text"
+        :placeholder="salaryPlaceholder"
+        class="input"
+        @input="onSalaryInput"
+      />
+      <div class="mt-1">
+        <template v-if="!editMode">
+          <p class="text-sm text-gray-500">
+            실수령 월급: {{ formattedMonthlyIncome }}원
+            <button @click="editMode = true" class="ml-2 text-blue-600 underline text-xs">직접 입력하기</button>
+          </p>
+        </template>
+        <template v-else>
+          <input
+            v-model="formattedCustomIncome"
+            type="text"
+            placeholder="실수령 월급을 직접 입력해주세요"
+            class="input mt-1"
+            @input="onCustomIncomeInput"
+          />
+          <button @click="editMode = false" class="text-blue-600 underline text-xs mt-1">← 자동 계산으로 전환</button>
+        </template>
+      </div>
     </div>
-    <div v-else class="mb-2">
-      <input v-model.number="manualInput" type="number" placeholder="월 용돈 입력 (원)" class="input" />
+
+    <!-- 월 용돈 입력 -->
+    <div v-if="inputType === 'allowance'" class="mb-2">
+      <input
+        v-model="formattedManualInput"
+        type="text"
+        :placeholder="allowancePlaceholder"
+        class="input"
+        @input="onManualInput"
+      />
     </div>
 
     <!-- 상품 유형 선택 -->
@@ -66,23 +97,57 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const inputType = ref('salary')
-const yearlyIncome = ref(40000000)
-const manualInput = ref(300000)
+const yearlyIncome = ref(null)
+const manualInput = ref(null)
+const customIncome = ref(null)
+const editMode = ref(false)
 const productType = ref('all')
 const term = ref('')
 const recommendations = ref([])
 const fetched = ref(false)
 
-const monthlyIncome = computed(() =>
-  inputType.value === 'salary'
-    ? Math.round((yearlyIncome.value - calculateTax(yearlyIncome.value)) / 12)
-    : manualInput.value
-)
+const salaryPlaceholder = computed(() => '연봉을 입력해주세요')
+const allowancePlaceholder = computed(() => '매달 사용하는 용돈을 입력해주세요')
+
+const monthlyIncome = computed(() => {
+  if (inputType.value === 'salary') {
+    if (editMode.value && customIncome.value !== null) {
+      return parseInt(String(customIncome.value).replace(/,/g, '')) || 0
+    } else if (yearlyIncome.value) {
+      return Math.round((yearlyIncome.value - calculateTax(yearlyIncome.value)) / 12)
+    }
+    return 0
+  } else {
+    return manualInput.value || 0
+  }
+})
+
+const formatNumber = (val) => val ? String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : ''
+
+const formattedSalary = computed({
+  get: () => formatNumber(yearlyIncome.value),
+  set: (val) => { yearlyIncome.value = parseInt(val.replace(/,/g, '')) || null }
+})
+
+const formattedCustomIncome = computed({
+  get: () => formatNumber(customIncome.value),
+  set: (val) => { customIncome.value = parseInt(val.replace(/,/g, '')) || null }
+})
+
+const formattedManualInput = computed({
+  get: () => formatNumber(manualInput.value),
+  set: (val) => { manualInput.value = parseInt(val.replace(/,/g, '')) || null }
+})
+
+const formattedMonthlyIncome = computed(() => formatNumber(monthlyIncome.value))
+
+const onSalaryInput = () => {}
+const onCustomIncomeInput = () => {}
+const onManualInput = () => {}
 
 const fetchRecommendations = async () => {
   fetched.value = false
   try {
-    // 1. 사용자 프로필 체크
     const profileRes = await axios.get('http://localhost:8000/api/finance/check-profile/')
     if (!profileRes.data.has_profile) {
       alert('재무 성향 체크가 필요합니다. 마이페이지로 이동합니다.')
@@ -90,7 +155,6 @@ const fetchRecommendations = async () => {
       return
     }
 
-    // 2. 추천 상품 호출
     const params = new URLSearchParams({
       monthly_income: monthlyIncome.value,
       type: productType.value,
@@ -128,6 +192,7 @@ function calculateTax(income) {
 .input {
   border: 1px solid #ccc;
   padding: 4px 8px;
+  width: 100%;
 }
 .btn {
   background-color: #2563eb;
