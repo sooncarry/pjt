@@ -19,6 +19,9 @@ import PostDetail from '../views/PostDetail.vue'
 import PostForm from '../views/PostForm.vue'
 
 import Tab4ProductRecommend from '@/components/finance/Tab4ProductRecommend.vue'
+import StockKnowledge from '@/components/stock/StockKnowledge.vue'
+import StockKnowledgeDetail from '@/components/stock/StockKnowledgeDetail.vue'
+
 
 const routes = [
   // 기본
@@ -56,8 +59,13 @@ const routes = [
     path: '/saving/recommend', // 예적금 추천은 추후 구현
     name: 'SavingRecommend',
     component: Tab4ProductRecommend
-  }
+  },
+
+  // 주식
+  { path: '/knowledge', component: StockKnowledge },
+  { path: '/knowledge/:id', component: StockKnowledgeDetail, name: 'KnowledgeDetail' },
 ]
+
 
 const router = createRouter({
   history: createWebHistory(),
