@@ -37,7 +37,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'education',
+    "django_crontab",
+    'education.apps.EducationConfig',
     'savings',
     'stock',
     'boards',
@@ -55,7 +56,9 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
-
+CRONJOBS = [
+    ("0 * * * *", "django.core.management.call_command", ["fetch_news"])
+]
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     # 위에까지 새로 추가한

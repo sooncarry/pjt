@@ -6,7 +6,17 @@ class FinanceTermSerializer(serializers.ModelSerializer):
         model = FinanceTerm
         fields = '__all__'
 
+
 class NewsItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewsItem
-        fields = '__all__'
+        fields = [
+            'id',
+            'title',
+            'summary',
+            'url',
+            'published_at',
+            'source',
+            'thumbnail',
+            'category',
+        ]
