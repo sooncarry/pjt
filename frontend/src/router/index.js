@@ -18,6 +18,8 @@ import Community from '../views/Community.vue'
 import PostDetail from '../views/PostDetail.vue'
 import PostForm from '../views/PostForm.vue'
 
+import Tab4ProductRecommend from '@/components/finance/Tab4ProductRecommend.vue'
+
 const routes = [
   // 기본
   { path: '/', name: 'Home', component: Home },
@@ -53,7 +55,7 @@ const routes = [
   {
     path: '/saving/recommend', // 예적금 추천은 추후 구현
     name: 'SavingRecommend',
-    component: { template: '<div style="padding: 2rem;">(예적금 추천은 준비 중입니다.)</div>' }
+    component: Tab4ProductRecommend
   }
 ]
 

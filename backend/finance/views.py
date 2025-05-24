@@ -75,18 +75,17 @@ def check_financial_profile(request):
         return Response({"has_profile": False})
 
 class RecommendProducts(APIView):
-    permission_classes = [AllowAny]  # 필요시 IsAuthenticated로 변경 가능
+    permission_classes = [AllowAny]  # 로그인 상태 체크는 프론트에서 처리
 
     def get(self, request):
         income = int(request.GET.get('monthly_income', 0))
-        product_type = request.GET.get('type', 'all')  # 'deposit', 'saving', 'all'
-        term = request.GET.get('term')  # 예: '12'
+        product_type = request.GET.get('type', 'all')
+        term = request.GET.get('term')
 
-        # 사용자 성향 가져오기
-        user_style = None
+        profile = None
         if request.user.is_authenticated:
             try:
-                user_style = FinancialProfile.objects.get(user=request.user).title
+                profile = FinancialProfile.objects.get(user=request.user)
             except FinancialProfile.DoesNotExist:
                 pass
 
@@ -99,6 +98,7 @@ class RecommendProducts(APIView):
 
         try:
             results = []
+
             for kind, endpoint in endpoints.items():
                 if product_type != 'all' and product_type != kind:
                     continue
@@ -134,14 +134,12 @@ class RecommendProducts(APIView):
                         "interest_rate": float(rate),
                         "term": join_term,
                         "etc_note": base.get("etc_note", ""),
-                        "score": 0  # 나중에 점수로 정렬
+                        "score": 0
                     }
 
-                    # 성향 기반 점수 계산
-                    result["score"] = calculate_score(result, user_style)
+                    result["score"] = calculate_score(result, profile)
                     results.append(result)
 
-            # 점수 높은 순 추천
             sorted_results = sorted(results, key=lambda x: x["score"], reverse=True)[:3]
             return Response(sorted_results)
 
@@ -150,31 +148,32 @@ class RecommendProducts(APIView):
         except Exception as e:
             return Response({"error": "알 수 없는 오류", "detail": str(e)}, status=500)
 
-
-def calculate_score(product, user_style):
+def calculate_score(product, profile):
     score = 0
     rate = product["interest_rate"]
     note = product.get("etc_note", "").lower()
     type = product["type"]
 
-    # 기본 금리 점수
+    # [1] 기본 금리 점수
     score += rate * 40
 
-    # 조건 편의성
+    # [2] 조건 편의성
     if "급여이체" in note or "우대" in note:
-        score += -20  # 조건 까다로움 감점
+        score -= 20
     else:
         score += 30
 
-    # 성향 반영 점수 (예시: 칭호 → 성향 매핑)
-    if user_style:
-        if "절약" in user_style or "안정" in user_style:
-            if type == "deposit":
-                score += 30
-        elif "도전" in user_style or "고수익" in user_style:
-            if type == "saving":
-                score += rate * 10
-        elif "균형" in user_style:
-            score += 20  # 균형형은 중립적 가산
+    # [3] 사용자 성향 반영
+    if profile:
+        saving = profile.saving_style
+        spending = profile.spending_style
+
+        if saving == "보수적" and type == "deposit":
+            score += 30
+        elif saving == "공격적" and type == "saving":
+            score += rate * 10
+
+        if spending == "공격적" and "우대" not in note:
+            score += 10
 
     return score
