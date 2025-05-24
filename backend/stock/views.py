@@ -11,6 +11,9 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 import yfinance as yf
 from .utils.stock_compare import get_stock_comparison_data
+from rest_framework import generics
+from .models import StockKnowledge
+from .serializers import StockKnowledgeSerializer
 
 # CSV 로드 함수
 def load_corp_codes():
@@ -151,3 +154,11 @@ def search_stock_name(request):
 
     corp_name = matched.iloc[0]['corp_name']
     return Response({'name': corp_name})
+
+class StockKnowledgeListView(generics.ListAPIView):
+    queryset = StockKnowledge.objects.all()
+    serializer_class = StockKnowledgeSerializer
+
+class StockKnowledgeDetailView(generics.RetrieveAPIView):
+    queryset = StockKnowledge.objects.all()
+    serializer_class = StockKnowledgeSerializer
