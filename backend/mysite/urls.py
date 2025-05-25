@@ -19,7 +19,7 @@ urlpatterns = [
     path('api/finance-terms/', finance_terms, name='finance-terms'),
 
     # education/urls.py 에 3가지(path) 모두 정의되어 있으므로 한 번만 include
-    path('api/', include('education.urls')),
+    path('api/education/', include('education.urls')),
 ]
 
 if settings.DEBUG:

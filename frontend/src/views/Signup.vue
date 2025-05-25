@@ -107,13 +107,13 @@
 </template>
 
 <script setup>
-import { reactive, ref, computed, inject } from 'vue'
+import { reactive, ref, computed, inject, onMounted } from 'vue'
 import axios from 'axios'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 
-// ✅ App.vue에서 provide한 전역 alert 상태 받아오기
 const alertMsg = inject('alertMsg')
 const alertType = inject('alertType')
 
@@ -130,12 +130,11 @@ const form = reactive({
   birthMonth: '',
   birthDay: '',
   phone: '',
-  address: '',
   job: '',
-  riskType: ''
 })
 
 const usernameStatus = ref('')
+const emailVerified = ref(false)
 
 const passwordMessage = computed(() => {
   if (!form.password) return ''
@@ -173,12 +172,59 @@ const checkUsername = async () => {
   }
 }
 
-const sendEmailVerification = () => {
-  alertMsg.value = '📩 이메일 인증 전송 기능은 추후 구현 예정입니다.'
-  alertType.value = 'info'
+const sendEmailVerification = async () => {
+  if (!form.email) {
+    alertMsg.value = '📭 이메일을 입력해주세요.'
+    alertType.value = 'warning'
+    return
+  }
+
+  try {
+    const res = await axios.post('/api/send-verification/', {
+      email: form.email,
+      name: form.name || '',
+    })
+    localStorage.setItem('pendingSignupData', JSON.stringify(form))
+    alertMsg.value = res.data.detail || '📬 인증 메일을 보냈어요. 메일함을 확인해보세요.'
+    alertType.value = 'success'
+  } catch (err) {
+    console.error('❌ 인증 오류:', err)
+    alertMsg.value = '❌ 인증 실패: ' + (err.response?.data?.detail || '서버 오류')
+    alertType.value = 'danger'
+  }
 }
 
+onMounted(async () => {
+  const uidb64 = route.query.uidb64
+  const token = route.query.token
+  if (uidb64 && token) {
+    const savedForm = JSON.parse(localStorage.getItem('pendingSignupData') || '{}')
+    Object.assign(form, savedForm)
+    try {
+      await axios.post('/api/final-signup/', {
+        ...savedForm,
+        uidb64,
+        token,
+        name: savedForm.name || ''  // 👈 name으로 전달
+      })
+      emailVerified.value = true
+      alertMsg.value = '✅ 이메일 인증 완료! 가입 정보를 확인하고 제출해주세요.'
+      alertType.value = 'success'
+      localStorage.removeItem('pendingSignupData')
+    } catch (err) {
+      alertMsg.value = '❌ 인증 실패: ' + (err.response?.data?.error || '서버 오류')
+      alertType.value = 'danger'
+    }
+  }
+})
+
 const handleSubmit = async () => {
+  if (!emailVerified.value) {
+    alertMsg.value = '⚠️ 먼저 이메일 인증을 완료해주세요.'
+    alertType.value = 'warning'
+    return
+  }
+
   if (!isPasswordValid.value) {
     alertMsg.value = '❌ 비밀번호 조건을 확인해주세요.'
     alertType.value = 'danger'
@@ -192,16 +238,14 @@ const handleSubmit = async () => {
   }
 
   const signupData = {
+    name: form.name,
     username: form.username,
     email: form.email,
     password: form.password,
     password_confirm: form.passwordConfirm,
-    first_name: form.name,
     birth_date: `${form.birthYear}-${String(form.birthMonth).padStart(2, '0')}-${String(form.birthDay).padStart(2, '0')}`,
     phone_number: form.phone,
-    address: form.address,
     job: form.job,
-    risk_type: form.riskType
   }
 
   try {
@@ -218,4 +262,5 @@ const handleSubmit = async () => {
   }
 }
 </script>
+
 

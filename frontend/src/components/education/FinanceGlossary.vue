@@ -115,7 +115,7 @@ const saveRecentSearch = (term) => {
 
 const fetchTerms = async () => {
   try {
-    const res = await axios.get('/api/finance-terms/', {
+    const res = await axios.get('/api/education/finance-terms/', {
       params: { q: searchQuery.value }
     })
     terms.value = res.data

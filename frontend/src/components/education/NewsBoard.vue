@@ -59,7 +59,7 @@ async function fetchPage(page = 1) {
   if (page > totalPages.value) return
   loading.value = true
   try {
-    const { data } = await axios.get('/api/breaking-news/', { params: { page } })
+    const { data } = await axios.get('/api/education/breaking-news/', { params: { page } })
     if (page === 1) newsList.value = data.results ?? data
     else newsList.value.push(...(data.results ?? data))
     currentPage.value = data.current_page ?? page

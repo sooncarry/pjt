@@ -28,7 +28,7 @@ class EducationConfig(AppConfig):
             try:
                 from .models import QuizQuestion
                 if not QuizQuestion.objects.exists():
-                    quiz_fixture = os.path.join(settings.BASE_DIR, 'backend', 'education', 'fixtures', 'finance_quiz.json')
+                    quiz_fixture = os.path.join(settings.BASE_DIR, 'education', 'fixtures', 'finance_quiz.json')
                     print("======[퀴즈 데이터 자동 로드 시작]======")
                     call_command('loaddata', quiz_fixture, verbosity=0)
                     print("======[퀴즈 데이터 로드 완료]======")

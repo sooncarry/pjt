@@ -76,7 +76,7 @@ const isCorrect = computed(() => {
 
 const fetchQuizData = async () => {
   try {
-    const res = await axios.get('/api/quiz/')
+    const res = await axios.get('/api/education/quiz/')
     quizList.value = res.data.sort(() => 0.5 - Math.random()) // 무작위 섞기
   } catch (err) {
     console.error('퀴즈 로딩 오류:', err)

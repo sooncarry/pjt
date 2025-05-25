@@ -6,8 +6,11 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import MyPage from '../views/MyPage.vue'
 import ChecklistPage from '@/views/ChecklistPage.vue'
-// import EmailSent from '@/views/EmailSent.vue'
-// import EmailVerified from '@/views/EmailVerified.vue'
+import EmailVerifyHandler from '@/views/EmailVerifyHandler.vue'
+import EmailVerified from '@/views/EmailVerified.vue'
+import EmailFailed from '@/views/EmailFailed.vue'
+import SignupStep2 from '@/views/SignupStep2.vue'
+
 
 
 // 주요 기능 페이지
@@ -37,8 +40,11 @@ const routes = [
   { path: '/signup', name: 'Signup', component: Signup },
   { path: '/mypage', name: 'MyPage', component: MyPage, meta: { requiresAuth: true } },
   { path: '/checklist', name: 'Checklist', component: ChecklistPage },
-  // { path: '/email-sent', component: EmailSent },
-  // { path: '/email-verified', component: EmailVerified },
+  { path: '/email-verify/:uidb64/:token', component: EmailVerifyHandler },
+  { path: '/email-verified', component: EmailVerified },
+  { path: '/email-verify-failed', component: EmailFailed },
+  { path: '/signup-step2/:uidb64/:token', component: SignupStep2 },
+
 
   // 주요 기능
   { path: '/finance', name: 'Finance', component: Finance },

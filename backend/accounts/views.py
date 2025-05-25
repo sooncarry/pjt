@@ -25,34 +25,15 @@ from django.contrib.sites.shortcuts import get_current_site
 User = get_user_model()
 token_generator = EmailVerificationTokenGenerator()
 
+
 @api_view(['POST'])
-@permission_classes([AllowAny]) 
-@api_view(['POST'])
-@permission_classes([AllowAny]) 
+@permission_classes([AllowAny])
 def signup_view(request):
     serializer = SignupSerializer(data=request.data)
     if serializer.is_valid():
-        user = serializer.save()
-        user.is_active = False  # 🔒 인증 전 로그인 불가
-        user.save()
-
-        # 이메일 인증 링크 생성
-        uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-        token = token_generator.make_token(user)
-        current_site = get_current_site(request).domain
-        activate_url = f"http://{current_site}/api/accounts/activate/{uidb64}/{token}/"
-
-        # 이메일 내용 렌더링
-        mail_subject = '회원가입 이메일 인증'
-        message = render_to_string('email_verification.html', {
-            'user': user,
-            'activate_url': activate_url,
-        })
-        email = EmailMessage(mail_subject, message, to=[user.email])
-        email.send()
-
-        return Response({'message': '회원가입 성공. 이메일을 확인해주세요.'}, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.save()
+        return Response({'message': '회원가입 성공'}, status=201)
+    return Response(serializer.errors, status=400)
 
 @api_view(['GET'])  # ✅ 추가
 def check_username(request):
@@ -146,3 +127,68 @@ class ActivateAccountView(APIView):
             return Response({'message': '이메일 인증 성공! 이제 로그인할 수 있습니다.'}, status=200)
         else:
             return Response({'error': '유효하지 않거나 만료된 링크입니다.'}, status=400)
+        
+
+# views.py
+from django.utils.crypto import get_random_string
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def send_verification_email(request):
+    email = request.data.get('email')
+    name = request.data.get('name', '')
+
+    if not email:
+        return Response({'detail': '이메일이 필요합니다.'}, status=400)
+
+    # 항상 새로운 임시 유저 생성
+    base_username = email.split('@')[0]
+    final_username = f"{base_username}_{get_random_string(6)}"
+
+    user = User.objects.create(
+        username=final_username,
+        email=email,
+        is_active=False,
+        first_name=name
+    )
+    user.set_password(User.objects.make_random_password())
+    user.save()
+
+    uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+    token = token_generator.make_token(user)
+
+    activate_url = f"http://localhost:5173/signup?uidb64={uidb64}&token={token}"
+
+    subject = '[부자되자] 이메일 인증 요청'
+    message = render_to_string('email_verification.html', {
+        'user': user,
+        'activate_url': activate_url
+    })
+
+    email_msg = EmailMessage(subject, message, to=[email])
+    email_msg.content_subtype = 'html'
+    email_msg.send()
+
+    return Response({'detail': '📩 인증 메일을 전송했습니다.'}, status=200)
+
+
+
+# accounts/views.py
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def final_signup(request):
+    uidb64 = request.data.get('uidb64')
+    token = request.data.get('token')
+
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        return Response({'error': '유효하지 않은 사용자입니다.'}, status=400)
+
+    if not token_generator.check_token(user, token):
+        return Response({'error': '유효하지 않거나 만료된 토큰입니다.'}, status=400)
+
+    user.is_active = True
+    user.save()
+    return Response({'message': '이메일 인증 성공'}, status=200)
