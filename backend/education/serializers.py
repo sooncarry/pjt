@@ -13,11 +13,6 @@ class NewsItemSerializer(serializers.ModelSerializer):
         fields = '__all__'   # thumbnail 등 추가 필드 포함
 
 class QuizQuestionSerializer(serializers.ModelSerializer):
-    options = serializers.SerializerMethodField()
-
     class Meta:
         model = QuizQuestion
-        fields = ['id', 'question', 'options', 'answer', 'explanation']
-
-    def get_options(self, obj):
-        return obj.options()
+        fields = ['id', 'question', 'option1', 'option2', 'option3', 'option4', 'answer', 'explanation']
