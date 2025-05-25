@@ -6,6 +6,9 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import MyPage from '../views/MyPage.vue'
 import ChecklistPage from '@/views/ChecklistPage.vue'
+// import EmailSent from '@/views/EmailSent.vue'
+// import EmailVerified from '@/views/EmailVerified.vue'
+
 
 // 주요 기능 페이지
 import Finance from '../views/Finance.vue'
@@ -24,6 +27,7 @@ import StockKnowledgeDetail from '@/components/stock/StockKnowledgeDetail.vue'
 
 import SamplePage from '@/views/SamplePage.vue' //디자인 테스트
 
+
 const routes = [
   // 기본
   { path: '/sample', name: 'SamplePage', component: SamplePage }, //디자인 테스트
@@ -33,6 +37,8 @@ const routes = [
   { path: '/signup', name: 'Signup', component: Signup },
   { path: '/mypage', name: 'MyPage', component: MyPage, meta: { requiresAuth: true } },
   { path: '/checklist', name: 'Checklist', component: ChecklistPage },
+  // { path: '/email-sent', component: EmailSent },
+  // { path: '/email-verified', component: EmailVerified },
 
   // 주요 기능
   { path: '/finance', name: 'Finance', component: Finance },
