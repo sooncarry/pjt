@@ -1,0 +1,15 @@
+// Bootstrap 커스터마이징
+
+$primary: #5A45FF;
+$secondary: #F1F3F5;
+$success: #00C471;
+$danger: #FF4D4F;
+
+$font-family-sans-serif: 'Pretendard', sans-serif;
+$headings-font-weight: 600;
+$border-radius: 0.75rem;
+$input-padding-y: 0.5rem;
+$input-padding-x: 1rem;
+
+// Bootstrap import (최하단 필수)
+@import "bootstrap/scss/bootstrap";

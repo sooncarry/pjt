@@ -14,7 +14,8 @@
             <img
               :src="item.image"
               alt="stock concept"
-              class="w-full h-full object-cover"
+              class="w-full h-full object-cover border border-gray-300"
+              @error="e => console.error('❌ 이미지 로딩 실패:', e.target.src)"
             />
             <div class="absolute top-2 left-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">
               {{ index + 1 | twoDigits }}
@@ -52,7 +53,16 @@ export default {
     async fetchKnowledgeList() {
       try {
         const response = await axios.get('/api/stock/knowledge/')
-        this.knowledgeList = response.data
+        const data = response.data
+
+        // 🔧 이미지 경로 보정 (상대 경로일 경우 절대 URL 붙이기)
+        this.knowledgeList = data.map(item => {
+          if (item.image && item.image.startsWith('/media/')) {
+            item.image = `http://localhost:8000${item.image}`
+          }
+          return item
+        })
+        console.log('✅ 이미지 목록 불러오기 완료:', this.knowledgeList.map(i => i.image))
       } catch (error) {
         console.error('❌ 주식 지식 데이터를 불러오는 데 실패했습니다:', error)
       }

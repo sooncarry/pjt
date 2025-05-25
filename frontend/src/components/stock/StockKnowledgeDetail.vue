@@ -30,10 +30,15 @@ export default {
     const router = useRouter()
     const knowledge = ref(null)
 
-    const fetchDetail = async () => {
+     const fetchDetail = async () => {
       try {
         const response = await axios.get(`/api/stock/knowledge/${route.params.id}/`)
-        knowledge.value = response.data
+        const data = response.data  // ✅ 여기가 누락됐던 부분
+        if (data.image && data.image.startsWith('/media/')) {
+          data.image = `http://localhost:8000${data.image}`
+        }
+        knowledge.value = data
+        console.log('✅ 이미지 URL 보정 후:', knowledge.value.image)
       } catch (err) {
         console.error('❌ 상세 정보를 불러오는 데 실패했습니다:', err)
       }

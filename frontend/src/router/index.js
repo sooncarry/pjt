@@ -22,9 +22,12 @@ import Tab4ProductRecommend from '@/components/finance/Tab4ProductRecommend.vue'
 import StockKnowledge from '@/components/stock/StockKnowledge.vue'
 import StockKnowledgeDetail from '@/components/stock/StockKnowledgeDetail.vue'
 
+import SamplePage from '@/views/SamplePage.vue' //디자인 테스트
 
 const routes = [
   // 기본
+  { path: '/sample', name: 'SamplePage', component: SamplePage }, //디자인 테스트
+
   { path: '/', name: 'Home', component: Home },
   { path: '/login', name: 'Login', component: Login },
   { path: '/signup', name: 'Signup', component: Signup },
