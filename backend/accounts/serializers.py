@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from .models import User
 from rest_framework import serializers
 from .models import FinancialProfile
@@ -7,7 +6,8 @@ from .models import FinancialProfile
 class SignupSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     password_confirm = serializers.CharField(write_only=True)
-
+    birth_date = serializers.DateField(required=False, allow_null=True)  # 선택 항목
+    phone_number = serializers.CharField(required=False, allow_blank=True)  # 선택 항목
 
     class Meta:
         model = User

@@ -13,18 +13,46 @@ from .models import FinancialProfile
 from .serializers import FinancialProfileSerializer
 from django.utils import timezone
 
+# 이메일 인증 구현 용
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from .tokens import EmailVerificationTokenGenerator
+from django.contrib.sites.shortcuts import get_current_site
+
 
 User = get_user_model()
+token_generator = EmailVerificationTokenGenerator()
 
+@api_view(['POST'])
+@permission_classes([AllowAny]) 
 @api_view(['POST'])
 @permission_classes([AllowAny]) 
 def signup_view(request):
     serializer = SignupSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save()
-        return Response({'message': '회원가입 성공'}, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        user = serializer.save()
+        user.is_active = False  # 🔒 인증 전 로그인 불가
+        user.save()
 
+        # 이메일 인증 링크 생성
+        uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+        token = token_generator.make_token(user)
+        current_site = get_current_site(request).domain
+        activate_url = f"http://{current_site}/api/accounts/activate/{uidb64}/{token}/"
+
+        # 이메일 내용 렌더링
+        mail_subject = '회원가입 이메일 인증'
+        message = render_to_string('email_verification.html', {
+            'user': user,
+            'activate_url': activate_url,
+        })
+        email = EmailMessage(mail_subject, message, to=[user.email])
+        email.send()
+
+        return Response({'message': '회원가입 성공. 이메일을 확인해주세요.'}, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])  # ✅ 추가
 def check_username(request):
@@ -101,3 +129,20 @@ def financial_profile_view(request):
         serializer = FinancialProfileSerializer(profile)
         return Response(serializer.data)
     
+
+class ActivateAccountView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+
+        if user and token_generator.check_token(user, token):
+            user.is_active = True
+            user.save()
+            return Response({'message': '이메일 인증 성공! 이제 로그인할 수 있습니다.'}, status=200)
+        else:
+            return Response({'error': '유효하지 않거나 만료된 링크입니다.'}, status=400)

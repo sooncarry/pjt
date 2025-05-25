@@ -16,10 +16,16 @@
           <label class="form-label">아이디</label>
           <div class="d-flex gap-2">
             <input v-model="form.username" type="text" class="form-control form-control-sm" required />
-            <button type="button" class="btn btn-outline-secondary btn-sm" @click="checkUsername">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-sm"
+              @click="checkUsername"
+              style="white-space: nowrap"
+            >
               중복 확인
             </button>
           </div>
+
           <p v-if="usernameStatus === 'available'" class="text-success small mt-1">사용 가능한 아이디입니다.</p>
           <p v-else-if="usernameStatus === 'taken'" class="text-danger small mt-1">이미 사용 중인 아이디입니다.</p>
         </div>
@@ -55,7 +61,7 @@
 
         <!-- 생년월일 -->
         <div>
-          <label class="form-label">생년월일</label>
+          <label class="form-label">생년월일 <span class="text-muted small">(선택)</span></label>
           <div class="d-flex gap-2">
             <select v-model="form.birthYear" class="form-select form-select-sm" required>
               <option disabled value="">년도</option>
@@ -74,15 +80,10 @@
 
         <!-- 전화번호 -->
         <div>
-          <label class="form-label">전화번호</label>
+          <label class="form-label">전화번호 <span class="text-muted small">(선택)</span></label>
           <input v-model="form.phone" type="tel" class="form-control form-control-sm" />
         </div>
 
-        <!-- 주소 -->
-        <div>
-          <label class="form-label">주소</label>
-          <input v-model="form.address" type="text" class="form-control form-control-sm" />
-        </div>
 
         <!-- 직업 -->
         <div>
@@ -97,15 +98,6 @@
           </select>
         </div>
 
-        <!-- 금융 성향 -->
-        <div>
-          <label class="form-label">금융 성향</label>
-          <div class="d-flex gap-3 mt-1">
-            <label><input type="radio" value="보수적" v-model="form.riskType" /> 보수적</label>
-            <label><input type="radio" value="중립적" v-model="form.riskType" /> 중립적</label>
-            <label><input type="radio" value="공격적" v-model="form.riskType" /> 공격적</label>
-          </div>
-        </div>
 
         <!-- 가입 버튼 -->
         <button type="submit" class="btn btn-primary btn-sm rounded-pill mt-3">가입하기</button>
@@ -115,15 +107,15 @@
 </template>
 
 <script setup>
-import { reactive, ref, computed } from 'vue'
+import { reactive, ref, computed, inject } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
-import BaseAlert from '@/components/BaseAlert.vue'
 
 const router = useRouter()
 
-const alertMsg = ref('')
-const alertType = ref('success')
+// ✅ App.vue에서 provide한 전역 alert 상태 받아오기
+const alertMsg = inject('alertMsg')
+const alertType = inject('alertType')
 
 const currentYear = new Date().getFullYear()
 const years = Array.from({ length: 100 }, (_, i) => currentYear - i)
@@ -226,3 +218,4 @@ const handleSubmit = async () => {
   }
 }
 </script>
+
