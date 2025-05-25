@@ -1,24 +1,20 @@
 <template>
-  <div class="p-6 max-w-5xl mx-auto">
-    <!-- 탭 버튼 -->
-    <div class="flex flex-wrap gap-3 border-b pb-2">
+  <div class="container my-5">
+    <!-- 탭 메뉴 -->
+    <div class="d-flex flex-wrap gap-2 border-bottom pb-2 mb-4">
       <button
         v-for="tab in tabs"
         :key="tab"
         @click="activeTab = tab"
-        :class="[
-          'px-4 py-2 font-semibold transition-colors duration-200 rounded-t-lg',
-          activeTab === tab
-            ? 'text-blue-600 border-b-4 border-blue-600 bg-white'
-            : 'text-gray-500 hover:text-blue-500'
-        ]"
+        class="btn btn-sm rounded-pill fw-semibold"
+        :class="activeTab === tab ? 'btn-primary' : 'btn-outline-secondary'"
       >
         {{ tab }}
       </button>
     </div>
 
-    <!-- 탭 콘텐츠 -->
-    <div class="mt-6 bg-white shadow rounded-xl p-6">
+    <!-- 콘텐츠 영역 -->
+    <div class="card p-4 shadow-sm border-0 rounded-4">
       <FinanceGlossary v-if="activeTab === '금융 핵심 키워드 정리'" />
       <ProductKnowledge v-if="activeTab === '금융 상품에 대한 지식'" />
       <StockKnowledge v-if="activeTab === '주식에 대한 지식'" />
@@ -43,5 +39,6 @@ const tabs = [
   '뉴스 모아보기',
   '퀴즈 (간단하게라도)'
 ]
+
 const activeTab = ref(tabs[0])
 </script>

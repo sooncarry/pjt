@@ -30,22 +30,57 @@ const categoryDisplayName = {
 </script>
 
 <template>
+  <!-- 상단 배너 -->
+  <section class="bg-white py-5 border-bottom">
+    <div class="container">
+      <p class="text-primary fw-semibold mb-1" style="font-size: 0.9rem;">금융 소통 공간</p>
+      <h2 class="h3 fw-bold mb-2">👨‍👩‍👧‍👦 커뮤니티</h2>
+      <p class="text-muted">
+        관심 분야가 비슷한 사람들과 정보를 공유하고 즐겁게 소통하세요.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- 경로 -->
+  <div class="bg-light py-2 border-bottom text-muted text-sm">
+    <div class="container">
+      홈 &gt; 커뮤니티
+    </div>
+  </div>
   <div class="container my-5">
+    
     <div class="row">
+      <!-- 사이드바 -->
       <!-- 사이드바 -->
       <div class="col-md-3 mb-4">
         <div class="card shadow-sm border-0 rounded-4 p-3">
           <h5 class="fw-bold mb-3">커뮤니티 주제</h5>
           <ul class="list-unstyled">
             <li class="mb-2">
-              <router-link to="/community" class="text-decoration-none text-dark">
+              <router-link
+                to="/community"
+                class="text-decoration-none"
+                :class="{
+                  'fw-bold text-primary': !route.params.category,
+                  'text-dark': route.params.category,
+                }"
+              >
                 전체글
               </router-link>
             </li>
-            <li v-for="(name, key) in categoryDisplayName" :key="key" class="mb-2">
+            <li
+              v-for="(name, key) in categoryDisplayName"
+              :key="key"
+              class="mb-2"
+            >
               <router-link
                 :to="`/community/category/${key}`"
-                class="text-decoration-none text-dark"
+                class="text-decoration-none"
+                :class="{
+                  'fw-bold text-primary': route.params.category === key,
+                  'text-dark': route.params.category !== key,
+                }"
               >
                 {{ name }}
               </router-link>
@@ -53,6 +88,7 @@ const categoryDisplayName = {
           </ul>
         </div>
       </div>
+
 
       <!-- 게시글 목록 -->
       <div class="col-md-9">

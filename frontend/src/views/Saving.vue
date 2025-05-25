@@ -62,6 +62,7 @@ onMounted(async () => {
 
 <template>
   <BaseAlert v-if="alertMsg" :message="alertMsg" :type="alertType" />
+  
   <div class="container my-5 text-center">
     <h1 class="h3 fw-bold mb-3">💸 매일 한 걸음씩, 더 나은 금융 습관!</h1>
     <p class="text-muted fs-6 mb-4">

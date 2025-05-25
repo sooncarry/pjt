@@ -2,12 +2,10 @@
   <div class="finance-view">
 
     <!-- 상단 배너 -->
-    <section class="bg-white py-10 border-bottom">
+    <section class="bg-white py-5 border-bottom">
       <div class="container">
-        <p class="text-primary fw-semibold mb-2" style="font-size: 0.9rem;">
-          금융 상품 소개
-        </p>
-        <h2 class="h3 fw-bold mb-3">금융 상품</h2>
+        <p class="text-primary fw-semibold mb-1" style="font-size: 0.9rem;">금융 상품 소개</p>
+        <h2 class="h3 fw-bold mb-2">🪙 금융 상품</h2>
         <p class="text-muted">
           금융 상품에 대한 정보를 검색하고 맞춤형 상품을 추천받아보세요.
         </p>

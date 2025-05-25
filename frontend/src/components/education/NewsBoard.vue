@@ -1,44 +1,48 @@
 <template>
-  <div class="p-6">
-    <h2 class="text-xl font-bold mb-4">🚨 속보 금융 뉴스</h2>
-    <ul>
-      <li
+  <div class="container my-5">
+    <h2 class="h5 fw-bold mb-4">🚨 속보 금융 뉴스</h2>
+
+    <div class="d-flex flex-column gap-4">
+      <div
         v-for="item in newsList"
         :key="item.url"
-        class="flex items-start mb-4"
+        class="d-flex border rounded-4 shadow-sm overflow-hidden"
       >
         <img
           :src="item.thumbnail || 'https://dummyimage.com/120x80/cccccc/ffffff&text=No+Image'"
           alt="썸네일"
-          class="w-24 h-16 object-cover rounded mr-4"
+          class="img-fluid object-fit-cover"
+          style="width: 120px; height: 100px; object-fit: cover;"
         />
-        <div class="flex-1">
+        <div class="p-3 flex-grow-1">
           <a
             :href="item.url"
             target="_blank"
             rel="noopener"
-            class="block font-semibold hover:underline text-gray-800"
+            class="fw-semibold text-dark text-decoration-none d-block mb-1"
           >
             {{ item.title }}
           </a>
-          <div class="text-xs text-gray-500 mt-1">
+          <div class="text-muted small mb-1">
             {{ item.published_at }} · {{ item.press }}
           </div>
-          <div class="text-sm text-gray-700 mt-1">
+          <div class="text-muted small">
             {{ item.lede }}
           </div>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
 
-    <button
-      v-if="currentPage < totalPages"
-      @click="loadMore"
-      :disabled="loading"
-      class="block mx-auto px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-    >
-      기사 더보기
-    </button>
+    <div class="text-center mt-4">
+      <button
+        v-if="currentPage < totalPages"
+        @click="loadMore"
+        :disabled="loading"
+        class="btn btn-outline-primary btn-sm rounded-pill px-4"
+      >
+        {{ loading ? '로딩 중...' : '📎 더보기' }}
+      </button>
+    </div>
   </div>
 </template>
 
@@ -46,10 +50,10 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
-const newsList    = ref([])
+const newsList = ref([])
 const currentPage = ref(1)
-const totalPages  = ref(1)
-const loading     = ref(false)
+const totalPages = ref(1)
+const loading = ref(false)
 
 async function fetchPage(page = 1) {
   if (page > totalPages.value) return
@@ -57,11 +61,11 @@ async function fetchPage(page = 1) {
   try {
     const { data } = await axios.get('/api/breaking-news/', { params: { page } })
     if (page === 1) newsList.value = data.results ?? data
-    else            newsList.value.push(...(data.results ?? data))
+    else newsList.value.push(...(data.results ?? data))
     currentPage.value = data.current_page ?? page
-    totalPages.value  = data.total_pages ?? 1
+    totalPages.value = data.total_pages ?? 1
   } catch (e) {
-    console.error('속보 뉴스 로딩 실패', e)
+    console.error('❌ 속보 뉴스 로딩 실패:', e)
   } finally {
     loading.value = false
   }
