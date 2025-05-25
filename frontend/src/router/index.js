@@ -27,6 +27,11 @@ import StockKnowledgeDetail from '@/components/stock/StockKnowledgeDetail.vue'
 
 import SamplePage from '@/views/SamplePage.vue' //디자인 테스트
 
+import FinanceGlossary from '@/components/education/FinanceGlossary.vue'
+import ProductKnowledge from '@/components/education/ProductKnowledge.vue'
+import NewsBoard from '@/components/education/NewsBoard.vue'
+import QuizBoard from '@/components/education/QuizBoard.vue'
+
 
 const routes = [
   // 기본
@@ -72,6 +77,13 @@ const routes = [
   // 주식
   { path: '/knowledge', component: StockKnowledge },
   { path: '/knowledge/:id', component: StockKnowledgeDetail, name: 'KnowledgeDetail' },
+
+  { path: '/education/glossary', name: 'Glossary', component: FinanceGlossary },
+  { path: '/education/products', name: 'ProductKnowledge', component: ProductKnowledge },
+  { path: '/education/stocks', name: 'StockKnowledge', component: StockKnowledge },
+  { path: '/education/news', name: 'NewsBoard', component: NewsBoard },
+  { path: '/education/quiz', name: 'QuizBoard', component: QuizBoard },
+
 ]
 
 

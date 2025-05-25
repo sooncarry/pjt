@@ -1,22 +1,24 @@
 <template>
-  <div class="border rounded p-4 shadow">
-    <h3 class="font-semibold mb-3 text-base">
+  <div class="card p-4 shadow-sm border-0 rounded-4 mb-4">
+    <h3 class="fw-semibold mb-3 fs-6">
       {{ index + 1 }}. {{ quiz.question }}
     </h3>
 
-    <ul class="space-y-2">
+    <ul class="list-unstyled">
       <li
         v-for="(option, i) in quiz.options"
         :key="i"
         @click="selectOption(i)"
         :class="[
-          'p-2 border rounded cursor-pointer',
-          selectedIndex === i ? 'bg-blue-100' : '',
-          showAnswer && i === quiz.answer ? 'border-green-500' : '',
+          'px-3 py-2 mb-2 border rounded-pill',
+          'cursor-pointer transition',
+          selectedIndex === i && !showAnswer ? 'bg-primary text-white border-primary' : '',
+          showAnswer && i === quiz.answer ? 'border-success text-success fw-semibold' : '',
           showAnswer && selectedIndex === i && selectedIndex !== quiz.answer
-            ? 'border-red-500 bg-red-50'
-            : '',
+            ? 'border-danger bg-danger bg-opacity-10 text-danger'
+            : ''
         ]"
+        style="user-select: none;"
       >
         {{ option }}
       </li>
@@ -24,15 +26,16 @@
 
     <div class="mt-3">
       <button
-        class="bg-blue-500 text-white px-4 py-2 rounded"
+        class="btn btn-sm rounded-pill"
+        :class="showAnswer ? 'btn-outline-secondary' : 'btn-primary text-white'"
         @click="submitAnswer"
         :disabled="selectedIndex === null || showAnswer"
       >
         정답 확인
       </button>
 
-      <p v-if="showAnswer" class="mt-2 text-sm text-gray-700">
-        해설: {{ quiz.explanation }}
+      <p v-if="showAnswer" class="mt-3 small text-muted">
+        💬 해설: {{ quiz.explanation }}
       </p>
     </div>
   </div>
@@ -42,19 +45,16 @@
 import { ref, defineProps, defineEmits } from 'vue'
 
 const props = defineProps({
-  quiz: Object, // { question, options, answer, explanation }
+  quiz: Object,
   index: Number,
 })
-
 const emit = defineEmits(['answered'])
 
 const selectedIndex = ref(null)
 const showAnswer = ref(false)
 
 const selectOption = (i) => {
-  if (!showAnswer.value) {
-    selectedIndex.value = i
-  }
+  if (!showAnswer.value) selectedIndex.value = i
 }
 
 const submitAnswer = () => {

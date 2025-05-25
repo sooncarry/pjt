@@ -1,6 +1,6 @@
 <template>
   <div class="container my-5">
-    <!-- 검색 영역 -->
+    <!-- 🔍 검색 입력 -->
     <div class="mb-4">
       <div class="position-relative">
         <input
@@ -12,7 +12,8 @@
           class="form-control form-control-sm rounded-pill px-4"
           placeholder="🔍 금융 용어 검색"
         />
-        <!-- 자동완성 목록 -->
+
+        <!-- 🔽 자동완성 목록 -->
         <ul
           v-if="showSuggestions && suggestions.length"
           class="list-group position-absolute w-100 mt-1 z-3"
@@ -28,15 +29,16 @@
         </ul>
       </div>
 
-      <!-- 최근 검색어 -->
+      <!-- 🕘 최근 검색어 -->
       <div v-if="recentSearches.length" class="mt-2 small text-muted">
         <div class="fw-semibold mb-1">최근 검색어</div>
         <div class="d-flex gap-2 flex-wrap">
           <span
             v-for="(item, idx) in recentSearches"
             :key="idx"
-            class="badge text-bg-light px-2 py-1 rounded-pill cursor-pointer"
+            class="badge rounded-pill bg-light text-dark border"
             @click="searchQuery = item; fetchTerms(); showSuggestions = false"
+            style="cursor: pointer"
           >
             {{ item }}
           </span>
@@ -44,12 +46,12 @@
       </div>
     </div>
 
-    <!-- 용어 리스트 -->
+    <!-- 📘 용어 카드 리스트 -->
     <div class="card p-4 shadow-sm border-0 rounded-4">
       <div
         v-for="(term, index) in paginatedTerms"
         :key="index"
-        class="border-bottom py-2 cursor-pointer"
+        class="border-bottom py-3 cursor-pointer"
         @click="toggleDetail(index)"
       >
         <div class="fw-semibold text-primary">
@@ -58,7 +60,7 @@
         </div>
         <div
           v-if="activeIndex === index"
-          class="text-muted small mt-1"
+          class="text-muted small mt-2"
           style="white-space: pre-line;"
         >
           {{ term.content }}
@@ -66,7 +68,7 @@
       </div>
     </div>
 
-    <!-- 페이지네이션 -->
+    <!-- 📄 페이지네이션 -->
     <div class="d-flex justify-content-center gap-1 mt-4">
       <button
         v-if="currentPageGroup > 1"
@@ -79,7 +81,10 @@
         v-for="page in visiblePageNumbers"
         :key="page"
         @click="changePage(page)"
-        :class="['btn btn-sm rounded-pill', currentPage === page ? 'btn-primary' : 'btn-outline-secondary']"
+        :class="[
+          'btn btn-sm rounded-pill',
+          currentPage === page ? 'btn-primary' : 'btn-outline-secondary'
+        ]"
       >
         {{ page }}
       </button>
@@ -106,6 +111,7 @@ const activeIndex = ref(null)
 const currentPage = ref(1)
 const itemsPerPage = 20
 
+// ✅ 최근 검색어
 const recentSearches = ref(JSON.parse(localStorage.getItem('recentSearches') || '[]'))
 const saveRecentSearch = (term) => {
   const updated = [term, ...recentSearches.value.filter(t => t !== term)].slice(0, 8)
