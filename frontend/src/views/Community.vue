@@ -12,7 +12,6 @@ const fetchPosts = async () => {
   posts.value = res.data
 }
 
-// 라우트 변경될 때마다 목록 다시 필터링
 watch(() => route.params.category, fetchPosts)
 onMounted(fetchPosts)
 
@@ -31,41 +30,62 @@ const categoryDisplayName = {
 </script>
 
 <template>
-  <div class="community">
-    <aside class="sidebar">
-      <h3>커뮤니티 주제</h3>
-      <ul>
-        <li><router-link to="/community">전체글</router-link></li>
-        <li v-for="(name, key) in categoryDisplayName" :key="key">
-          <router-link :to="`/community/category/${key}`">{{ name }}</router-link>
-        </li>
-      </ul>
-    </aside>
+  <div class="container my-5">
+    <div class="row">
+      <!-- 사이드바 -->
+      <div class="col-md-3 mb-4">
+        <div class="card shadow-sm border-0 rounded-4 p-3">
+          <h5 class="fw-bold mb-3">커뮤니티 주제</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <router-link to="/community" class="text-decoration-none text-dark">
+                전체글
+              </router-link>
+            </li>
+            <li v-for="(name, key) in categoryDisplayName" :key="key" class="mb-2">
+              <router-link
+                :to="`/community/category/${key}`"
+                class="text-decoration-none text-dark"
+              >
+                {{ name }}
+              </router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-    <main class="post-list">
-      <h2>{{ route.params.category ? categoryDisplayName[route.params.category] : '전체글' }}</h2>
-      <ul>
-        <li v-for="post in filteredPosts" :key="post.id">
-          <router-link :to="`/community/${post.id}`">{{ post.title }}</router-link>
-        </li>
-      </ul>
-      <router-link :to="`/community/create?category=${route.params.category || ''}`">글쓰기</router-link>
+      <!-- 게시글 목록 -->
+      <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="fw-semibold mb-0">
+            {{ route.params.category ? categoryDisplayName[route.params.category] : '전체글' }}
+          </h4>
+          <router-link
+            :to="`/community/create?category=${route.params.category || ''}`"
+            class="btn btn-primary btn-sm rounded-pill px-3"
+          >
+            글쓰기
+          </router-link>
+        </div>
 
-    </main>
+        <ul class="list-group">
+          <li
+            v-for="post in filteredPosts"
+            :key="post.id"
+            class="list-group-item list-group-item-action rounded-3 mb-2"
+          >
+            <router-link
+              :to="`/community/${post.id}`"
+              class="text-decoration-none text-dark"
+            >
+              {{ post.title }}
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.community {
-  display: flex;
-  gap: 2rem;
-}
-.sidebar {
-  width: 200px;
-  background: #f5f5f5;
-  padding: 1rem;
-}
-.post-list {
-  flex-grow: 1;
-}
 </style>

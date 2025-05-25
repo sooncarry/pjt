@@ -1,41 +1,60 @@
 <template>
-  <div class="challenge-detail">
-    <h2>진행 중인 저축 챌린지</h2>
-    <button class="add-btn" @click="router.push('/saving/challenges/select')">
-      + 챌린지 추가하기
-    </button>
+  <div class="container my-5">
+    <h2 class="h4 fw-bold mb-4">💰 진행 중인 저축 챌린지</h2>
+
+    <div class="d-flex justify-content-end mb-4">
+      <button
+        class="btn btn-outline-primary btn-sm rounded-pill"
+        @click="router.push('/saving/challenges/select')"
+      >
+        + 챌린지 추가하기
+      </button>
+    </div>
 
     <div
       v-for="challenge in challenges"
       :key="challenge.id"
-      class="challenge-card"
+      class="card mb-5 shadow-sm rounded-4 p-4"
     >
-      <h3>{{ challenge.template_name }}</h3>
-      <p>{{ challenge.template_description }}</p>
+      <h4 class="h5 fw-bold mb-2">{{ challenge.template_name }}</h4>
+      <p class="text-muted small mb-3">{{ challenge.template_description }}</p>
 
-      <div v-if="editModeMap[challenge.id]">
-        <label>목표 금액: <input v-model.number="challenge.goal_amount" /></label>
-        <label>기간: <input v-model.number="challenge.total_units" /></label>
-        <label>단위: 
-          <select v-model="challenge.unit">
-            <option value="day">일</option>
-            <option value="week">주</option>
-            <option value="month">월</option>
-          </select>
-        </label>
-        <button @click="submitEdit(challenge)">저장</button>
+      <!-- 수정 모드 -->
+      <div v-if="editModeMap[challenge.id]" class="mb-3">
+        <div class="row g-2 mb-2">
+          <div class="col-md-4">
+            <label class="form-label small">목표 금액</label>
+            <input v-model.number="challenge.goal_amount" type="number" class="form-control form-control-sm" />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label small">기간</label>
+            <input v-model.number="challenge.total_units" type="number" class="form-control form-control-sm" />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label small">단위</label>
+            <select v-model="challenge.unit" class="form-select form-select-sm">
+              <option value="day">일</option>
+              <option value="week">주</option>
+              <option value="month">월</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-success btn-sm rounded-pill mt-2" @click="submitEdit(challenge)">저장</button>
       </div>
-      <div v-else>
-        <p>🏦 목표 금액: {{ challenge.goal_amount.toLocaleString() }}원</p>
+
+      <!-- 일반 정보 -->
+      <div v-else class="mb-3">
+        <p class="mb-1">🏦 목표 금액: {{ challenge.goal_amount.toLocaleString() }}원</p>
         <p>⏳ 기간: {{ challenge.total_units }} {{ labelUnit(challenge.unit) }}</p>
-        <button @click="editModeMap[challenge.id] = true">수정하기</button>
+        <button class="btn btn-outline-secondary btn-sm rounded-pill mt-2" @click="editModeMap[challenge.id] = true">수정하기</button>
       </div>
 
-      <div class="today-check">
-        <h4>✅ 오늘의 저축</h4>
+      <!-- 오늘의 체크 -->
+      <div class="mt-4">
+        <h5 class="fw-semibold mb-2">✅ 오늘의 저축</h5>
         <button
-          class="today-check-btn"
-          :class="{ checked: challenge.progresses[getCurrentIndex(challenge)]?.is_saved }"
+          class="btn btn-sm rounded-pill"
+          :class="challenge.progresses[getCurrentIndex(challenge)]?.is_saved ? 'btn-success' : 'btn-outline-primary'"
           @click="check(challenge.id, getCurrentIndex(challenge))"
           :disabled="!challenge.progresses[getCurrentIndex(challenge)]"
         >
@@ -43,24 +62,34 @@
         </button>
       </div>
 
-      <div class="calendar-progress">
-        <h4>📅 진척도 달력</h4>
+      <!-- 달력 -->
+      <div class="mt-4">
+        <h5 class="fw-semibold mb-2">📅 진척도 달력</h5>
         <div class="calendar-grid">
           <div
             v-for="(item, index) in challenge.progresses.slice(0, challenge.total_units)"
             :key="index"
-            :class="['calendar-cell', { checked: item.is_saved, current: index === getCurrentIndex(challenge) }]"
+            :class="['calendar-cell', {
+              checked: item.is_saved,
+              current: index === getCurrentIndex(challenge)
+            }]"
           >
             {{ labelCalendar(challenge, index) }}
           </div>
         </div>
       </div>
 
-      <p class="progress-text">
+      <!-- 진행률 -->
+      <p class="text-center mt-3 fw-bold">
         🌟 진행률: {{ getSavedCount(challenge) }}/{{ challenge.total_units }} ({{ getProgressPercent(challenge) }}%)
       </p>
 
-      <button @click="endChallenge(challenge.id)">챌린지 종료하기</button>
+      <!-- 종료 버튼 -->
+      <div class="text-end mt-3">
+        <button class="btn btn-outline-danger btn-sm rounded-pill" @click="endChallenge(challenge.id)">
+          챌린지 종료하기
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -191,41 +220,6 @@ watch(challenges, (newChallenges) => {
 </script>
 
 <style scoped>
-.challenge-detail {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-.add-btn {
-  margin-bottom: 1rem;
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}
-.challenge-card {
-  border: 1px solid #ccc;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  border-radius: 10px;
-  background-color: #fff;
-}
-.plan-info, .today-check {
-  margin-bottom: 1rem;
-}
-.today-check-btn {
-  padding: 0.6rem 1.2rem;
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.today-check-btn.checked {
-  background-color: #4caf50;
-}
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -237,7 +231,8 @@ watch(challenges, (newChallenges) => {
   text-align: center;
   border-radius: 6px;
   border: 1px solid #ccc;
-  background-color: #f0f0f0;
+  background-color: #f8f9fa;
+  font-size: 0.85rem;
 }
 .calendar-cell.checked {
   background-color: #4caf50;
@@ -247,10 +242,5 @@ watch(challenges, (newChallenges) => {
   border: 2px solid #2196f3;
   font-weight: bold;
   background-color: #e3f2fd;
-}
-.progress-text {
-  margin-top: 1rem;
-  text-align: center;
-  font-weight: bold;
 }
 </style>

@@ -1,27 +1,40 @@
 <template>
-  <div class="p-4">
-    <h2 class="text-xl font-bold mb-4">근처 은행 찾기</h2>
+  <div class="container my-4">
+    <h2 class="h5 fw-semibold mb-4">📍 근처 은행 찾기</h2>
 
-    <div class="mb-4 flex flex-wrap gap-2">
-      <select v-model="selectedSido" @change="updateSigungu">
-        <option value="">광역시/도 선택</option>
-        <option v-for="sido in sidoList" :key="sido">{{ sido }}</option>
-      </select>
+    <div class="row gy-2 align-items-end mb-4">
+      <div class="col-md-3">
+        <label class="form-label small">광역시/도</label>
+        <select class="form-select form-select-sm" v-model="selectedSido" @change="updateSigungu">
+          <option value="">선택</option>
+          <option v-for="sido in sidoList" :key="sido">{{ sido }}</option>
+        </select>
+      </div>
 
-      <select v-model="selectedSigungu" :disabled="!selectedSido">
-        <option value="">시/군/구 선택</option>
-        <option v-for="sigungu in sigunguList" :key="sigungu">{{ sigungu }}</option>
-      </select>
+      <div class="col-md-3">
+        <label class="form-label small">시/군/구</label>
+        <select class="form-select form-select-sm" v-model="selectedSigungu" :disabled="!selectedSido">
+          <option value="">선택</option>
+          <option v-for="sigungu in sigunguList" :key="sigungu">{{ sigungu }}</option>
+        </select>
+      </div>
 
-      <select v-model="selectedBank">
-        <option value="">(선택 안 하면 전체)</option>
-        <option v-for="bank in bankList" :key="bank">{{ bank }}</option>
-      </select>
+      <div class="col-md-3">
+        <label class="form-label small">은행</label>
+        <select class="form-select form-select-sm" v-model="selectedBank">
+          <option value="">(전체)</option>
+          <option v-for="bank in bankList" :key="bank">{{ bank }}</option>
+        </select>
+      </div>
 
-      <button @click="searchBanks" class="bg-blue-500 text-white px-4 py-1 rounded">찾기</button>
+      <div class="col-md-3">
+        <button @click="searchBanks" class="btn btn-primary btn-sm rounded-pill w-100">
+          🔍 찾기
+        </button>
+      </div>
     </div>
 
-    <div id="map" style="width: 100%; height: 600px;"></div>
+    <div id="map" style="width: 100%; height: 600px;" class="rounded-3 border"></div>
   </div>
 </template>
 
@@ -179,9 +192,5 @@ function searchBanks() {
 </script>
 
 <style scoped>
-select {
-  padding: 4px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
+/* 이전 select 스타일은 Bootstrap form-select로 대체되어 제거 가능 */
 </style>

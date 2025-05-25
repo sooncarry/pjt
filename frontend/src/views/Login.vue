@@ -1,18 +1,36 @@
 <template>
-  <div class="login">
-    <h1>로그인</h1>
-    <form @submit.prevent="handleLogin">
-      <div class="form-group">
-        <label>아이디</label>
-        <input v-model="form.username" type="text" required />
-      </div>
-      <div class="form-group">
-        <label>비밀번호</label>
-        <input v-model="form.password" type="password" required />
-      </div>
-      <p class="error" v-if="errorMessage">{{ errorMessage }}</p>
-      <button type="submit">로그인</button>
-    </form>
+  <div class="container my-5 d-flex justify-content-center">
+    <div class="card p-4 shadow-sm border-0 rounded-4" style="max-width: 400px; width: 100%;">
+      <h1 class="h5 fw-bold mb-4 text-center">🔐 로그인</h1>
+
+      <form @submit.prevent="handleLogin" class="d-flex flex-column gap-3">
+        <div>
+          <label class="form-label">아이디</label>
+          <input
+            v-model="form.username"
+            type="text"
+            class="form-control form-control-sm"
+            required
+          />
+        </div>
+
+        <div>
+          <label class="form-label">비밀번호</label>
+          <input
+            v-model="form.password"
+            type="password"
+            class="form-control form-control-sm"
+            required
+          />
+        </div>
+
+        <div v-if="errorMessage" class="text-danger small">{{ errorMessage }}</div>
+
+        <button type="submit" class="btn btn-primary btn-sm rounded-pill mt-2">
+          로그인
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -40,55 +58,19 @@ const handleLogin = async () => {
     // 토큰 저장
     localStorage.setItem('access_token', response.data.access)
     localStorage.setItem('refresh_token', response.data.refresh)
-    localStorage.setItem('username', form.username) 
-    router.push('/')
+    localStorage.setItem('username', form.username)
 
-    // axios 기본 Authorization 헤더 설정
     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`
 
     // ✅ 홈으로 이동 + 새로고침
     window.location.href = '/'
   } catch (err) {
-    errorMessage.value = '로그인 실패: 아이디 또는 비밀번호를 확인하세요.'
+    errorMessage.value = '❌ 로그인 실패: 아이디 또는 비밀번호를 확인하세요.'
     console.error(err)
   }
 }
 </script>
 
 <style scoped>
-.login {
-  max-width: 400px;
-  margin: auto;
-  padding: 2rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-input {
-  padding: 0.5rem;
-  font-size: 1rem;
-}
-
-button {
-  padding: 0.5rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-.error {
-  color: red;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-}
+/* 필요 시 추가 스타일만 */
 </style>

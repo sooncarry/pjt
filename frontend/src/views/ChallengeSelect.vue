@@ -1,22 +1,39 @@
 <template>
-  <div class="select-page">
-    <h2>🔥 여러 챌린지를 선택해 시작해보세요</h2>
-    <div class="template-list">
+  <div class="container my-5 text-center">
+    <h2 class="h4 fw-bold mb-4">🔥 여러 챌린지를 선택해 시작해보세요</h2>
+
+    <div class="row justify-content-center g-4">
       <div
+        class="col-12 col-sm-6 col-md-4 col-lg-3"
         v-for="tpl in templates"
         :key="tpl.id"
-        :class="['template-card', {
-          selected: selectedIds.includes(tpl.id),
-          disabled: activeTemplateIds.includes(tpl.id)
-        }]"
-        @click="!activeTemplateIds.includes(tpl.id) && toggleSelect(tpl.id)"
       >
-        <h3>{{ tpl.name }}</h3>
-        <p>{{ tpl.description }}</p>
-        <p v-if="activeTemplateIds.includes(tpl.id)" class="badge">진행중</p>
+        <div
+          class="card h-100 shadow-sm rounded-4 p-3 position-relative"
+          :class="{
+            'border-success bg-light': selectedIds.includes(tpl.id),
+            'opacity-50': activeTemplateIds.includes(tpl.id)
+          }"
+          style="cursor: pointer;"
+          @click="!activeTemplateIds.includes(tpl.id) && toggleSelect(tpl.id)"
+        >
+          <h5 class="fw-semibold">{{ tpl.name }}</h5>
+          <p class="text-muted small">{{ tpl.description }}</p>
+          <span
+            v-if="activeTemplateIds.includes(tpl.id)"
+            class="position-absolute top-0 end-0 badge bg-danger m-2"
+          >
+            진행중
+          </span>
+        </div>
       </div>
     </div>
-    <button class="start-btn" @click="startChallenges" :disabled="selectedIds.length === 0">
+
+    <button
+      class="btn btn-success btn-lg rounded-pill px-5 mt-5"
+      @click="startChallenges"
+      :disabled="selectedIds.length === 0"
+    >
       선택한 챌린지 시작하기 ({{ selectedIds.length }})
     </button>
   </div>
@@ -63,56 +80,9 @@ const startChallenges = async () => {
 </script>
 
 <style scoped>
-.select-page {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
+/* 선택 상태 카드 효과 */
+.border-success {
+  border: 2px solid #4caf50 !important;
 }
-.template-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-.template-card {
-  border: 2px solid #ddd;
-  padding: 1rem;
-  width: 220px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-  background-color: white;
-}
-.template-card.selected {
-  border-color: #4caf50;
-  background-color: #f0fff0;
-}
-.template-card.disabled {
-  opacity: 0.6;
-  pointer-events: none;
-}
-.badge {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: white;
-  background-color: #f44336;
-  padding: 2px 6px;
-  border-radius: 4px;
-  display: inline-block;
-}
-.start-btn {
-  margin-top: 2rem;
-  background-color: #4caf50;
-  color: white;
-  font-size: 1rem;
-  padding: 0.8rem 2rem;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-}
-.start-btn:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
+/* 비활성 상태는 Bootstrap의 opacity-50로 처리됨 */
 </style>

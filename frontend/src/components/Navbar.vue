@@ -1,23 +1,27 @@
 <template>
-  <nav class="navbar">
-    <div class="nav-left">
-      <router-link to="/">홈</router-link>
-      <router-link to="/finance">금융</router-link>
-      <router-link to="/stock">주식</router-link>
-      <router-link to="/education">금융 교육</router-link>
-      <router-link to="/saving">저축</router-link>
-      <router-link to="/community">커뮤니티</router-link>
-    </div>
+  <nav class="navbar navbar-light bg-white border-bottom shadow-sm py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <!-- 왼쪽 네비게이션 -->
+      <div class="d-flex gap-4">
+        <RouterLink to="/" class="nav-link fw-semibold text-primary">홈</RouterLink>
+        <RouterLink to="/finance" class="nav-link fw-semibold text-primary">금융</RouterLink>
+        <RouterLink to="/stock" class="nav-link fw-semibold text-primary">주식</RouterLink>
+        <RouterLink to="/education" class="nav-link fw-semibold text-primary">금융 교육</RouterLink>
+        <RouterLink to="/saving" class="nav-link fw-semibold text-primary">저축</RouterLink>
+        <RouterLink to="/community" class="nav-link fw-semibold text-primary">커뮤니티</RouterLink>
+      </div>
 
-    <div class="nav-right">
-      <template v-if="isLoggedIn">
-        <router-link to="/mypage">마이페이지</router-link>
-        <button @click="logout">로그아웃</button>
-      </template>
-      <template v-else>
-        <router-link to="/login">로그인</router-link>
-        <router-link to="/signup">회원가입</router-link>
-      </template>
+      <!-- 오른쪽 로그인/로그아웃 -->
+      <div class="d-flex gap-3 align-items-center">
+        <template v-if="isLoggedIn">
+          <RouterLink to="/mypage" class="btn btn-outline-primary btn-sm rounded-pill px-3">마이페이지</RouterLink>
+          <button class="btn btn-primary btn-sm rounded-pill px-3" @click="logout">로그아웃</button>
+        </template>
+        <template v-else>
+          <RouterLink to="/login" class="btn btn-outline-primary btn-sm rounded-pill px-3">로그인</RouterLink>
+          <RouterLink to="/signup" class="btn btn-primary btn-sm rounded-pill px-3">회원가입</RouterLink>
+        </template>
+      </div>
     </div>
   </nav>
 </template>
@@ -39,35 +43,3 @@ const logout = () => {
   window.location.reload()
 }
 </script>
-
-<style scoped>
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #ddd;
-}
-
-.nav-left,
-.nav-right {
-  display: flex;
-  gap: 1.2rem;
-  align-items: center;
-}
-
-a {
-  text-decoration: none;
-  color: #007bff;
-  font-weight: bold;
-}
-
-button {
-  background: transparent;
-  border: none;
-  font-weight: bold;
-  color: #007bff;
-  cursor: pointer;
-}
-</style>

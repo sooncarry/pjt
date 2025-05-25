@@ -1,84 +1,89 @@
 <template>
-  <div class="p-6" @click.self="hideSuggestions">
-    <h2 class="text-xl font-bold mb-4">📢 공시 정보 검색</h2>
+  <div class="container my-4" @click.self="hideSuggestions">
+    <h2 class="h5 fw-semibold mb-4">📢 공시 정보 검색</h2>
 
     <!-- 검색창 + 자동완성 + 버튼 -->
-    <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-6 relative">
-      <div class="relative w-full sm:w-auto">
+    <div class="row g-3 align-items-start mb-4 position-relative">
+      <!-- 입력 -->
+      <div class="col-md-4 position-relative">
         <input
           v-model="companyName"
           @input="fetchSuggestions"
           @focus="showSuggestions = true"
           type="text"
           placeholder="기업명을 입력하세요"
-          class="border rounded px-4 py-2 w-full sm:w-64"
+          class="form-control form-control-sm rounded-3"
         />
         <!-- 자동완성 드롭다운 -->
         <ul
           v-if="suggestions.length && showSuggestions"
-          class="absolute z-10 bg-white border rounded w-full max-h-48 overflow-auto shadow"
+          class="list-group position-absolute w-100 mt-1 shadow z-3"
+          style="max-height: 200px; overflow-y: auto;"
         >
           <li
             v-for="(s, index) in suggestions"
             :key="index"
             @click="selectSuggestion(s.name)"
-            class="px-4 py-2 hover:bg-blue-100 cursor-pointer"
+            class="list-group-item list-group-item-action small"
+            style="cursor: pointer;"
           >
             {{ s.name }}
           </li>
         </ul>
       </div>
-      <button
-        @click="fetchDisclosures(true)"
-        class="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 text-sm"
-      >
-        🔍 검색
-      </button>
 
-      <div class="flex gap-2 flex-wrap">
-        <button
-          v-for="(label, value) in periods"
-          :key="value"
-          @click="setPeriod(value)"
-          :class="[
-            'px-3 py-1 rounded border text-sm',
-            selectedPeriod === value ? 'bg-blue-600 text-white' : 'bg-white text-gray-600'
-          ]"
-        >
-          {{ label }}
+      <!-- 검색 버튼 -->
+      <div class="col-md-auto">
+        <button @click="fetchDisclosures(true)" class="btn btn-success btn-sm rounded-pill px-4">
+          🔍 검색
         </button>
+      </div>
+
+      <!-- 기간 선택 버튼 -->
+      <div class="col-md">
+        <div class="d-flex flex-wrap gap-2">
+          <button
+            v-for="(label, value) in periods"
+            :key="value"
+            @click="setPeriod(value)"
+            class="btn btn-sm rounded-pill"
+            :class="selectedPeriod === value ? 'btn-primary text-white' : 'btn-outline-primary'"
+          >
+            {{ label }}
+          </button>
+        </div>
       </div>
     </div>
 
     <!-- 로딩 -->
-    <div v-if="loading" class="text-gray-500 mb-4">⏳ 공시 정보를 불러오는 중...</div>
+    <div v-if="loading" class="text-muted mb-4 small">⏳ 공시 정보를 불러오는 중...</div>
 
     <!-- 공시 카드 리스트 -->
-    <div v-else-if="disclosures.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div
-        v-for="(item, index) in pagedDisclosures"
-        :key="index"
-        class="border rounded-lg shadow hover:shadow-md transition p-4 bg-white"
-      >
-        <h3 class="font-semibold text-blue-700 mb-2">{{ item.title }}</h3>
-        <p class="text-sm text-gray-500 mb-1">📅 {{ formatDate(item.date) }}</p>
-        <p class="text-sm text-gray-600 mb-2">🏢 {{ item.corp_name }}</p>
-        <a
-          :href="item.link"
-          target="_blank"
-          class="text-sm text-white bg-blue-600 px-3 py-1 rounded hover:bg-blue-700"
-        >
-          공시 보기 →
-        </a>
+    <div v-else-if="disclosures.length" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+      <div v-for="(item, index) in pagedDisclosures" :key="index" class="col">
+        <div class="card h-100 shadow-sm border-0 rounded-4">
+          <div class="card-body">
+            <h5 class="card-title text-primary fw-semibold mb-2">{{ item.title }}</h5>
+            <p class="card-subtitle mb-1 text-muted small">📅 {{ formatDate(item.date) }}</p>
+            <p class="card-subtitle mb-2 text-muted small">🏢 {{ item.corp_name }}</p>
+            <a
+              :href="item.link"
+              target="_blank"
+              class="btn btn-sm btn-outline-primary rounded-pill mt-2"
+            >
+              공시 보기 →
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- 페이지네이션 그룹 -->
-    <div v-if="!loading && totalPages > 1" class="mt-6 flex justify-center gap-2 flex-wrap text-sm">
+    <!-- 페이지네이션 -->
+    <div v-if="!loading && totalPages > 1" class="mt-5 d-flex justify-content-center flex-wrap gap-2">
       <button
         v-if="pageGroup > 1"
         @click="prevPageGroup"
-        class="px-3 py-1 border rounded bg-white hover:bg-gray-100"
+        class="btn btn-sm btn-outline-secondary rounded-pill"
       >
         ◀ 이전
       </button>
@@ -87,10 +92,8 @@
         v-for="n in visiblePages"
         :key="n"
         @click="page = n"
-        :class="[
-          'px-3 py-1 border rounded',
-          page === n ? 'bg-blue-600 text-white font-bold' : 'bg-white text-gray-700'
-        ]"
+        class="btn btn-sm rounded-pill"
+        :class="page === n ? 'btn-primary text-white fw-bold' : 'btn-outline-primary'"
       >
         {{ n }}
       </button>
@@ -98,13 +101,14 @@
       <button
         v-if="pageGroup * pageGroupSize < totalPages"
         @click="nextPageGroup"
-        class="px-3 py-1 border rounded bg-white hover:bg-gray-100"
+        class="btn btn-sm btn-outline-secondary rounded-pill"
       >
         다음 ▶
       </button>
     </div>
 
-    <div v-else-if="!loading && !disclosures.length" class="text-gray-500">📭 공시가 없습니다.</div>
+    <!-- 데이터 없음 -->
+    <div v-else-if="!loading && !disclosures.length" class="text-muted mt-4">📭 공시가 없습니다.</div>
   </div>
 </template>
 
@@ -114,7 +118,7 @@ export default {
   data() {
     return {
       companyName: "",
-      selectedPeriod: 30, // ✅ "today" 기준으로 변경
+      selectedPeriod: 30,
       periods: {
         30: "1개월",
         90: "3개월",

@@ -1,97 +1,129 @@
 <template>
-  <div class="signup">
-    <h1>회원가입</h1>
-    <form @submit.prevent="handleSubmit">
-      <div class="form-group">
-        <label>이름</label>
-        <input v-model="form.name" type="text" required />
-      </div>
+  <div class="container my-5 d-flex justify-content-center">
+    <BaseAlert v-if="alertMsg" :message="alertMsg" :type="alertType" />
+    <div class="card p-4 shadow-sm border-0 rounded-4" style="width: 100%; max-width: 600px">
+      <h1 class="h5 fw-bold mb-4 text-center">👤 회원가입</h1>
 
-      <div class="form-group username-group">
-        <label>아이디</label>
-        <input v-model="form.username" type="text" required />
-        <button type="button" @click="checkUsername">중복 확인</button>
-      </div>
-      <p v-if="usernameStatus === 'available'" class="status available">사용 가능한 아이디입니다.</p>
-      <p v-else-if="usernameStatus === 'taken'" class="status taken">이미 사용 중인 아이디입니다.</p>
+      <form @submit.prevent="handleSubmit" class="d-flex flex-column gap-3">
+        <!-- 이름 -->
+        <div>
+          <label class="form-label">이름</label>
+          <input v-model="form.name" type="text" class="form-control form-control-sm" required />
+        </div>
 
-      <div class="form-group">
-        <label>비밀번호</label>
-        <input v-model="form.password" type="password" required />
-        <!-- ★ 비밀번호 조건 메시지 -->
-        <p class="password-check" :class="{ valid: isPasswordValid, invalid: !isPasswordValid && form.password }">
-          {{ passwordMessage }}
-        </p>
-      </div>
+        <!-- 아이디 -->
+        <div>
+          <label class="form-label">아이디</label>
+          <div class="d-flex gap-2">
+            <input v-model="form.username" type="text" class="form-control form-control-sm" required />
+            <button type="button" class="btn btn-outline-secondary btn-sm" @click="checkUsername">
+              중복 확인
+            </button>
+          </div>
+          <p v-if="usernameStatus === 'available'" class="text-success small mt-1">사용 가능한 아이디입니다.</p>
+          <p v-else-if="usernameStatus === 'taken'" class="text-danger small mt-1">이미 사용 중인 아이디입니다.</p>
+        </div>
 
-      <div class="form-group">
-        <label>비밀번호 확인</label>
-        <input v-model="form.passwordConfirm" type="password" required />
-      </div>
+        <!-- 비밀번호 -->
+        <div>
+          <label class="form-label">비밀번호</label>
+          <input v-model="form.password" type="password" class="form-control form-control-sm" required />
+          <p
+            class="small mt-1"
+            :class="isPasswordValid ? 'text-success' : (form.password ? 'text-danger' : '')"
+          >
+            {{ passwordMessage }}
+          </p>
+        </div>
 
-      <div class="form-group email-group">
-        <label>이메일</label>
-        <input v-model="form.email" type="email" required />
-        <button type="button" @click="sendEmailVerification">인증</button>
-      </div>
+        <!-- 비밀번호 확인 -->
+        <div>
+          <label class="form-label">비밀번호 확인</label>
+          <input v-model="form.passwordConfirm" type="password" class="form-control form-control-sm" required />
+        </div>
 
-      <div class="form-group">
-        <label>생년월일</label>
-        <div class="birth-select">
-          <select v-model="form.birthYear" required>
-            <option disabled value="">년도</option>
-            <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
-          </select>
-          <select v-model="form.birthMonth" required>
-            <option disabled value="">월</option>
-            <option v-for="month in 12" :key="month" :value="month">{{ month }}</option>
-          </select>
-          <select v-model="form.birthDay" required>
-            <option disabled value="">일</option>
-            <option v-for="day in 31" :key="day" :value="day">{{ day }}</option>
+        <!-- 이메일 -->
+        <div>
+          <label class="form-label">이메일</label>
+          <div class="d-flex gap-2">
+            <input v-model="form.email" type="email" class="form-control form-control-sm" required />
+            <button type="button" class="btn btn-outline-secondary btn-sm" @click="sendEmailVerification">
+              인증
+            </button>
+          </div>
+        </div>
+
+        <!-- 생년월일 -->
+        <div>
+          <label class="form-label">생년월일</label>
+          <div class="d-flex gap-2">
+            <select v-model="form.birthYear" class="form-select form-select-sm" required>
+              <option disabled value="">년도</option>
+              <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
+            </select>
+            <select v-model="form.birthMonth" class="form-select form-select-sm" required>
+              <option disabled value="">월</option>
+              <option v-for="month in 12" :key="month" :value="month">{{ month }}</option>
+            </select>
+            <select v-model="form.birthDay" class="form-select form-select-sm" required>
+              <option disabled value="">일</option>
+              <option v-for="day in 31" :key="day" :value="day">{{ day }}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 전화번호 -->
+        <div>
+          <label class="form-label">전화번호</label>
+          <input v-model="form.phone" type="tel" class="form-control form-control-sm" />
+        </div>
+
+        <!-- 주소 -->
+        <div>
+          <label class="form-label">주소</label>
+          <input v-model="form.address" type="text" class="form-control form-control-sm" />
+        </div>
+
+        <!-- 직업 -->
+        <div>
+          <label class="form-label">직업</label>
+          <select v-model="form.job" class="form-select form-select-sm">
+            <option disabled value="">선택하세요</option>
+            <option>학생</option>
+            <option>회사원</option>
+            <option>프리랜서</option>
+            <option>무직</option>
+            <option>기타</option>
           </select>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label>전화번호</label>
-        <input v-model="form.phone" type="tel" />
-      </div>
-
-      <div class="form-group">
-        <label>주소</label>
-        <input v-model="form.address" type="text" />
-      </div>
-
-      <div class="form-group">
-        <label>직업</label>
-        <select v-model="form.job">
-          <option disabled value="">선택하세요</option>
-          <option>학생</option>
-          <option>회사원</option>
-          <option>프리랜서</option>
-          <option>무직</option>
-          <option>기타</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>금융 성향</label>
-        <div class="radio-group">
-          <label><input type="radio" value="보수적" v-model="form.riskType" /> 보수적</label>
-          <label><input type="radio" value="중립적" v-model="form.riskType" /> 중립적</label>
-          <label><input type="radio" value="공격적" v-model="form.riskType" /> 공격적</label>
+        <!-- 금융 성향 -->
+        <div>
+          <label class="form-label">금융 성향</label>
+          <div class="d-flex gap-3 mt-1">
+            <label><input type="radio" value="보수적" v-model="form.riskType" /> 보수적</label>
+            <label><input type="radio" value="중립적" v-model="form.riskType" /> 중립적</label>
+            <label><input type="radio" value="공격적" v-model="form.riskType" /> 공격적</label>
+          </div>
         </div>
-      </div>
 
-      <button type="submit">가입하기</button>
-    </form>
+        <!-- 가입 버튼 -->
+        <button type="submit" class="btn btn-primary btn-sm rounded-pill mt-3">가입하기</button>
+      </form>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { reactive, ref, computed } from 'vue'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
+import BaseAlert from '@/components/BaseAlert.vue'
+
+const router = useRouter()
+
+const alertMsg = ref('')
+const alertType = ref('success')
 
 const currentYear = new Date().getFullYear()
 const years = Array.from({ length: 100 }, (_, i) => currentYear - i)
@@ -108,12 +140,11 @@ const form = reactive({
   phone: '',
   address: '',
   job: '',
-  riskType: '',
+  riskType: ''
 })
 
-const usernameStatus = ref('') // '', 'available', 'taken'
+const usernameStatus = ref('')
 
-// ★ 비밀번호 유효성 검사
 const passwordMessage = computed(() => {
   if (!form.password) return ''
   const hasMinLength = form.password.length >= 8
@@ -121,11 +152,9 @@ const passwordMessage = computed(() => {
   const hasNumber = /[0-9]/.test(form.password)
   const hasSpecial = /[^A-Za-z0-9]/.test(form.password)
 
-  if (hasMinLength && hasLetter && hasNumber && hasSpecial) {
-    return '사용 가능한 비밀번호입니다.'
-  } else {
-    return '8자 이상, 영문+숫자+특수문자 포함해야 합니다.'
-  }
+  return hasMinLength && hasLetter && hasNumber && hasSpecial
+    ? '사용 가능한 비밀번호입니다.'
+    : '8자 이상, 영문+숫자+특수문자 포함해야 합니다.'
 })
 
 const isPasswordValid = computed(() =>
@@ -137,7 +166,8 @@ const isPasswordValid = computed(() =>
 
 const checkUsername = async () => {
   if (!form.username) {
-    alert('아이디를 입력해주세요.')
+    alertMsg.value = '⚠️ 아이디를 입력해주세요.'
+    alertType.value = 'warning'
     return
   }
 
@@ -145,26 +175,27 @@ const checkUsername = async () => {
     const response = await axios.get(`/api/check-username/?username=${form.username}`)
     usernameStatus.value = response.data.is_taken ? 'taken' : 'available'
   } catch (err) {
-    alert('중복 확인 실패')
+    alertMsg.value = '❌ 중복 확인 실패'
+    alertType.value = 'danger'
     console.error(err)
   }
 }
 
 const sendEmailVerification = () => {
-  alert('이메일 인증 전송 기능은 추후 구현 예정입니다.')
+  alertMsg.value = '📩 이메일 인증 전송 기능은 추후 구현 예정입니다.'
+  alertType.value = 'info'
 }
-
-import { useRouter } from 'vue-router'
-const router = useRouter()
 
 const handleSubmit = async () => {
   if (!isPasswordValid.value) {
-    alert('비밀번호 조건을 확인해주세요.')
+    alertMsg.value = '❌ 비밀번호 조건을 확인해주세요.'
+    alertType.value = 'danger'
     return
   }
 
   if (form.password !== form.passwordConfirm) {
-    alert('비밀번호가 일치하지 않습니다.')
+    alertMsg.value = '❌ 비밀번호가 일치하지 않습니다.'
+    alertType.value = 'danger'
     return
   }
 
@@ -184,89 +215,14 @@ const handleSubmit = async () => {
   try {
     const res = await axios.post('/api/signup/', signupData)
     if (res.status === 201) {
-      alert('회원가입 성공!')
-      router.push('/login')  
+      alertMsg.value = '🎉 회원가입 성공! 로그인 페이지로 이동합니다.'
+      alertType.value = 'success'
+      setTimeout(() => router.push('/login'), 2000)
     }
   } catch (err) {
     console.error('회원가입 실패:', err.response?.data || err)
-    alert('회원가입 실패: ' + JSON.stringify(err.response?.data))
+    alertMsg.value = '❌ 회원가입 실패: ' + JSON.stringify(err.response?.data)
+    alertType.value = 'danger'
   }
 }
-
 </script>
-
-<style scoped>
-.signup {
-  max-width: 600px;
-  margin: auto;
-  padding: 2rem;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.email-group,
-.username-group {
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-input,
-select,
-button {
-  padding: 0.5rem;
-  font-size: 1rem;
-}
-
-.birth-select {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.radio-group {
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
-.status {
-  font-size: 0.9rem;
-}
-.status.available {
-  color: green;
-}
-.status.taken {
-  color: red;
-}
-
-.password-check {
-  font-size: 0.85rem;
-  margin-top: 0.25rem;
-}
-.password-check.valid {
-  color: green;
-}
-.password-check.invalid {
-  color: red;
-}
-
-button[type="submit"] {
-  margin-top: 1rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-button[type="submit"]:hover {
-  background-color: #0056b3;
-}
-</style>

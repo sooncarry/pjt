@@ -1,26 +1,29 @@
-// 📁 frontend/src/components/stock/StockProductCompare.vue
-
 <template>
-  <div class="p-4 relative">
-    <h2 class="text-xl font-bold mb-4">📊 현물(주식) 상품 비교</h2>
+  <div class="container my-4">
+    <h2 class="h5 fw-bold mb-4">📊 현물(주식) 상품 비교</h2>
 
     <!-- 자동완성 검색창 -->
-    <div class="mb-4 relative">
-      <label class="block text-sm font-medium mb-1">기업명으로 검색</label>
+    <div class="mb-3 position-relative">
+      <label class="form-label small">기업명으로 검색</label>
       <input
         v-model="searchInput"
         @input="fetchSuggestions"
         @focus="showSuggestions = true"
         @blur="handleBlur"
         placeholder="예: 삼성전자"
-        class="w-full border px-3 py-2 rounded"
+        class="form-control form-control-sm rounded-3"
       />
-      <ul v-if="showSuggestions && suggestions.length" class="absolute z-10 bg-white border rounded mt-1 shadow w-full max-h-48 overflow-auto">
+      <ul
+        v-if="showSuggestions && suggestions.length"
+        class="list-group position-absolute w-100 mt-1 shadow z-3"
+        style="max-height: 200px; overflow-y: auto;"
+      >
         <li
           v-for="item in suggestions"
           :key="item.code"
           @mousedown.prevent="selectSuggestion(item)"
-          class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+          class="list-group-item list-group-item-action small"
+          style="cursor: pointer;"
         >
           {{ item.name }} ({{ item.code }})
         </li>
@@ -28,74 +31,78 @@
     </div>
 
     <!-- 종목코드 직접 입력 -->
-    <div class="mb-4">
-      <label class="block text-sm font-medium mb-1">종목 코드 (쉼표로 구분)</label>
+    <div class="mb-3">
+      <label class="form-label small">종목 코드 (쉼표로 구분)</label>
       <input
         v-model="codeInput"
         placeholder="예: 005930,000660"
-        class="w-full border px-3 py-2 rounded"
+        class="form-control form-control-sm rounded-3"
       />
     </div>
 
     <!-- 날짜 선택 -->
-    <div class="mb-4 flex gap-4">
-      <div>
-        <label class="block text-sm font-medium mb-1">조회 시작일</label>
-        <input v-model="startDate" type="date" class="border px-2 py-1 rounded" />
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <label class="form-label small">조회 시작일</label>
+        <input v-model="startDate" type="date" class="form-control form-control-sm rounded-3" />
       </div>
-      <div>
-        <label class="block text-sm font-medium mb-1">조회 종료일</label>
-        <input v-model="endDate" type="date" class="border px-2 py-1 rounded" />
+      <div class="col-md-6">
+        <label class="form-label small">조회 종료일</label>
+        <input v-model="endDate" type="date" class="form-control form-control-sm rounded-3" />
       </div>
     </div>
 
     <!-- 비교 버튼 -->
-    <button @click="fetchCompareData" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    <button
+      @click="fetchCompareData"
+      class="btn btn-primary btn-sm rounded-pill px-4"
+    >
       {{ isLoading ? '로딩 중...' : '비교하기' }}
     </button>
 
-    <div v-if="isLoading" class="mt-4 text-gray-500">데이터를 불러오는 중입니다...</div>
+    <div v-if="isLoading" class="text-muted mt-3 small">데이터를 불러오는 중입니다...</div>
 
     <!-- 결과 테이블 -->
-    <div v-if="results.length" class="mt-6 overflow-x-auto">
-      <h3 class="text-lg font-semibold mb-2">📈 비교 결과</h3>
-      <table class="w-full text-sm border">
-        <thead class="bg-gray-100">
+    <div v-if="results.length" class="mt-5 table-responsive">
+      <h3 class="h6 fw-semibold mb-3">📈 비교 결과</h3>
+      <table class="table table-bordered table-sm text-center align-middle">
+        <thead class="table-light">
           <tr>
-            <th class="border px-2 py-1">종목명</th>
-            <th class="border px-2 py-1">수익률(%)</th>
-            <th class="border px-2 py-1">평균 거래량</th>
-            <th class="border px-2 py-1">PER</th>
-            <th class="border px-2 py-1">PBR</th>
-            <th class="border px-2 py-1">시가총액</th>
-            <th class="border px-2 py-1">배당금</th>
-            <th class="border px-2 py-1">섹터</th>
-            <th class="border px-2 py-1">산업군</th>
+            <th>종목명</th>
+            <th>수익률(%)</th>
+            <th>평균 거래량</th>
+            <th>PER</th>
+            <th>PBR</th>
+            <th>시가총액</th>
+            <th>배당금</th>
+            <th>섹터</th>
+            <th>산업군</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="item in results" :key="item.code">
-            <td class="border px-2 py-1">{{ item.name }}</td>
-            <td class="border px-2 py-1">{{ item.price_change_rate }}</td>
-            <td class="border px-2 py-1">{{ item.avg_volume.toLocaleString() }}</td>
-            <td class="border px-2 py-1">{{ item.per ?? '-' }}</td>
-            <td class="border px-2 py-1">{{ item.pbr ?? '-' }}</td>
-            <td class="border px-2 py-1">₩{{ formatNumber(item.market_cap) }}</td>
-            <td class="border px-2 py-1">₩{{ formatNumber(item.dividend.amount) }}</td>
-            <td class="border px-2 py-1">{{ item.sector }}</td>
-            <td class="border px-2 py-1">{{ item.industry }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.price_change_rate }}</td>
+            <td>{{ item.avg_volume.toLocaleString() }}</td>
+            <td>{{ item.per ?? '-' }}</td>
+            <td>{{ item.pbr ?? '-' }}</td>
+            <td>₩{{ formatNumber(item.market_cap) }}</td>
+            <td>₩{{ formatNumber(item.dividend.amount) }}</td>
+            <td>{{ item.sector }}</td>
+            <td>{{ item.industry }}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <!-- 종가 차트 -->
-    <div v-if="results.length" class="mt-10">
-      <h3 class="text-lg font-semibold mb-2">📉 가격 차트</h3>
-      <canvas ref="chart" class="w-full h-64"></canvas>
+    <div v-if="results.length" class="mt-5">
+      <h3 class="h6 fw-semibold mb-3">📉 가격 차트</h3>
+      <canvas ref="chart" class="w-100" style="height: 360px;"></canvas>
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref, nextTick } from 'vue'
@@ -140,7 +147,7 @@ const selectSuggestion = (item) => {
       : item.code
   }
   selectedName.value = item.name
-  searchInput.value = ''
+  searchInput.value = item.name
   showSuggestions.value = false
 }
 

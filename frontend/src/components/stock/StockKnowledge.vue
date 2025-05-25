@@ -1,32 +1,36 @@
 <template>
-  <div>
-    <h3 class="text-2xl font-bold mb-6">📘 주식 기초 지식 카드</h3>
+  <div class="container my-4">
+    <h3 class="h5 fw-bold mb-4">📘 주식 기초 지식 카드</h3>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <router-link
+    <div class="row g-4">
+      <div
         v-for="(item, index) in knowledgeList"
         :key="item.id"
-        :to="{ name: 'KnowledgeDetail', params: { id: item.id } }"
-        class="block"
+        class="col-12 col-sm-6 col-md-4"
       >
-        <div class="rounded-lg overflow-hidden shadow hover:shadow-lg transition">
-          <div class="relative h-48 bg-gray-200">
-            <img
-              :src="item.image"
-              alt="stock concept"
-              class="w-full h-full object-cover border border-gray-300"
-              @error="e => console.error('❌ 이미지 로딩 실패:', e.target.src)"
-            />
-            <div class="absolute top-2 left-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">
-              {{ index + 1 | twoDigits }}
+        <router-link
+          :to="{ name: 'KnowledgeDetail', params: { id: item.id } }"
+          class="text-decoration-none"
+        >
+          <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+            <div class="position-relative" style="height: 180px;">
+              <img
+                :src="item.image"
+                alt="stock concept"
+                class="w-100 h-100 object-fit-cover border-bottom"
+                @error="e => console.error('❌ 이미지 로딩 실패:', e.target.src)"
+              />
+              <div class="position-absolute top-0 start-0 bg-dark bg-opacity-50 text-white px-2 py-1 small rounded-end rounded-bottom m-2">
+                {{ index + 1 | twoDigits }}
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title fw-semibold text-dark mb-2">{{ item.title }}</h5>
+              <p class="card-text text-muted small">{{ item.description }}</p>
             </div>
           </div>
-          <div class="p-4">
-            <h4 class="text-lg font-semibold mb-1">{{ item.title }}</h4>
-            <p class="text-sm text-gray-600">{{ item.description }}</p>
-          </div>
-        </div>
-      </router-link>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -55,7 +59,6 @@ export default {
         const response = await axios.get('/api/stock/knowledge/')
         const data = response.data
 
-        // 🔧 이미지 경로 보정 (상대 경로일 경우 절대 URL 붙이기)
         this.knowledgeList = data.map(item => {
           if (item.image && item.image.startsWith('/media/')) {
             item.image = `http://localhost:8000${item.image}`
@@ -72,4 +75,7 @@ export default {
 </script>
 
 <style scoped>
+.object-fit-cover {
+  object-fit: cover;
+}
 </style>

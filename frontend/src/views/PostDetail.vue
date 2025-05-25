@@ -1,47 +1,69 @@
 <template>
-  <div v-if="post">
-    <h2>{{ post.title }}</h2>
-    <p>{{ post.author_username }}</p>
-    <p>{{ post.content }}</p>
+  <div v-if="post" class="container my-5">
+    <div class="card p-4 shadow-sm border-0 rounded-4">
+      <h2 class="h4 fw-bold">{{ post.title }}</h2>
+      <p class="text-muted small">작성자: {{ post.author_username }}</p>
+      <p class="mt-3" style="white-space: pre-line;">{{ post.content }}</p>
 
-    <div v-if="isLoggedIn && isMine(post.author_username)">
-      <button @click="goEdit">수정</button>
-      <button @click="deletePost">삭제</button>
-    </div>
-
-    <div class="like-section">
-      <button @click="toggleLike" :disabled="!isLoggedIn" class="heart-button">
-        <span v-if="liked">❤️</span>
-        <span v-else>🤍</span>
-      </button>
-      <span>{{ likesCount }}명이 좋아합니다</span>
-    </div>
-
-    <h3>댓글</h3>
-    <div v-if="post.comments && post.comments.length">
-      <!-- 기존 댓글 렌더링 부분 안에 추가 -->
-      <div v-for="comment in post.comments" :key="comment.id" class="comment">
-        <p><strong>{{ comment.author_username }}</strong>: {{ comment.content }}</p>
-        <button v-if="isLoggedIn && isMine(comment.author_username)" @click="deleteComment(comment.id)">삭제</button>
+      <!-- 수정/삭제 버튼 -->
+      <div
+        v-if="isLoggedIn && isMine(post.author_username)"
+        class="d-flex gap-2 justify-content-end mt-3"
+      >
+        <button class="btn btn-outline-secondary btn-sm rounded-pill" @click="goEdit">수정</button>
+        <button class="btn btn-outline-danger btn-sm rounded-pill" @click="deletePost">삭제</button>
       </div>
 
-    </div>
-    <div v-else>
-      <p>댓글이 없습니다.</p>
-    </div>
+      <!-- 좋아요 -->
+      <div class="like-section mt-4 d-flex align-items-center gap-2">
+        <button @click="toggleLike" :disabled="!isLoggedIn" class="heart-button">
+          <span v-if="liked">❤️</span>
+          <span v-else>🤍</span>
+        </button>
+        <span class="text-muted small">{{ likesCount }}명이 좋아합니다</span>
+      </div>
 
-    <h4>댓글 작성</h4>
-    <div v-if="isLoggedIn">
-      <CommentForm @submit="(content) => submitComment(null, content)" />
-    </div>
-    <div v-else>
-      <p style="color: gray;">댓글을 작성하시려면 로그인 해주세요.</p>
+      <!-- 댓글 -->
+      <div class="mt-5">
+        <h5 class="fw-semibold mb-3">💬 댓글</h5>
+
+        <!-- 댓글 리스트 -->
+        <div v-if="post.comments && post.comments.length">
+          <div
+            v-for="comment in post.comments"
+            :key="comment.id"
+            class="mb-3 p-3 bg-light rounded-3"
+          >
+            <p class="mb-1">
+              <strong>{{ comment.author_username }}</strong>:
+              <span>{{ comment.content }}</span>
+            </p>
+            <button
+              v-if="isLoggedIn && isMine(comment.author_username)"
+              class="btn btn-sm btn-outline-danger btn-xs rounded-pill mt-2"
+              @click="deleteComment(comment.id)"
+            >
+              삭제
+            </button>
+          </div>
+        </div>
+        <div v-else class="text-muted">댓글이 없습니다.</div>
+
+        <!-- 댓글 작성 -->
+        <div class="mt-4">
+          <h6 class="fw-bold">✏️ 댓글 작성</h6>
+          <div v-if="isLoggedIn">
+            <CommentForm @submit="(content) => submitComment(null, content)" />
+          </div>
+          <div v-else class="text-muted small">댓글을 작성하시려면 로그인 해주세요.</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import CommentForm from '@/components/CommentForm.vue'
@@ -57,15 +79,11 @@ const isLoggedIn = !!localStorage.getItem('access_token')
 onMounted(async () => {
   const res = await axios.get(`/api/boards/${route.params.id}/`)
   post.value = res.data
-  console.log('작성자:', post.value.author_username)
-  console.log('현재 사용자:', currentUsername)
-
-  liked.value = post.value.likes?.includes(currentUsername)  // 서버 응답에 포함되는 경우
+  liked.value = post.value.likes?.includes(currentUsername)
   likesCount.value = post.value.likes_count
 })
 
 const isMine = (author) => author === currentUsername
-
 const goEdit = () => router.push(`/community/${route.params.id}/edit`)
 
 const deletePost = async () => {
@@ -77,13 +95,11 @@ const deletePost = async () => {
 
 const submitComment = async (parentId = null, content = '') => {
   if (!content.trim()) return
-
   await axios.post('/api/boards/comments/', {
     post: post.value.id,
     content: content,
     parent: parentId
   })
-
   const updated = await axios.get(`/api/boards/${route.params.id}/`)
   post.value = updated.data
 }
@@ -101,7 +117,6 @@ const toggleLike = async () => {
     alert('로그인 후 이용 가능합니다.')
     return
   }
-
   const res = await axios.post(`/api/boards/${route.params.id}/like/`)
   liked.value = res.data.liked
   likesCount.value = res.data.likes_count
@@ -109,14 +124,6 @@ const toggleLike = async () => {
 </script>
 
 <style scoped>
-.comment {
-  margin-bottom: 1rem;
-}
-.reply {
-  margin-left: 1.5rem;
-  font-size: 0.95rem;
-  color: #555;
-}
 .heart-button {
   font-size: 24px;
   background: none;
@@ -126,11 +133,5 @@ const toggleLike = async () => {
 .heart-button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
-}
-.like-section {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 1rem 0;
 }
 </style>

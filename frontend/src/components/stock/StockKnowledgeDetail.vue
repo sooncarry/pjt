@@ -1,19 +1,27 @@
 <template>
-  <div class="p-6">
+  <div class="container my-4">
     <button
       @click="goBack"
-      class="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+      class="btn btn-outline-primary btn-sm rounded-pill mb-4 px-4"
     >
       ← 돌아가기
     </button>
 
     <div v-if="knowledge">
-      <h2 class="text-2xl font-bold mb-4">{{ knowledge.title }}</h2>
-      <img :src="knowledge.image" alt="상세 이미지" class="mb-4 w-full max-w-xl" />
-      <p class="text-gray-700 whitespace-pre-line leading-relaxed">{{ knowledge.content }}</p>
+      <h2 class="h4 fw-bold mb-3">{{ knowledge.title }}</h2>
+      <img
+        :src="knowledge.image"
+        alt="상세 이미지"
+        class="img-fluid rounded mb-4 border"
+        style="max-width: 640px;"
+      />
+      <p class="text-muted" style="white-space: pre-line; line-height: 1.7;">
+        {{ knowledge.content }}
+      </p>
     </div>
-    <div v-else>
-      <p>데이터를 불러오는 중입니다...</p>
+
+    <div v-else class="text-muted">
+      데이터를 불러오는 중입니다...
     </div>
   </div>
 </template>
@@ -30,10 +38,10 @@ export default {
     const router = useRouter()
     const knowledge = ref(null)
 
-     const fetchDetail = async () => {
+    const fetchDetail = async () => {
       try {
         const response = await axios.get(`/api/stock/knowledge/${route.params.id}/`)
-        const data = response.data  // ✅ 여기가 누락됐던 부분
+        const data = response.data
         if (data.image && data.image.startsWith('/media/')) {
           data.image = `http://localhost:8000${data.image}`
         }

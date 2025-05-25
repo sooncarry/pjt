@@ -1,35 +1,46 @@
 <template>
   <div class="stock-view">
-    <!-- 상단 배너 -->
-    <section
-      class="relative bg-cover bg-center h-56 flex items-center justify-center"
-      style="background-image: url('/stock-banner.jpg')"
-    >
-      <div class="text-white text-4xl font-bold bg-black bg-opacity-50 px-8 py-4 rounded">
-        주식 정보
+    <!-- 📌 핀크 스타일 상단 설명 영역 -->
+    <section class="bg-white py-5 border-bottom">
+      <div class="container">
+        <p class="text-primary fw-semibold mb-1" style="font-size: 0.9rem;">주식 기초 정보</p>
+        <h2 class="h3 fw-bold mb-2">📈 주식 정보</h2>
+        <p class="text-muted">
+          주식 기초 지식을 배우고, 현물 상품 비교 및 관심 종목 정보를 조회해보세요.
+        </p>
       </div>
     </section>
 
     <!-- 경로 표시 -->
-    <div class="px-8 py-2 text-sm text-gray-500 bg-gray-50">
-      홈 > 주식
+    <div class="bg-light py-2 border-bottom text-muted text-sm">
+      <div class="container">
+        홈 &gt; 주식
+      </div>
     </div>
 
     <!-- 탭 메뉴 -->
-    <div class="bg-blue-600 text-white flex justify-center space-x-4 text-sm font-medium">
-      <button
-        v-for="tab in tabs"
-        :key="tab.key"
-        @click="activeTab = tab.key"
-        :class="['py-3 px-6', activeTab === tab.key ? 'border-b-4 border-white' : '']"
-      >
-        {{ tab.label }}
-      </button>
+    <div class="bg-white border-bottom shadow-sm">
+      <div class="container d-flex flex-wrap gap-3 py-3 justify-content-center">
+        <button
+          v-for="tab in tabs"
+          :key="tab.key"
+          @click="activeTab = tab.key"
+          class="btn"
+          :class="[
+            'btn-sm fw-semibold rounded-pill px-4',
+            activeTab === tab.key ? 'btn-primary text-white' : 'btn-outline-primary'
+          ]"
+        >
+          {{ tab.label }}
+        </button>
+      </div>
     </div>
 
     <!-- 탭 내용 -->
-    <div class="p-6">
-      <component :is="activeTabComponent" />
+    <div class="container my-4">
+      <div class="card p-4 shadow-sm border-0 rounded-4">
+        <component :is="activeTabComponent" />
+      </div>
     </div>
   </div>
 </template>

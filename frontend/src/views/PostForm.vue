@@ -1,19 +1,42 @@
 <template>
-  <div>
-    <h1>{{ isEdit ? '게시글 수정' : '게시글 작성' }}</h1>
-    <form @submit.prevent="handleSubmit">
-      <input v-model="form.title" placeholder="제목" />
-      <textarea v-model="form.content" placeholder="내용"></textarea>
-      <select v-model="form.category" required>
-        <option value="" disabled>카테고리 선택</option>
-        <option value="stock">주식방</option>
-        <option value="deposit">예적금방</option>
-        <option value="saving">저축방</option>
-        <option value="free">자유이야기방</option>
-        <option value="worker">직장인방</option>
-      </select>
-      <button type="submit">{{ isEdit ? '수정' : '작성' }}</button>
-    </form>
+  <div class="container my-5">
+    <div class="card p-4 shadow-sm border-0 rounded-4">
+      <h1 class="h5 fw-bold mb-4">{{ isEdit ? '게시글 수정' : '게시글 작성' }}</h1>
+
+      <form @submit.prevent="handleSubmit" class="d-flex flex-column gap-3">
+        <input
+          v-model="form.title"
+          placeholder="제목을 입력하세요"
+          class="form-control form-control-sm rounded-3"
+          required
+        />
+
+        <textarea
+          v-model="form.content"
+          placeholder="내용을 입력하세요"
+          class="form-control form-control-sm rounded-3"
+          rows="6"
+          required
+        ></textarea>
+
+        <select
+          v-model="form.category"
+          class="form-select form-select-sm rounded-3"
+          required
+        >
+          <option value="" disabled>카테고리 선택</option>
+          <option value="stock">주식방</option>
+          <option value="deposit">예적금방</option>
+          <option value="saving">저축방</option>
+          <option value="free">자유이야기방</option>
+          <option value="worker">직장인방</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary btn-sm rounded-pill align-self-end px-4">
+          {{ isEdit ? '수정' : '작성' }}
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -26,6 +49,7 @@ const route = useRoute()
 const router = useRouter()
 
 const isEdit = route.name === 'PostEdit'
+
 const form = ref({
   title: '',
   content: '',
@@ -40,9 +64,6 @@ onMounted(async () => {
 })
 
 const handleSubmit = async () => {
-    // console.log('access_token:', localStorage.getItem('access_token'))
-    // console.log('axios Authorization header:', axios.defaults.headers.common['Authorization'])
-
   if (isEdit) {
     await axios.put(`/api/boards/${route.params.id}/`, form.value)
   } else {
@@ -51,3 +72,7 @@ const handleSubmit = async () => {
   router.push('/community')
 }
 </script>
+
+<style scoped>
+/* 필요 시 추가 */
+</style>
