@@ -13,11 +13,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-
+import certifi
 
 load_dotenv()  # .env 파일 읽기
 FINLIFE_API_KEY = os.getenv('FINLIFE_API_KEY')
 DART_API_KEY = os.getenv("DART_API_KEY")
+os.environ['SSL_CERT_FILE'] = certifi.where()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
