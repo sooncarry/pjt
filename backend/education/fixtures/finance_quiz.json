@@ -1,0 +1,1302 @@
+[
+  {
+    "model": "education.quizquestion",
+    "pk": 1,
+    "fields": {
+      "question": "예금자 보호 제도를 운영하는 기관은 어디인가요?",
+      "option1": "금융감독원",
+      "option2": "예금보험공사",
+      "option3": "한국은행",
+      "option4": "기획재정부",
+      "answer": 1,
+      "explanation": "예금자 보호는 예금보험공사가 담당하며, 금융회사가 파산할 경우 1인당 5천만 원까지 보호합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 2,
+    "fields": {
+      "question": "정기예금의 가장 큰 특징은 무엇인가요?",
+      "option1": "원금 손실 가능",
+      "option2": "이자를 매달 지급",
+      "option3": "만기 전 해지 시 패널티 없음",
+      "option4": "약정한 기간 동안 인출 불가",
+      "answer": 3,
+      "explanation": "정기예금은 약정 기간 동안 인출이 제한되며, 중도 해지 시 이자 손해가 발생할 수 있습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 3,
+    "fields": {
+      "question": "적금의 주된 목적은 무엇인가요?",
+      "option1": "단기투자 수익",
+      "option2": "정기적인 저축",
+      "option3": "외화 환전",
+      "option4": "주식 구입",
+      "answer": 1,
+      "explanation": "적금은 일정한 금액을 정기적으로 저축하여 만기에 원리금을 받는 상품입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 4,
+    "fields": {
+      "question": "다음 중 원금이 보장되는 상품은?",
+      "option1": "주식",
+      "option2": "펀드",
+      "option3": "정기예금",
+      "option4": "ELS",
+      "answer": 2,
+      "explanation": "정기예금은 은행에서 제공하는 원금보장 상품입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 5,
+    "fields": {
+      "question": "예금자 보호 한도는 얼마인가요?",
+      "option1": "1천만 원",
+      "option2": "3천만 원",
+      "option3": "5천만 원",
+      "option4": "1억 원",
+      "answer": 2,
+      "explanation": "예금자 보호 한도는 금융회사 1곳당 1인 기준 5천만 원입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 6,
+    "fields": {
+      "question": "복리의 의미는 무엇인가요?",
+      "option1": "원금만 이자를 받는 방식",
+      "option2": "매달 수익률이 변동되는 방식",
+      "option3": "이자가 다시 이자를 낳는 방식",
+      "option4": "이자가 발생하지 않는 구조",
+      "answer": 2,
+      "explanation": "복리는 원금뿐 아니라 발생한 이자에도 다시 이자가 붙는 방식입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 7,
+    "fields": {
+      "question": "단리 방식과 복리 방식의 차이는?",
+      "option1": "단리는 기간에 따라 이율이 변동됨",
+      "option2": "복리는 중도해지 시 이익이 많음",
+      "option3": "복리는 이자에 이자가 붙음",
+      "option4": "단리는 외화 예금에만 적용",
+      "answer": 2,
+      "explanation": "복리는 이자에 이자가 붙는 구조로, 장기적으로 이자 수익이 많습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 8,
+    "fields": {
+      "question": "적금의 만기일 이전에 해지하면 어떤 불이익이 있나요?",
+      "option1": "이자 손해 발생",
+      "option2": "예치금 압류",
+      "option3": "신용등급 하락",
+      "option4": "계좌 폐쇄 불가",
+      "answer": 0,
+      "explanation": "적금은 중도해지 시 약정된 이자가 아닌 중도해지이율이 적용되어 이자 손해가 있습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 9,
+    "fields": {
+      "question": "정기예금과 정기적금의 공통점은?",
+      "option1": "매달 일정 금액을 납입",
+      "option2": "원금 손실 위험 있음",
+      "option3": "이자율이 매일 변동됨",
+      "option4": "기간을 정해놓고 저축함",
+      "answer": 3,
+      "explanation": "두 상품 모두 일정 기간 동안 예치하는 방식입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 10,
+    "fields": {
+      "question": "정기적금의 납입 주기는 보통 어떻게 설정되나요?",
+      "option1": "하루 단위",
+      "option2": "주 단위",
+      "option3": "월 단위",
+      "option4": "연 단위",
+      "answer": 2,
+      "explanation": "대부분의 정기적금은 매월 정해진 날짜에 자동이체로 납입합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 11,
+    "fields": {
+      "question": "비과세 혜택이 있는 적금 상품은 어떤 조건에서 가능할까요?",
+      "option1": "일반 예금 계좌일 경우",
+      "option2": "근로소득이 없는 경우",
+      "option3": "소득 기준을 충족한 청년/노인 등일 경우",
+      "option4": "만기 금액이 1억 초과 시",
+      "answer": 2,
+      "explanation": "청년, 노인, 장애인 등 일정 조건을 충족하면 이자소득세 비과세 혜택을 받을 수 있습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 12,
+    "fields": {
+      "question": "적금을 고를 때 가장 먼저 확인해야 할 것은?",
+      "option1": "가입은행 위치",
+      "option2": "이자 지급 방식",
+      "option3": "연 이자율과 납입 조건",
+      "option4": "상품 이름의 길이",
+      "answer": 2,
+      "explanation": "연 이자율, 복리 여부, 납입 방식 등 조건이 실제 수익에 큰 영향을 줍니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 13,
+    "fields": {
+      "question": "만기가 짧을수록 일반적으로 기대되는 이자 수익은?",
+      "option1": "높아진다",
+      "option2": "변동 없다",
+      "option3": "낮아진다",
+      "option4": "무조건 확정된다",
+      "answer": 2,
+      "explanation": "일반적으로 예금/적금은 만기가 길수록 이자율이 높습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 14,
+    "fields": {
+      "question": "예금과 적금의 가장 큰 차이는?",
+      "option1": "이율",
+      "option2": "가입은행",
+      "option3": "납입 방식",
+      "option4": "보장 범위",
+      "answer": 2,
+      "explanation": "예금은 일시에 목돈을 넣는 방식, 적금은 매달 정기적으로 저축하는 방식입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 15,
+    "fields": {
+      "question": "적금 상품 가입 시 자동이체는 어떤 역할을 하나요?",
+      "option1": "이율을 낮춘다",
+      "option2": "납입을 쉽게 도와준다",
+      "option3": "계좌를 폐쇄한다",
+      "option4": "중도 해지를 유도한다",
+      "answer": 1,
+      "explanation": "자동이체 설정은 납입일을 놓치지 않게 도와주어 적금 유지에 효과적입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 16,
+    "fields": {
+      "question": "신용등급이 낮을수록 어떤 영향이 있나요?",
+      "option1": "대출 이자가 낮아진다",
+      "option2": "대출 한도가 높아진다",
+      "option3": "대출 승인 가능성이 낮아진다",
+      "option4": "신용카드 한도가 증가한다",
+      "answer": 2,
+      "explanation": "신용등급이 낮으면 금융기관이 대출을 꺼리므로 승인 가능성이 줄어듭니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 17,
+    "fields": {
+      "question": "대출 시 이자가 가장 많이 영향을 받는 요소는?",
+      "option1": "신용등급",
+      "option2": "거주지역",
+      "option3": "직업의 종류",
+      "option4": "가족 수",
+      "answer": 0,
+      "explanation": "신용등급은 금융기관이 이자율을 결정할 때 가장 중요한 요소 중 하나입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 18,
+    "fields": {
+      "question": "‘원리금 균등상환’ 방식의 특징은?",
+      "option1": "초기 상환액이 크다",
+      "option2": "매달 상환액이 변한다",
+      "option3": "매달 같은 금액을 상환한다",
+      "option4": "이자를 먼저 모두 낸다",
+      "answer": 2,
+      "explanation": "원리금 균등상환은 매달 같은 금액을 납부하되, 점점 이자 비중이 줄고 원금 비중이 늘어납니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 19,
+    "fields": {
+      "question": "신용카드 연체가 지속되면 어떤 결과가 발생하나요?",
+      "option1": "신용등급 상승",
+      "option2": "연체이자 없음",
+      "option3": "신용점수 하락",
+      "option4": "포인트 증가",
+      "answer": 2,
+      "explanation": "연체가 발생하면 신용점수가 하락하고 추후 금융거래가 어려워질 수 있습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 20,
+    "fields": {
+      "question": "대출 이자율이 연 6%일 때, 1년 후 100만 원의 이자는?",
+      "option1": "3만 원",
+      "option2": "5만 원",
+      "option3": "6만 원",
+      "option4": "8만 원",
+      "answer": 2,
+      "explanation": "이자 = 원금 × 이자율 = 100만원 × 0.06 = 6만 원입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 21,
+    "fields": {
+      "question": "신용점수를 높이기 위한 올바른 행동은?",
+      "option1": "카드를 연체한다",
+      "option2": "여러 개의 대출을 받는다",
+      "option3": "정기적으로 카드 대금을 상환한다",
+      "option4": "현금을 자주 인출한다",
+      "answer": 2,
+      "explanation": "정기적으로 카드 대금을 연체 없이 갚으면 신용점수가 올라갑니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 22,
+    "fields": {
+      "question": "다음 중 이자가 가장 높을 수 있는 금융 상품은?",
+      "option1": "주택담보대출",
+      "option2": "적금",
+      "option3": "신용카드 현금서비스",
+      "option4": "정기예금",
+      "answer": 2,
+      "explanation": "신용카드 현금서비스는 단기 고금리 상품으로, 이자율이 매우 높습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 23,
+    "fields": {
+      "question": "신용정보를 관리하는 주요 기관은?",
+      "option1": "KISA",
+      "option2": "금융감독원",
+      "option3": "나이스평가정보",
+      "option4": "예금보험공사",
+      "answer": 2,
+      "explanation": "나이스평가정보와 KCB 등은 개인 신용 정보를 관리하고 평가하는 기관입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 24,
+    "fields": {
+      "question": "다음 중 신용점수에 악영향을 줄 수 있는 행동은?",
+      "option1": "적금 가입",
+      "option2": "대출 상환",
+      "option3": "카드 대금 연체",
+      "option4": "급여이체 등록",
+      "answer": 2,
+      "explanation": "연체는 신용정보에 바로 기록되며 신용점수를 떨어뜨리는 주된 요인입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 25,
+    "fields": {
+      "question": "변동금리 대출의 위험성은?",
+      "option1": "이자율이 일정하게 유지됨",
+      "option2": "이자율이 상승하면 상환 부담이 커짐",
+      "option3": "고정금리보다 항상 낮음",
+      "option4": "상환기간이 짧음",
+      "answer": 1,
+      "explanation": "변동금리는 금리가 오르면 상환 부담도 증가하기 때문에 신중히 선택해야 합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 26,
+    "fields": {
+      "question": "대출 시 '금리 인하 요구권'이란?",
+      "option1": "대출 거절 요구권",
+      "option2": "고정금리 선택권",
+      "option3": "신용 개선 시 금리 인하 요청 가능",
+      "option4": "대출 연장 요청",
+      "answer": 2,
+      "explanation": "직장 변경, 소득 증가 등으로 신용이 개선되었을 경우, 금리 인하를 요청할 수 있습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 27,
+    "fields": {
+      "question": "‘대출 갈아타기(대환)’는 어떤 경우에 유리한가요?",
+      "option1": "더 높은 이자율 상품으로 이동할 때",
+      "option2": "고정금리를 변동금리로 바꿀 때",
+      "option3": "더 낮은 이자율 상품으로 옮길 때",
+      "option4": "신용점수를 낮추고 싶을 때",
+      "answer": 2,
+      "explanation": "대환대출은 기존 대출보다 낮은 금리의 상품으로 갈아타는 것을 말합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 28,
+    "fields": {
+      "question": "신용조회가 잦으면 어떤 일이 발생할 수 있나요?",
+      "option1": "신용등급이 오른다",
+      "option2": "대출 한도가 높아진다",
+      "option3": "신용점수에 부정적 영향 가능성",
+      "option4": "별다른 영향 없음",
+      "answer": 2,
+      "explanation": "잦은 신용조회는 금융사 입장에서 과도한 대출 시도로 보일 수 있어 불이익이 있을 수 있습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 29,
+    "fields": {
+      "question": "신용카드를 연체 없이 잘 쓰면 어떤 점에서 유리한가요?",
+      "option1": "세금 감면",
+      "option2": "신용점수 상승",
+      "option3": "이자 면제",
+      "option4": "금융기관 포인트 제공",
+      "answer": 1,
+      "explanation": "정기적이고 건전한 카드 사용은 신용점수에 긍정적인 영향을 줍니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 30,
+    "fields": {
+      "question": "카드론과 현금서비스 중 일반적으로 이자가 더 높은 것은?",
+      "option1": "카드론",
+      "option2": "현금서비스",
+      "option3": "둘 다 동일",
+      "option4": "상황에 따라 다름",
+      "answer": 1,
+      "explanation": "현금서비스는 단기 고금리 성격으로 카드론보다 일반적으로 이자율이 높습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 31,
+    "fields": {
+      "question": "신용카드 결제일에 대금을 납부하지 않으면 발생하는 것은?",
+      "option1": "할인 혜택 증가",
+      "option2": "연체 이자 부과",
+      "option3": "이자 감면",
+      "option4": "포인트 적립",
+      "answer": 1,
+      "explanation": "신용카드 대금을 기한 내 납부하지 않으면 연체 이자가 발생합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 32,
+    "fields": {
+      "question": "체크카드의 가장 큰 특징은?",
+      "option1": "후불 결제",
+      "option2": "신용도 반영",
+      "option3": "결제 즉시 계좌에서 출금",
+      "option4": "대출 기능 포함",
+      "answer": 2,
+      "explanation": "체크카드는 결제 즉시 연결된 계좌에서 금액이 빠져나갑니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 33,
+    "fields": {
+      "question": "신용카드와 체크카드의 공통된 혜택은?",
+      "option1": "무이자 할부",
+      "option2": "현금서비스",
+      "option3": "포인트 적립 및 할인",
+      "option4": "신용 점수 상승",
+      "answer": 2,
+      "explanation": "두 카드 모두 포인트 적립이나 특정 할인 혜택을 제공할 수 있습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 34,
+    "fields": {
+      "question": "신용카드 사용이 신용점수에 영향을 미치는 이유는?",
+      "option1": "가맹점 수수료 때문",
+      "option2": "이자율이 고정되기 때문",
+      "option3": "연체 여부가 기록되기 때문",
+      "option4": "할부 횟수 때문",
+      "answer": 2,
+      "explanation": "카드 사용에서 발생한 연체 정보는 신용정보기관에 전달되어 점수에 영향을 줍니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 35,
+    "fields": {
+      "question": "가맹점 수수료는 누가 부담하나요?",
+      "option1": "카드 사용자",
+      "option2": "카드회사",
+      "option3": "가맹점(판매자)",
+      "option4": "정부",
+      "answer": 2,
+      "explanation": "가맹점 수수료는 카드 결제를 받은 사업자가 카드사에 지급하는 수수료입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 36,
+    "fields": {
+      "question": "신용카드의 '무이자 할부'란?",
+      "option1": "할부 수수료를 소비자가 부담",
+      "option2": "이자가 없고 가맹점이 수수료 부담",
+      "option3": "매월 이자율 증가",
+      "option4": "신용조회 필요",
+      "answer": 1,
+      "explanation": "무이자 할부는 소비자가 이자를 부담하지 않고, 가맹점이나 카드사가 대신 부담합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 37,
+    "fields": {
+      "question": "신용카드 연회비는 무엇을 위한 비용인가요?",
+      "option1": "카드 분실 보험",
+      "option2": "카드 사용에 대한 이자",
+      "option3": "카드 발급 및 관리 서비스 비용",
+      "option4": "가맹점 수수료",
+      "answer": 2,
+      "explanation": "연회비는 카드 발급, 혜택 운영, 고객 서비스 등을 위한 비용입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 38,
+    "fields": {
+      "question": "체크카드는 신용점수에 어떤 영향을 미치나요?",
+      "option1": "상승시킴",
+      "option2": "하락시킴",
+      "option3": "영향 없음",
+      "option4": "사용 시 마다 변동",
+      "answer": 2,
+      "explanation": "체크카드는 신용 거래가 아니므로 신용점수에 영향을 주지 않습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 39,
+    "fields": {
+      "question": "카드사의 '현금서비스'는 어떤 상품인가요?",
+      "option1": "할부 상품",
+      "option2": "단기 고금리 대출",
+      "option3": "보험 상품",
+      "option4": "예금 상품",
+      "answer": 1,
+      "explanation": "현금서비스는 신용카드를 통해 단기 자금을 빌리는 고금리 상품입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 40,
+    "fields": {
+      "question": "신용카드 사용 시 가장 바람직한 습관은?",
+      "option1": "결제일을 넘겨 납부",
+      "option2": "현금서비스 자주 사용",
+      "option3": "필요한 만큼만 쓰고 정기 상환",
+      "option4": "연회비가 높은 카드 사용",
+      "answer": 2,
+      "explanation": "필요한 만큼만 사용하고 기한 내 상환하는 것이 신용관리에 가장 중요합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 41,
+    "fields": {
+      "question": "한국은행의 주요 기능은 무엇인가요?",
+      "option1": "세금 징수",
+      "option2": "화폐 발행과 통화 정책",
+      "option3": "소비자 물가 조절",
+      "option4": "예금 보호",
+      "answer": 1,
+      "explanation": "한국은행은 우리나라의 중앙은행으로, 화폐를 발행하고 통화 정책을 담당합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 42,
+    "fields": {
+      "question": "금융회사를 감독하고 검사하는 기관은?",
+      "option1": "한국은행",
+      "option2": "예금보험공사",
+      "option3": "금융감독원",
+      "option4": "산업은행",
+      "answer": 2,
+      "explanation": "금융감독원은 금융회사를 감독, 검사하고 금융 소비자 보호를 담당합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 43,
+    "fields": {
+      "question": "은행이 파산할 경우 고객 예금을 보호하는 기관은?",
+      "option1": "국민연금공단",
+      "option2": "한국은행",
+      "option3": "금융위원회",
+      "option4": "예금보험공사",
+      "answer": 3,
+      "explanation": "예금보험공사는 예금자 보호 제도를 운영하며, 1인당 5천만 원까지 보호합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 44,
+    "fields": {
+      "question": "인터넷은행의 특징은?",
+      "option1": "지점 방문 필수",
+      "option2": "모바일 기반 비대면 서비스",
+      "option3": "외환 업무 전담",
+      "option4": "오프라인 전용 금융 상품",
+      "answer": 1,
+      "explanation": "인터넷전문은행은 모바일·온라인 기반으로 지점 방문 없이 계좌 개설 및 대출 등이 가능합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 45,
+    "fields": {
+      "question": "다음 중 제1금융권에 해당하는 기관은?",
+      "option1": "상호저축은행",
+      "option2": "카카오뱅크",
+      "option3": "농협중앙회",
+      "option4": "산림조합중앙회",
+      "answer": 1,
+      "explanation": "카카오뱅크는 정식 인가를 받은 제1금융권 인터넷전문은행입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 46,
+    "fields": {
+      "question": "보험상품을 판매하고 보험금을 지급하는 기관은?",
+      "option1": "예금보험공사",
+      "option2": "금융감독원",
+      "option3": "보험회사",
+      "option4": "한국소비자원",
+      "answer": 2,
+      "explanation": "보험상품의 가입과 보험금 지급은 민간 보험회사가 담당합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 47,
+    "fields": {
+      "question": "금융소비자 보호를 위한 분쟁조정을 담당하는 곳은?",
+      "option1": "한국은행",
+      "option2": "금융감독원",
+      "option3": "카드사",
+      "option4": "국세청",
+      "answer": 1,
+      "explanation": "금융감독원은 금융소비자 권익 보호를 위해 민원·분쟁 조정을 담당합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 48,
+    "fields": {
+      "question": "한국예탁결제원의 주된 역할은?",
+      "option1": "채권 발행",
+      "option2": "예금 보호",
+      "option3": "증권의 보관 및 결제",
+      "option4": "외환 거래 감독",
+      "answer": 2,
+      "explanation": "예탁결제원은 주식, 채권 등 증권을 안전하게 보관하고 거래를 결제하는 기관입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 49,
+    "fields": {
+      "question": "은행, 보험, 증권을 모두 취급하는 금융그룹 형태는?",
+      "option1": "핀테크 기업",
+      "option2": "인터넷전문은행",
+      "option3": "복합금융그룹",
+      "option4": "지방금융기관",
+      "answer": 2,
+      "explanation": "복합금융그룹은 다양한 금융업을 아우르는 대형 금융회사 집단을 말합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 50,
+    "fields": {
+      "question": "금융정책 수립과 제도 운영을 총괄하는 정부 기관은?",
+      "option1": "금융감독원",
+      "option2": "금융위원회",
+      "option3": "한국소비자원",
+      "option4": "신용회복위원회",
+      "answer": 1,
+      "explanation": "금융위원회는 정부 소속 기관으로 금융정책을 수립하고 금융감독 정책을 결정합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 51,
+    "fields": {
+      "question": "예금자 보호 제도에 따라 보호되는 금융상품은?",
+      "option1": "주식",
+      "option2": "펀드",
+      "option3": "정기예금",
+      "option4": "채권",
+      "answer": 2,
+      "explanation": "예금자 보호 제도는 정기예금, 적금 등 원금보장 금융상품만을 보호합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 52,
+    "fields": {
+      "question": "금융소비자가 대출 금리 인하를 요청할 수 있는 제도는?",
+      "option1": "이자보상제도",
+      "option2": "금리인하요구권",
+      "option3": "이자정책보호권",
+      "option4": "변동금리보장제",
+      "answer": 1,
+      "explanation": "금리인하요구권은 신용 개선 등의 사유 발생 시 대출 금리 인하를 요청할 수 있는 소비자 권리입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 53,
+    "fields": {
+      "question": "다음 중 개인의 과도한 채무를 조정해주는 제도는?",
+      "option1": "예금자보호제도",
+      "option2": "개인회생",
+      "option3": "예탁결제제도",
+      "option4": "통합계좌관리제도",
+      "answer": 1,
+      "explanation": "개인회생은 과도한 채무를 일정 기간 동안 상환 후 면책받을 수 있도록 돕는 제도입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 54,
+    "fields": {
+      "question": "금융소비자보호법에서 규정한 6대 판매 원칙에 포함되지 않는 것은?",
+      "option1": "적정성 원칙",
+      "option2": "설명의무 원칙",
+      "option3": "투명성 원칙",
+      "option4": "불공정 판매 금지 원칙",
+      "answer": 2,
+      "explanation": "6대 원칙은 적합성·적정성·설명·불공정영업행위 금지·부당권유 금지·광고 규제이며, '투명성 원칙'은 포함되지 않습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 55,
+    "fields": {
+      "question": "햇살론은 어떤 사람을 위한 정책금융 상품인가요?",
+      "option1": "고소득자",
+      "option2": "청년 투자자",
+      "option3": "저신용·저소득 서민",
+      "option4": "부동산 소유자",
+      "answer": 2,
+      "explanation": "햇살론은 신용도가 낮고 소득이 낮은 서민층에게 낮은 금리로 대출을 지원하는 정책금융 상품입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 56,
+    "fields": {
+      "question": "금융상품 설명 시 소비자의 이해 여부를 확인하는 절차는?",
+      "option1": "판매기록제도",
+      "option2": "녹취의무제",
+      "option3": "청약철회권",
+      "option4": "숙려제도",
+      "answer": 1,
+      "explanation": "녹취의무제는 고위험 금융상품 판매 시 전화나 대면을 통해 소비자의 이해 여부를 기록으로 남기도록 합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 57,
+    "fields": {
+      "question": "소비자가 금융상품 계약 후 일정 기간 내 계약을 철회할 수 있는 권리는?",
+      "option1": "재판매권",
+      "option2": "청약철회권",
+      "option3": "환매요구권",
+      "option4": "분쟁중재권",
+      "answer": 1,
+      "explanation": "청약철회권은 계약 후 7~14일 내 소비자가 금융상품 가입을 철회할 수 있는 권리입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 58,
+    "fields": {
+      "question": "금융소비자가 권리를 주장할 수 있는 민원기관은?",
+      "option1": "금융위원회",
+      "option2": "예금보험공사",
+      "option3": "금융감독원",
+      "option4": "한국은행",
+      "answer": 2,
+      "explanation": "금융감독원은 금융 소비자의 민원 처리 및 분쟁 조정 기능을 담당합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 59,
+    "fields": {
+      "question": "서민금융진흥원에서 제공하는 대표적인 금융 상담 서비스는?",
+      "option1": "재정설계코칭",
+      "option2": "마이데이터 추천",
+      "option3": "금융사기 예방",
+      "option4": "서민금융119 상담",
+      "answer": 3,
+      "explanation": "서민금융119는 채무조정, 대출 정보 등을 안내하는 서민금융진흥원의 대표 상담 서비스입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 60,
+    "fields": {
+      "question": "고금리 대부업의 최고 법정 이자율은 얼마인가요? (2024년 기준)",
+      "option1": "20%",
+      "option2": "24%",
+      "option3": "30%",
+      "option4": "40%",
+      "answer": 0,
+      "explanation": "2024년 기준 대부업 법정 최고금리는 연 20%입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 61,
+    "fields": {
+      "question": "금융상품 판매 시 반드시 소비자에게 설명해야 하는 의무는?",
+      "option1": "광고의무",
+      "option2": "공개의무",
+      "option3": "설명의무",
+      "option4": "판매제한의무",
+      "answer": 2,
+      "explanation": "금융소비자보호법에 따라 판매자는 소비자에게 상품 내용과 위험성을 설명할 의무가 있습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 62,
+    "fields": {
+      "question": "금융상품에 대한 계약을 중도 해지할 수 있도록 허용한 권리는?",
+      "option1": "계약갱신요구권",
+      "option2": "계약철회권",
+      "option3": "금리보장권",
+      "option4": "정보열람권",
+      "answer": 1,
+      "explanation": "계약철회권은 일정 기간 내 금융상품 계약을 해지하고 원금 환급을 받을 수 있는 권리입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 63,
+    "fields": {
+      "question": "금융소비자가 계약 체결 후 충분히 생각할 수 있도록 주어지는 시간은?",
+      "option1": "유예기간",
+      "option2": "숙려기간",
+      "option3": "보류기간",
+      "option4": "고지기간",
+      "answer": 1,
+      "explanation": "숙려기간은 금융소비자가 고위험 상품에 가입 후 충분히 숙고할 수 있도록 마련된 제도입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 64,
+    "fields": {
+      "question": "금융회사가 소비자에게 허위 정보를 제공하는 것은 어떤 행위에 해당하나요?",
+      "option1": "권유의무",
+      "option2": "적정성 준수",
+      "option3": "불공정 영업행위",
+      "option4": "부가서비스 제공",
+      "answer": 2,
+      "explanation": "소비자에게 잘못된 정보를 제공하는 것은 불공정 영업행위로 금지되어 있습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 65,
+    "fields": {
+      "question": "금융소비자보호법 시행일은 언제인가요?",
+      "option1": "2018년 3월",
+      "option2": "2019년 9월",
+      "option3": "2021년 3월",
+      "option4": "2022년 12월",
+      "answer": 2,
+      "explanation": "금융소비자보호법은 2021년 3월 25일부터 본격 시행되었습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 66,
+    "fields": {
+      "question": "다음 중 '적합성 원칙'에 해당하는 설명은?",
+      "option1": "고객에게 설명 없이 상품 제공",
+      "option2": "고객 상황에 맞는 상품 권유",
+      "option3": "가격이 저렴한 상품만 추천",
+      "option4": "모든 금융상품을 의무 소개",
+      "answer": 1,
+      "explanation": "적합성 원칙은 소비자의 재무 상황과 위험성향에 맞는 상품을 권유하도록 규정합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 67,
+    "fields": {
+      "question": "다음 중 '부당권유 금지'에 해당하는 사례는?",
+      "option1": "상품에 대해 자세히 설명",
+      "option2": "소비자가 원치 않는 상품 가입 강요",
+      "option3": "투자 성향 파악",
+      "option4": "가입 여부 자율 결정",
+      "answer": 1,
+      "explanation": "부당권유는 고객의 의사와 무관하게 상품을 강요하거나 유도하는 행위를 말합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 68,
+    "fields": {
+      "question": "금융회사가 광고에서 거짓 정보를 제공하면 위반되는 원칙은?",
+      "option1": "설명의무",
+      "option2": "광고 규제 원칙",
+      "option3": "적정성 원칙",
+      "option4": "고객관리 원칙",
+      "answer": 1,
+      "explanation": "광고 규제 원칙은 금융회사가 허위·과장된 광고를 하지 못하도록 정한 규정입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 69,
+    "fields": {
+      "question": "서민금융상품 중 자영업자와 소상공인을 위한 보증지원 대출 상품은?",
+      "option1": "햇살론 유스",
+      "option2": "새희망홀씨",
+      "option3": "햇살론15",
+      "option4": "사잇돌대출",
+      "answer": 2,
+      "explanation": "햇살론15는 서민·자영업자를 대상으로 한 보증부 정책서민금융상품입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 70,
+    "fields": {
+      "question": "금융회사가 상품 판매를 중단당할 수 있는 사유는?",
+      "option1": "설명을 너무 많이 함",
+      "option2": "가격이 저렴함",
+      "option3": "법 위반 및 불공정 판매",
+      "option4": "광고를 하지 않음",
+      "answer": 2,
+      "explanation": "법령 위반 또는 불공정한 판매행위는 금융당국에 의해 판매중단 조치로 이어질 수 있습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 71,
+    "fields": {
+      "question": "금융기관을 사칭하여 개인정보를 요구하는 사기는?",
+      "option1": "파밍",
+      "option2": "스미싱",
+      "option3": "보이스피싱",
+      "option4": "키로깅",
+      "answer": 2,
+      "explanation": "보이스피싱은 전화를 통해 금융기관을 사칭하며 개인정보와 돈을 편취하는 수법입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 72,
+    "fields": {
+      "question": "문자 속 링크를 클릭하면 악성 앱이 설치되는 사기는?",
+      "option1": "파밍",
+      "option2": "스미싱",
+      "option3": "피싱",
+      "option4": "랜섬웨어",
+      "answer": 1,
+      "explanation": "스미싱은 문자(SMS) + 피싱(phishing)의 합성어로, 링크 클릭 시 악성 앱 유도 등이 이루어집니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 73,
+    "fields": {
+      "question": "피해자가 돈을 보내도록 유도하는 가짜 검찰 사칭 수법은?",
+      "option1": "디도스 공격",
+      "option2": "파밍",
+      "option3": "보이스피싱",
+      "option4": "스푸핑",
+      "answer": 2,
+      "explanation": "보이스피싱 중 검찰·경찰 사칭은 대표적인 고전적 수법으로 심리적 압박을 이용합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 74,
+    "fields": {
+      "question": "금융사기 예방을 위해 가장 우선적으로 지켜야 할 것은?",
+      "option1": "낯선 링크 클릭",
+      "option2": "본인 확인 생략",
+      "option3": "개인정보 제공 주의",
+      "option4": "앱 설치 무시",
+      "answer": 2,
+      "explanation": "모든 금융사기 예방의 시작은 개인정보 유출 방지입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 75,
+    "fields": {
+      "question": "전화로 대출을 권유하며 선입금을 요구하는 사기 수법은?",
+      "option1": "카드깡",
+      "option2": "보이스피싱",
+      "option3": "대출사기",
+      "option4": "파밍",
+      "answer": 2,
+      "explanation": "대출사기는 대출 실행을 미끼로 수수료나 보증료를 먼저 입금하게 유도합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 76,
+    "fields": {
+      "question": "금융사기 피해 발생 시 가장 먼저 해야 할 조치는?",
+      "option1": "지인에게 알림",
+      "option2": "피해 사실을 SNS에 공유",
+      "option3": "경찰서나 금융기관에 즉시 신고",
+      "option4": "계좌를 새로 개설",
+      "answer": 2,
+      "explanation": "금융사기 피해 시 즉시 경찰청(112), 금융감독원, 해당 금융회사에 신고해야 합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 77,
+    "fields": {
+      "question": "금융감독원이 운영하는 금융사기 신고·문의 전화번호는?",
+      "option1": "110",
+      "option2": "120",
+      "option3": "1332",
+      "option4": "112",
+      "answer": 2,
+      "explanation": "1332는 금융감독원 금융상담센터로, 금융 피해 신고 및 상담이 가능합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 78,
+    "fields": {
+      "question": "계좌이체 전에 꼭 확인해야 하는 것은?",
+      "option1": "상대방 프로필 사진",
+      "option2": "이체 시간",
+      "option3": "수취인 실명 확인",
+      "option4": "자신의 전화번호",
+      "answer": 2,
+      "explanation": "실명 확인 절차를 통해 사기 계좌인지 여부를 최소한으로 점검할 수 있습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 79,
+    "fields": {
+      "question": "정부가 제공하는 피해예방 앱은?",
+      "option1": "금융생활지킴이",
+      "option2": "스마트금융앱",
+      "option3": "사이버캅",
+      "option4": "금소법보호앱",
+      "answer": 2,
+      "explanation": "사이버캅은 경찰청이 제공하는 앱으로, 스팸 번호 조회 및 사기 정보 확인이 가능합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 80,
+    "fields": {
+      "question": "전화번호를 조작해 실제 기관처럼 보이게 하는 기법은?",
+      "option1": "파밍",
+      "option2": "스푸핑",
+      "option3": "스미싱",
+      "option4": "랜섬웨어",
+      "answer": 1,
+      "explanation": "스푸핑은 발신번호를 실제 기관처럼 조작하여 수신자가 속도록 만드는 기법입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 81,
+    "fields": {
+      "question": "주식 투자 시 기업의 소유권을 의미하는 것은?",
+      "option1": "배당금",
+      "option2": "주식",
+      "option3": "채권",
+      "option4": "예금",
+      "answer": 1,
+      "explanation": "주식은 기업의 소유 지분을 의미하며, 주주는 해당 기업의 일부 소유자입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 82,
+    "fields": {
+      "question": "채권의 가장 큰 특징은?",
+      "option1": "고위험 고수익",
+      "option2": "정해진 이자와 만기",
+      "option3": "소유권 이전 가능",
+      "option4": "기업의 지분 투자",
+      "answer": 1,
+      "explanation": "채권은 일정 기간 후 원금과 이자를 돌려받는 구조로, 비교적 안정적입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 83,
+    "fields": {
+      "question": "펀드는 어떤 투자 방식인가요?",
+      "option1": "한 명이 모든 자산을 관리",
+      "option2": "소비자 직접 투자",
+      "option3": "여러 사람의 자금을 모아 운용 전문가가 대신 투자",
+      "option4": "예금자보호 대상 금융상품",
+      "answer": 2,
+      "explanation": "펀드는 투자자들의 자금을 모아 전문가가 주식, 채권 등에 분산 투자하는 간접투자 상품입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 84,
+    "fields": {
+      "question": "ETF의 특징은?",
+      "option1": "직접 기업 경영 참여",
+      "option2": "지수나 자산을 추종하며 거래소에서 주식처럼 사고팔 수 있음",
+      "option3": "고정 금리 제공",
+      "option4": "예금자보호 대상",
+      "answer": 1,
+      "explanation": "ETF(상장지수펀드)는 지수를 추종하며 주식처럼 거래되는 펀드형 상품입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 85,
+    "fields": {
+      "question": "다양한 자산에 나눠 투자하는 것을 무엇이라 하나요?",
+      "option1": "집중투자",
+      "option2": "분산투자",
+      "option3": "무이자투자",
+      "option4": "단기투자",
+      "answer": 1,
+      "explanation": "분산투자는 위험을 줄이기 위해 다양한 자산에 투자하는 전략입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 86,
+    "fields": {
+      "question": "수익률이란?",
+      "option1": "투자액의 일정 비율로 정한 세금",
+      "option2": "투자로 인한 손익의 비율",
+      "option3": "지출 금액",
+      "option4": "물가 상승률",
+      "answer": 1,
+      "explanation": "수익률은 투자금 대비 손익이 얼마나 발생했는지를 백분율로 나타낸 지표입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 87,
+    "fields": {
+      "question": "고위험 고수익 전략은 어떤 투자 성향에 적합한가요?",
+      "option1": "안정형",
+      "option2": "소극형",
+      "option3": "공격형",
+      "option4": "절약형",
+      "answer": 2,
+      "explanation": "공격형 투자자는 큰 수익을 추구하는 대신 손실 가능성도 감수합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 88,
+    "fields": {
+      "question": "복리의 장점은 무엇인가요?",
+      "option1": "이자 없이 안정성만 높임",
+      "option2": "초기 투자금만 수익을 냄",
+      "option3": "이자가 원금에 합쳐져 다시 이자를 낳음",
+      "option4": "세금이 면제됨",
+      "answer": 2,
+      "explanation": "복리는 이자가 원금에 합산되어 다음 이자 계산의 기준이 되는 방식입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 89,
+    "fields": {
+      "question": "펀드 수익률이 -5%일 경우, 100만원을 투자했다면 결과는?",
+      "option1": "105만원 수익",
+      "option2": "100만원 그대로 유지",
+      "option3": "95만원 손실",
+      "option4": "50만원 수익",
+      "answer": 2,
+      "explanation": "100만원 × (1 - 0.05) = 95만원이므로 5만원 손실이 발생합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 90,
+    "fields": {
+      "question": "투자자 성향을 파악하는 이유는?",
+      "option1": "세금 부과 기준 파악",
+      "option2": "고객 신상 정보 수집",
+      "option3": "적합한 상품 권유",
+      "option4": "이자율 확인",
+      "answer": 2,
+      "explanation": "투자자의 투자 성향을 파악하면 그에 맞는 위험 수준의 상품을 추천할 수 있습니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 91,
+    "fields": {
+      "question": "계좌이체 시 필요한 정보는?",
+      "option1": "상대방의 주민등록번호",
+      "option2": "상대방 계좌번호와 은행명",
+      "option3": "자신의 지문",
+      "option4": "가맹점 이름",
+      "answer": 1,
+      "explanation": "계좌이체를 위해선 수취인의 계좌번호와 은행명이 필수입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 92,
+    "fields": {
+      "question": "매달 정해진 날에 자동으로 이체되는 방식은?",
+      "option1": "즉시이체",
+      "option2": "자동이체",
+      "option3": "직불이체",
+      "option4": "상환이체",
+      "answer": 1,
+      "explanation": "자동이체는 전기요금, 적금 납입 등 고정 지출을 매달 자동 처리하는 방식입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 93,
+    "fields": {
+      "question": "교통카드를 포함한 간편결제 수단으로 올바른 것은?",
+      "option1": "현금만",
+      "option2": "QR코드, NFC 등",
+      "option3": "통장사본",
+      "option4": "카드명세서",
+      "answer": 1,
+      "explanation": "간편결제는 QR코드, NFC 등으로 카드 정보 없이도 간단하게 결제할 수 있는 수단입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 94,
+    "fields": {
+      "question": "외화를 다른 통화로 바꾸는 것을 무엇이라 하나요?",
+      "option1": "환전",
+      "option2": "송금",
+      "option3": "이체",
+      "option4": "예금",
+      "answer": 0,
+      "explanation": "환전은 서로 다른 통화를 교환하는 금융행위입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 95,
+    "fields": {
+      "question": "공과금 자동납부 시 주의할 점은?",
+      "option1": "이체 수수료를 낮추는 방법",
+      "option2": "납부일과 계좌 잔액 확인",
+      "option3": "공과금 명세서 수령 주소",
+      "option4": "휴대폰 기종",
+      "answer": 1,
+      "explanation": "자동납부 계좌에 잔액이 부족하면 미납이 될 수 있으므로 납부일과 잔액 확인이 중요합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 96,
+    "fields": {
+      "question": "계좌 없이 송금받을 수 있는 서비스는?",
+      "option1": "CD기 수령",
+      "option2": "무통장입금",
+      "option3": "모바일 간편송금",
+      "option4": "모바일 현금출금",
+      "answer": 3,
+      "explanation": "일부 은행 앱에서는 모바일로 비밀번호만 입력해 현금 출금이 가능한 서비스를 제공합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 97,
+    "fields": {
+      "question": "은행 점포 없이도 계좌 개설이 가능한 방식은?",
+      "option1": "창구 방문",
+      "option2": "전화 상담",
+      "option3": "비대면 계좌 개설",
+      "option4": "우편 서비스",
+      "answer": 2,
+      "explanation": "비대면 계좌 개설은 모바일 앱 등을 통해 본인 확인 후 계좌를 개설하는 방식입니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 98,
+    "fields": {
+      "question": "인터넷 전문은행의 대표적인 장점은?",
+      "option1": "지점 방문 필요",
+      "option2": "높은 수수료",
+      "option3": "24시간 비대면 거래 가능",
+      "option4": "신용등급 하락",
+      "answer": 2,
+      "explanation": "인터넷 전문은행은 지점 없이도 앱을 통해 24시간 다양한 금융 서비스를 제공합니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 99,
+    "fields": {
+      "question": "실명확인을 위해 사용하는 대표적인 수단은?",
+      "option1": "주민등록번호",
+      "option2": "휴대폰 인증, 계좌 인증 등",
+      "option3": "공과금 영수증",
+      "option4": "이메일 주소",
+      "answer": 1,
+      "explanation": "실명확인에는 휴대폰 본인 인증, 타행 계좌 인증 등 실명 기반 수단이 사용됩니다."
+    }
+  },
+  {
+    "model": "education.quizquestion",
+    "pk": 100,
+    "fields": {
+      "question": "은행 앱을 통해 전기요금 등을 납부하는 것은?",
+      "option1": "공과금 이체",
+      "option2": "수수료 납부",
+      "option3": "보안 업데이트",
+      "option4": "이메일 송금",
+      "answer": 0,
+      "explanation": "공과금 이체 기능은 각종 공과금을 은행 앱이나 계좌이체로 납부하는 서비스입니다."
+    }
+  }
+]
