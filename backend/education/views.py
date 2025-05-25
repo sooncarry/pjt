@@ -1,64 +1,47 @@
 from django.db.models import Q
-from django.core.paginator import Paginator
-from rest_framework.decorators import api_view
+from django.core.paginator import Paginator  # ✅ 이거 추가!
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
-from .models import FinanceTerm, NewsItem
-from .serializers import FinanceTermSerializer, NewsItemSerializer
+from .models import FinanceTerm, NewsItem, QuizQuestion
+from .serializers import FinanceTermSerializer, NewsItemSerializer, QuizQuestionSerializer
 
 @api_view(['GET'])
 def finance_terms(request):
-    """
-    GET /api/terms/?q=<검색어>
-    - title, eng_title, content 필드에서 부분 검색
-    """
-    q = request.GET.get('q', '')
+    q = request.GET.get('q', '').strip()
+    qs = FinanceTerm.objects.all()
     if q:
-        terms = FinanceTerm.objects.filter(
+        qs = qs.filter(
             Q(title__icontains=q) |
             Q(eng_title__icontains=q) |
             Q(content__icontains=q)
         )
-    else:
-        terms = FinanceTerm.objects.all()
-
-    serializer = FinanceTermSerializer(terms, many=True)
-    return Response(serializer.data)
-
+    return Response(FinanceTermSerializer(qs, many=True).data)
 
 @api_view(['GET'])
-def news_list(request):
-    """
-    GET /api/news/?search=<검색어>&page=<페이지번호>
-    - category='금융' 고정 필터
-    - title, summary 필드에서 부분 검색
-    - published_at 내림차순 정렬
-    - 페이지당 9개, 페이지네이션 정보 반환
-    """
-    search_query = request.GET.get('search', '')
+@permission_classes([AllowAny])
+def breaking_news(request):
     page = int(request.GET.get('page', 1))
+    page_size = 20
 
-    # 기본 금융 카테고리 필터
-    queryset = NewsItem.objects.filter(category='금융')
+    # **최신순! crawled_at을 DESC로**
+    qs = NewsItem.objects.order_by('-crawled_at', '-id')  # 최신 -> 오래된
 
-    # 검색어 필터
-    if search_query:
-        queryset = queryset.filter(
-            Q(title__icontains=search_query) |
-            Q(summary__icontains=search_query)
-        )
-
-    # 최신순 정렬
-    queryset = queryset.order_by('-published_at')
-
-    # Django Paginator 사용
-    paginator = Paginator(queryset, 9)
+    paginator = Paginator(qs, page_size)
     page_obj = paginator.get_page(page)
 
-    serializer = NewsItemSerializer(page_obj.object_list, many=True)
-    return Response({
-        'results': serializer.data,
+    data = {
+        'results': NewsItemSerializer(page_obj.object_list, many=True).data,
+        'current_page': page,
         'total_pages': paginator.num_pages,
-        'current_page': page_obj.number,
-        'total_items': paginator.count,
-    })
+        'total_count': paginator.count,
+    }
+    return Response(data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def quiz_question_list(request):
+    quizzes = QuizQuestion.objects.all()
+    serializer = QuizQuestionSerializer(quizzes, many=True)
+    return Response(serializer.data)
