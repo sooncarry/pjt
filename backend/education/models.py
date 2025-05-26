@@ -1,3 +1,5 @@
+# backend/education/models.py
+
 from django.db import models
 
 class FinanceTerm(models.Model):
@@ -6,18 +8,23 @@ class FinanceTerm(models.Model):
     eng_title = models.CharField(max_length=100)   # 예: Dormant Deposit
     content = models.TextField()
 
+    def __str__(self):
+        return self.title
+
+
 class NewsItem(models.Model):
     title = models.CharField(max_length=255)
     url = models.URLField(unique=True)
     thumbnail = models.URLField(blank=True, null=True)  # 썸네일 이미지 URL
     lede = models.TextField(blank=True)
     press = models.CharField(max_length=50, blank=True)
-    published_at = models.CharField(max_length=50, default='', blank=True)
-    crawled_at = models.DateTimeField(auto_now_add=True)  # 크롤링 시각(서버 기준)
-    
+    published_at = models.DateTimeField(null=True, blank=True)  # 기사 게시 시각
+    crawled_at = models.DateTimeField(auto_now_add=True)        # 크롤링 시각(서버 기준)
+
     def __str__(self):
         return self.title
-    
+
+
 class QuizQuestion(models.Model):
     question = models.CharField(max_length=255)
     option1 = models.CharField(max_length=100)

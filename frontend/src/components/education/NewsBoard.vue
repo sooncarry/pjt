@@ -24,7 +24,7 @@
             {{ item.title }}
           </a>
           <div class="text-muted small mb-1">
-            {{ item.published_at }} · {{ item.press }}
+            {{ formatPublishedAt(item.published_at) }} · {{ item.press }}
           </div>
           <div class="text-muted small">
             {{ item.lede }}
@@ -35,7 +35,7 @@
 
     <div class="text-center mt-4">
       <button
-        v-if="currentPage < totalPages"
+        v-if="hasMore"
         @click="loadMore"
         :disabled="loading"
         class="btn btn-outline-primary btn-sm rounded-pill px-4"
@@ -51,29 +51,68 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
 const newsList = ref([])
-const currentPage = ref(1)
-const totalPages = ref(1)
-const loading = ref(false)
+const loading  = ref(false)
+const cursor   = ref(null)    // { before, last_id }
+const hasMore  = ref(true)
 
-async function fetchPage(page = 1) {
-  if (page > totalPages.value) return
+// ISO → 한국시간 포맷터
+const formatPublishedAt = isoString => {
+  if (!isoString) return ''
+  const date = new Date(isoString)
+  return date.toLocaleString('ko-KR', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  })
+}
+
+async function fetchPage() {
+  if (!hasMore.value || loading.value) return
   loading.value = true
+
   try {
-    const { data } = await axios.get('/api/education/breaking-news/', { params: { page } })
-    if (page === 1) newsList.value = data.results ?? data
-    else newsList.value.push(...(data.results ?? data))
-    currentPage.value = data.current_page ?? page
-    totalPages.value = data.total_pages ?? 1
-  } catch (e) {
-    console.error('❌ 속보 뉴스 로딩 실패:', e)
+    // 기본 page_size, 이후부터는 cursor 인자 포함
+    const params = { page_size: 20 }
+    if (cursor.value) {
+      params.before  = cursor.value.before
+      params.last_id = cursor.value.last_id
+    }
+    console.log('[fetchPage] params =', params)
+
+    const { data } = await axios.get('/api/education/breaking-news/', { params })
+    console.log('[fetchPage] response cursor =', data.cursor, 'has_more=', data.has_more)
+
+    // 첫 로드면 새로, 이후면 이어 붙이기
+    if (!cursor.value) {
+      newsList.value = data.results
+    } else {
+      newsList.value.push(...data.results)
+    }
+
+    // 다음 로드 가능 여부 & 커서 업데이트
+    hasMore.value = data.has_more
+    cursor.value  = data.cursor
+
+  } catch (err) {
+    console.error('뉴스 로딩 실패:', err)
   } finally {
     loading.value = false
   }
 }
 
 function loadMore() {
-  fetchPage(currentPage.value + 1)
+  fetchPage()
 }
 
-onMounted(() => fetchPage())
+onMounted(() => {
+  fetchPage()
+})
 </script>
+
+<style scoped>
+/* 필요하면 추가 스타일 */
+</style>

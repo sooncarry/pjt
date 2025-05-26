@@ -1,59 +1,111 @@
 from django.core.management.base import BaseCommand
+from django.utils import timezone
+from django.db.utils import IntegrityError
+from datetime import timedelta
 import requests
 from bs4 import BeautifulSoup
 
-# 반드시 import!
 from education.models import NewsItem
 
+try:
+    from dateutil import parser as date_parser
+except ImportError:
+    date_parser = None
+
+
+def parse_korean_datetime(text: str):
+    text = text.strip()
+    now = timezone.now()
+    if text.endswith("분전"):
+        return now - timedelta(minutes=int(text[:-2]))
+    if text.endswith("시간전"):
+        return now - timedelta(hours=int(text[:-3]))
+    if text.endswith("초전"):
+        return now - timedelta(seconds=int(text[:-2]))
+    if date_parser:
+        try:
+            dt = date_parser.parse(text)
+            if timezone.is_naive(dt):
+                return timezone.make_aware(dt, timezone.get_current_timezone())
+            return dt
+        except Exception:
+            pass
+    return None
+
 class Command(BaseCommand):
-    help = '네이버 금융뉴스 최신기사 크롤링'
+    help = '네이버 금융뉴스 크롤링 (--page 옵션 지원, 중복 무시)'
 
-    def handle(self, *args, **kwargs):
-        url = "https://news.naver.com/breakingnews/section/101/259?page=1"
+    def add_arguments(self, parser):
+        parser.add_argument('--page', type=int, help='크롤링할 페이지 번호(생략 시 전체)')
+
+    def handle(self, *args, **options):
+        base_url = "https://news.naver.com/breakingnews/section/101/259"
         headers = {"User-Agent": "Mozilla/5.0"}
+        placeholder = "https://dummyimage.com/120x80/cccccc/ffffff&text=No+Image"
 
-        response = requests.get(url, headers=headers)
-        soup = BeautifulSoup(response.text, "html.parser")
+        total_saved = 0
+        # 페이지 옵션이 주어졌으면 하나만, 아니면 1부터 끝까지 순회
+        start_page = options.get('page') or 1
+        end_page = start_page
+        page = start_page
 
-        articles = soup.select("div.section_article ul.sa_list > li.sa_item")
-        self.stdout.write(f"총 {len(articles)}개 기사\n")
+        while True:
+            resp = requests.get(f"{base_url}?page={page}", headers=headers)
+            soup = BeautifulSoup(resp.text, "html.parser")
+            articles = soup.select("div.section_article ul.sa_list > li.sa_item")
+            if not articles or page > end_page:
+                break
 
-        save_count = 0
-        NewsItem.objects.all().delete()  # **모든 기사 삭제 후 다시 저장**
+            self.stdout.write(f"[페이지 {page}] 기사 수집: {len(articles)}건")
 
-        for idx, article in enumerate(articles, 1):
-            title_tag = article.select_one("a.sa_text_title > strong.sa_text_strong")
-            url_tag = article.select_one("a.sa_text_title")
-            lede_tag = article.select_one("div.sa_text_lede")
-            press_tag = article.select_one("div.sa_text_press")
-            datetime_tag = article.select_one("div.sa_text_datetime")
-            thumb_img = article.select_one("div.sa_thumb img")
+            for art in articles:
+                title = (art.select_one("a.sa_text_title > strong.sa_text_strong") or "").get_text(strip=True)
+                link = art.select_one("a.sa_text_title")["href"]
+                lede = (art.select_one("div.sa_text_lede") or "").get_text(strip=True)
+                press = (art.select_one("div.sa_text_press") or "").get_text(strip=True)
+                raw_dt = (art.select_one("div.sa_text_datetime") or "").get_text(strip=True)
 
-            title = title_tag.text.strip() if title_tag else ""
-            url = url_tag['href'] if url_tag else ""
-            lede = lede_tag.text.strip() if lede_tag else ""
-            press = press_tag.text.strip() if press_tag else ""
-            date = datetime_tag.text.strip() if datetime_tag else ""
-            # 썸네일 없으면 placeholder (120x80)
-            thumbnail = thumb_img['src'] if thumb_img and thumb_img.has_attr('src') else "https://dummyimage.com/120x80/cccccc/ffffff&text=No+Image"
+                thumb = art.select_one("div.sa_thumb img")
+                if thumb:
+                    if thumb.has_attr("data-src"):
+                        thumbnail = thumb["data-src"]
+                    elif thumb.has_attr("data-lazy-src"):
+                        thumbnail = thumb["data-lazy-src"]
+                    elif thumb.has_attr("src"):
+                        thumbnail = thumb["src"]
+                    else:
+                        thumbnail = placeholder
+                else:
+                    thumbnail = placeholder
 
-            # 콘솔 출력 (참고용)
-            self.stdout.write(f"[{idx}] {title}")
-            self.stdout.write(f"    URL: {url}")
-            self.stdout.write(f"    요약: {lede}")
-            self.stdout.write(f"    언론사: {press}")
-            self.stdout.write(f"    작성일시: {date}")
-            self.stdout.write(f"    썸네일: {thumbnail}\n")
+                published_dt = parse_korean_datetime(raw_dt)
 
-            # 중복 방지: 전체 삭제 후 저장이므로 unique=True라도 아래만 필요
-            NewsItem.objects.create(
-                title=title,
-                url=url,
-                lede=lede,
-                press=press,
-                published_at=date,
-                thumbnail=thumbnail,
-            )
-            save_count += 1
+                try:
+                    obj, created = NewsItem.objects.update_or_create(
+                        url=link,
+                        defaults={
+                            'title': title,
+                            'lede': lede,
+                            'press': press,
+                            'published_at': published_dt,
+                            'thumbnail': thumbnail,
+                        }
+                    )
+                    if created:
+                        total_saved += 1
+                except IntegrityError:
+                    continue
 
-        self.stdout.write(self.style.SUCCESS(f"\n신규 저장된 기사 수: {save_count}개\n"))
+            self.stdout.write(self.style.SUCCESS(
+                f"[페이지 {page}] 저장 완료 (신규 누적: {total_saved}건)"
+            ))
+
+            # 페이지 옵션이 없으면 다음 페이지 순회
+            if options.get('page') is None:
+                page += 1
+            else:
+                break
+
+        self.stdout.write(self.style.SUCCESS(
+            f"크롤링 완료! 최종 저장된 기사 수: {total_saved}건"
+        ))
