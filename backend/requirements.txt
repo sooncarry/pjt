@@ -1,3 +1,4 @@
+APScheduler==3.11.0
 asgiref==3.8.1
 asttokens==2.4.1
 attrs==25.3.0
@@ -13,6 +14,7 @@ cycler==0.12.1
 debugpy==1.8.6
 decorator==5.1.1
 Django==4.2.21
+django-apscheduler==0.7.0
 django-cors-headers==4.7.0
 django-crontab==0.7.1
 djangorestframework==3.16.0
@@ -86,6 +88,7 @@ trio==0.30.0
 trio-websocket==0.12.2
 typing_extensions==4.13.2
 tzdata==2024.2
+tzlocal==5.3.1
 urllib3==2.4.0
 wcwidth==0.2.13
 webdriver-manager==4.0.2
