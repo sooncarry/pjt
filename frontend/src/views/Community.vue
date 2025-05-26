@@ -1,11 +1,14 @@
 <script setup>
-import { ref, watch, onMounted, computed } from 'vue'
+import { ref, watch, onMounted, computed, inject } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 
 const route = useRoute()
 const router = useRouter()
 const posts = ref([])
+
+const alertMsg = inject('alertMsg')
+const alertType = inject('alertType')
 
 const fetchPosts = async () => {
   const res = await axios.get('/api/boards/')
@@ -27,15 +30,33 @@ const categoryDisplayName = {
   free: '자유이야기방',
   worker: '직장인방',
 }
+
+// 글쓰기 버튼 클릭 시 로그인 여부 확인
+const handleWriteClick = () => {
+  const isLoggedIn = !!localStorage.getItem('access_token')
+  if (!isLoggedIn) {
+    alertMsg.value = '로그인이 필요합니다.'
+    alertType.value = 'danger'
+    
+    setTimeout(() => {
+      router.push('/login')
+    }, 3000)
+
+    return
+  }
+
+  const category = route.params.category || ''
+  router.push(`/community/create?category=${category}`)
+}
 </script>
 
 <template>
   <!-- 상단 배너 -->
-  <section class="bg-white py-5 border-bottom">
+  <section class="hero-section border-bottom">
     <div class="container">
-      <p class="text-primary fw-semibold mb-1" style="font-size: 0.9rem;">금융 소통 공간</p>
-      <h2 class="h3 fw-bold mb-2">👨‍👩‍👧‍👦 커뮤니티</h2>
-      <p class="text-muted">
+      <p class="text-primary fw-semibold mb-3">금융 소통 공간</p>
+      <h2 class="fw-bold mb-4">👨‍👩‍👧‍👦 커뮤니티</h2>
+      <p class="h4 text-muted">
         관심 분야가 비슷한 사람들과 정보를 공유하고 즐겁게 소통하세요.
       </p>
     </div>
@@ -96,12 +117,12 @@ const categoryDisplayName = {
           <h4 class="fw-semibold mb-0">
             {{ route.params.category ? categoryDisplayName[route.params.category] : '전체글' }}
           </h4>
-          <router-link
-            :to="`/community/create?category=${route.params.category || ''}`"
+          <button
+            @click="handleWriteClick"
             class="btn btn-primary btn-sm rounded-pill px-3"
           >
             글쓰기
-          </router-link>
+          </button>
         </div>
 
         <ul class="list-group">
@@ -124,4 +145,13 @@ const categoryDisplayName = {
 </template>
 
 <style scoped>
+.hero-section {
+  background-color: #D9D5FF;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 120px 0;
+}
+
 </style>
+

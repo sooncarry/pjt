@@ -129,6 +129,7 @@ const submitChecklist = async () => {
   alertMsg.value = `🎉 '${profileStore.title}'님, 환영합니다! 우리 부자됩시다 💰`
   alertType.value = 'success'
 
+  await new Promise(resolve => setTimeout(resolve, 2000))
   setTimeout(() => router.push('/mypage'), 2000)
 }
 </script>

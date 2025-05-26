@@ -147,9 +147,9 @@ def send_verification_email(request):
 
     user = User.objects.create(
         username=final_username,
+        name = name,
         email=email,
         is_active=False,
-        first_name=name
     )
     user.set_password(User.objects.make_random_password())
     user.save()
@@ -161,6 +161,7 @@ def send_verification_email(request):
 
     subject = '[부자되자] 이메일 인증 요청'
     message = render_to_string('email_verification.html', {
+        'name': user.name,
         'user': user,
         'activate_url': activate_url
     })

@@ -2,25 +2,25 @@
   <div class="container my-5 d-flex justify-content-center">
     <BaseAlert v-if="alertMsg" :message="alertMsg" :type="alertType" />
     <div class="card p-4 shadow-sm border-0 rounded-4" style="width: 100%; max-width: 600px">
-      <h1 class="h5 fw-bold mb-4 text-center">👤 회원가입</h1>
+      <h1 class="fw-bold mb-4 text-center">👤 회원가입</h1>
 
       <form @submit.prevent="handleSubmit" class="d-flex flex-column gap-3">
         <!-- 이름 -->
         <div>
           <label class="form-label">이름</label>
-          <input v-model="form.name" type="text" class="form-control form-control-sm" required />
+          <input v-model="form.name" type="text" class="form-control form-control-ml" required />
         </div>
 
         <!-- 아이디 -->
         <div>
           <label class="form-label">아이디</label>
           <div class="d-flex gap-2">
-            <input v-model="form.username" type="text" class="form-control form-control-sm" required />
+            <input v-model="form.username" type="text" class="form-control form-control-ml" required />
             <button
               type="button"
               class="btn btn-outline-secondary btn-sm"
               @click="checkUsername"
-              style="white-space: nowrap"
+              style="border-color: #ced4da; color: #495057; writing-mode: horizontal-tb; white-space: nowrap;"
             >
               중복 확인
             </button>
@@ -33,7 +33,7 @@
         <!-- 비밀번호 -->
         <div>
           <label class="form-label">비밀번호</label>
-          <input v-model="form.password" type="password" class="form-control form-control-sm" required />
+          <input v-model="form.password" type="password" class="form-control form-control-ml" required />
           <p
             class="small mt-1"
             :class="isPasswordValid ? 'text-success' : (form.password ? 'text-danger' : '')"
@@ -45,15 +45,20 @@
         <!-- 비밀번호 확인 -->
         <div>
           <label class="form-label">비밀번호 확인</label>
-          <input v-model="form.passwordConfirm" type="password" class="form-control form-control-sm" required />
+          <input v-model="form.passwordConfirm" type="password" class="form-control form-control-ml" required />
         </div>
 
         <!-- 이메일 -->
         <div>
           <label class="form-label">이메일</label>
           <div class="d-flex gap-2">
-            <input v-model="form.email" type="email" class="form-control form-control-sm" required />
-            <button type="button" class="btn btn-outline-secondary btn-sm" @click="sendEmailVerification">
+            <input v-model="form.email" type="email" class="form-control form-control-ml" required />
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-sm"
+              @click="sendEmailVerification"
+              style="border-color: #ced4da; color: #495057; writing-mode: horizontal-tb; white-space: nowrap;"
+            >
               인증
             </button>
           </div>
@@ -63,15 +68,15 @@
         <div>
           <label class="form-label">생년월일 <span class="text-muted small">(선택)</span></label>
           <div class="d-flex gap-2">
-            <select v-model="form.birthYear" class="form-select form-select-sm" required>
+            <select v-model="form.birthYear" class="form-select form-select-ml">
               <option disabled value="">년도</option>
               <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
             </select>
-            <select v-model="form.birthMonth" class="form-select form-select-sm" required>
+            <select v-model="form.birthMonth" class="form-select form-select-ml">
               <option disabled value="">월</option>
               <option v-for="month in 12" :key="month" :value="month">{{ month }}</option>
             </select>
-            <select v-model="form.birthDay" class="form-select form-select-sm" required>
+            <select v-model="form.birthDay" class="form-select form-select-ml">
               <option disabled value="">일</option>
               <option v-for="day in 31" :key="day" :value="day">{{ day }}</option>
             </select>
@@ -81,14 +86,14 @@
         <!-- 전화번호 -->
         <div>
           <label class="form-label">전화번호 <span class="text-muted small">(선택)</span></label>
-          <input v-model="form.phone" type="tel" class="form-control form-control-sm" />
+          <input v-model="form.phone" type="tel" class="form-control form-control-ml" />
         </div>
 
 
         <!-- 직업 -->
         <div>
           <label class="form-label">직업</label>
-          <select v-model="form.job" class="form-select form-select-sm">
+          <select v-model="form.job" class="form-select form-select-ml">
             <option disabled value="">선택하세요</option>
             <option>학생</option>
             <option>회사원</option>
@@ -236,6 +241,9 @@ const handleSubmit = async () => {
     alertType.value = 'danger'
     return
   }
+  const birth_date = (form.birthYear && form.birthMonth && form.birthDay)
+  ? `${form.birthYear}-${String(form.birthMonth).padStart(2, '0')}-${String(form.birthDay).padStart(2, '0')}`
+  : null
 
   const signupData = {
     name: form.name,
@@ -243,7 +251,7 @@ const handleSubmit = async () => {
     email: form.email,
     password: form.password,
     password_confirm: form.passwordConfirm,
-    birth_date: `${form.birthYear}-${String(form.birthMonth).padStart(2, '0')}-${String(form.birthDay).padStart(2, '0')}`,
+    birth_date: birth_date,
     phone_number: form.phone,
     job: form.job,
   }

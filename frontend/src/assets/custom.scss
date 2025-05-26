@@ -83,14 +83,17 @@ h3 {
 }
 
 // 버튼 등 주요 UI 글자도 통일
-button,
 input,
 select,
 textarea,
 .card-title,
-.nav-link,
-.btn {
+.nav-link {
   font-family: 'Cafe24Simplehae', 'Noto Sans KR', sans-serif;
   font-weight: 700;
   font-size: inherit; // body에 맞춰 감
+}
+
+button,
+.btn {
+  font-size: 900;
 }

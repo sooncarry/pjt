@@ -3,9 +3,16 @@
     <!-- 재무 성향 -->
     <div class="card p-4 mb-4 shadow-sm border-0 rounded-4">
       <h4 class="fw-bold mb-3">📊 나의 재무 성향</h4>
-      <div v-if="profileStore.checklistSubmitted">
-        <p class="mb-1"><strong>{{ profileStore.title }}</strong></p>
-        <p class="text-muted">소비 성향: {{ profileStore.spendingStyle }} / 저축 성향: {{ profileStore.savingStyle }}</p>
+      <div v-if="profileStore.checklistSubmitted" class="mb-2">
+        <div class="pt-3 bg-primary bg-opacity-10 border border-primary rounded-3 text-center">
+          <p class="mb-1 fw-bold text-primary fs-4">
+            🎯 {{ profileStore.title }}
+          </p>
+          <p class="text-muted">
+            소비 성향: <span class="fw-semibold">{{ profileStore.spendingStyle }}</span> /
+            저축 성향: <span class="fw-semibold">{{ profileStore.savingStyle }}</span>
+          </p>
+        </div>
       </div>
       <div v-else>
         <router-link to="/checklist" class="btn btn-outline-primary btn-sm rounded-pill">

@@ -1,11 +1,11 @@
 <template>
   <div class="stock-view">
     <!-- 📌 핀크 스타일 상단 설명 영역 -->
-    <section class="bg-white py-5 border-bottom">
+    <section class="hero-section border-bottom">
       <div class="container">
-        <p class="text-primary fw-semibold mb-1" style="font-size: 0.9rem;">주식 기초 정보</p>
-        <h2 class="h3 fw-bold mb-2">📈 주식 정보</h2>
-        <p class="text-muted">
+        <p class="text-primary fw-semibold mb-3">주식 기초 정보</p>
+        <h2 class="fw-bold mb-4">📈 주식 정보</h2>
+        <p class="h4 text-muted">
           주식 기초 지식을 배우고, 현물 상품 비교 및 관심 종목 정보를 조회해보세요.
         </p>
       </div>
@@ -72,3 +72,14 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.hero-section {
+  background-color: #D9D5FF;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 120px 0;
+}
+
+</style>

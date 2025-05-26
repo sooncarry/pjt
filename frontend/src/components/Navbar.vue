@@ -14,12 +14,12 @@
       <!-- 오른쪽 로그인/로그아웃 -->
       <div class="d-flex gap-3 align-items-center">
         <template v-if="isLoggedIn">
-          <RouterLink to="/mypage" class="btn btn-outline-primary btn-sm rounded-pill px-3">마이페이지</RouterLink>
-          <button class="btn btn-primary btn-sm rounded-pill px-3" @click="logout">로그아웃</button>
+          <RouterLink to="/mypage" class="btn btn-outline-primary btn-sm rounded-pill px-2">마이페이지</RouterLink>
+          <button class="btn btn-primary btn-sm rounded-pill px-2" @click="logout">로그아웃</button>
         </template>
         <template v-else>
-          <RouterLink to="/login" class="btn btn-outline-primary btn-sm rounded-pill px-3">로그인</RouterLink>
-          <RouterLink to="/signup" class="btn btn-primary btn-sm rounded-pill px-3">회원가입</RouterLink>
+          <RouterLink to="/login" class="btn btn-outline-primary btn-sm rounded-pill px-2">로그인</RouterLink>
+          <RouterLink to="/signup" class="btn btn-primary btn-sm rounded-pill px-2">회원가입</RouterLink>
         </template>
       </div>
     </div>

@@ -1,10 +1,10 @@
 <template>
   <div class="education-view">
     <!-- 📌 상단 설명 영역 -->
-    <section class="bg-white py-5 border-bottom">
+    <section class="hero-section border-bottom">
       <div class="container">
-        <p class="text-primary fw-semibold mb-1" style="font-size: 0.9rem;">금융 교육 콘텐츠</p>
-        <h2 class="h3 fw-bold mb-2">📘 금융 교육</h2>
+        <p class="text-primary fw-semibold mb-3">금융 교육 콘텐츠</p>
+        <h2 class="fw-bold mb-4">📘 금융 교육</h2>
         <p class="text-muted">
           금융 지식을 키우고 다양한 상품과 뉴스, 퀴즈를 통해 실력을 쌓아보세요.
         </p>
@@ -70,3 +70,14 @@ const activeTabComponent = computed(() => {
   }[activeTab.value]
 })
 </script>
+
+<style scoped>
+.hero-section {
+  background-color: #edeaff;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 120px 0;
+}
+
+</style>
