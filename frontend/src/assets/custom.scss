@@ -18,9 +18,9 @@ $secondary: #F1F3F5;
 $success: #00C471;
 $danger: #FF4D4F;
 
-$font-family-sans-serif: 'Cafe24Simplehae', 'Noto Sans KR', sans-serif;
-$headings-font-family: 'Cafe24Simplehae', 'Noto Sans KR', sans-serif;
-$headings-font-weight: 800;
+$font-family-sans-serif: 'SCDream6', 'Noto Sans KR', sans-serif;
+$headings-font-family: 'SCDream6', 'Noto Sans KR', sans-serif;
+$headings-font-weight: 500;
 $border-radius: 0.75rem;
 $input-padding-y: 0.5rem;
 $input-padding-x: 1rem;
@@ -30,8 +30,8 @@ $input-padding-x: 1rem;
 
 // === 기본 폰트 설정 ===
 body {
-  font-family: 'Cafe24Simplehae', sans-serif;
-  font-weight: bold;
+  font-family: 'SCDream6', sans-serif;
+  // font-weight: bold;
   font-size: 0.75rem; // 기본 16px
   line-height: 1.6;
   color: #212529;
@@ -88,12 +88,20 @@ select,
 textarea,
 .card-title,
 .nav-link {
-  font-family: 'Cafe24Simplehae', 'Noto Sans KR', sans-serif;
+  font-family: 'SCDream6', 'Noto Sans KR', sans-serif;
   font-weight: 700;
   font-size: inherit; // body에 맞춰 감
 }
 
 button,
 .btn {
-  font-size: 900;
+  font-size: 1.025rem;
+
+  @media (min-width: 768px) {
+    font-size: 1.05rem;
+  }
+
+  @media (min-width: 1200px) {
+    font-size: 1.25rem;
+  }
 }

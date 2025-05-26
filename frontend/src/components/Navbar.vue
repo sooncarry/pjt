@@ -2,13 +2,13 @@
   <nav class="navbar navbar-light bg-white border-bottom shadow-sm py-3">
     <div class="container d-flex justify-content-between align-items-center">
       <!-- 왼쪽 네비게이션 -->
-      <div class="d-flex gap-4">
-        <RouterLink to="/" class="nav-link fw-bold text-primary border border-primary rounded-pill px-3">티끌</RouterLink>
-        <RouterLink to="/finance" class="nav-link fw-semibold text-primary">금융</RouterLink>
-        <RouterLink to="/stock" class="nav-link fw-semibold text-primary">주식</RouterLink>
-        <RouterLink to="/education" class="nav-link fw-semibold text-primary">지식</RouterLink>
-        <RouterLink to="/saving" class="nav-link fw-semibold text-primary">저축</RouterLink>
-        <RouterLink to="/community" class="nav-link fw-semibold text-primary">커뮤니티</RouterLink>
+      <div class="d-flex gap-1">
+        <RouterLink to="/" class="nav-link fw-bold custom-nav-link border border-primary rounded-pill px-3">티끌</RouterLink>
+        <RouterLink to="/finance" class="nav-link fw-semibold custom-nav-link">금융</RouterLink>
+        <RouterLink to="/stock" class="nav-link fw-semibold custom-nav-link">주식</RouterLink>
+        <RouterLink to="/education" class="nav-link fw-semibold custom-nav-link">지식</RouterLink>
+        <RouterLink to="/saving" class="nav-link fw-semibold custom-nav-link">저축</RouterLink>
+        <RouterLink to="/community" class="nav-link fw-semibold custom-nav-link">커뮤니티</RouterLink>
       </div>
 
       <!-- 오른쪽 로그인/로그아웃 -->
@@ -26,11 +26,16 @@
   </nav>
 </template>
 
+
+
+
+
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const hover = ref(false)
 
 const isLoggedIn = computed(() => {
   return !!localStorage.getItem('access_token')
@@ -42,4 +47,25 @@ const logout = () => {
   router.push('/login')
   window.location.reload()
 }
+
 </script>
+
+<style scoped>
+.btn {
+  font-size: 1.025rem;
+}
+
+.custom-nav-link {
+  color: #5A45FF;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 1.5rem;
+  padding: 0.4rem 1rem;
+}
+
+.custom-nav-link:hover {
+  background-color: #5A45FF;
+  color: white;
+  text-decoration: none;
+}
+
+</style>

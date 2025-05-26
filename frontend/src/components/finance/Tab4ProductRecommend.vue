@@ -6,8 +6,11 @@
       나의 <strong>재무 성향</strong>과 <strong>소비 습관</strong>을 분석해, 안정형이라면 예금 중심, 공격형이라면 고금리 적금 중심으로!<br />
       불편한 조건의 상품은 자동 제외되어, 진짜 나에게 딱 맞는 금융상품을 추천받을 수 있습니다.
     </p>
+
+    <!-- 재무 성향 표시 -->
     <div v-if="userProfile" class="mt-4 mb-2 p-3 bg-light rounded-3">
       <p class="mb-1">
+        사용자 재무 성향 <br/>
         <strong class="text-primary">{{ userProfile.title }}</strong>
       </p>
       <p class="mb-0 text-muted small">
@@ -27,7 +30,7 @@
       </div>
     </div>
 
-    <!-- 연봉 입력 및 실수령 월급 -->
+    <!-- 연봉 입력 -->
     <div v-if="inputType === 'salary'" class="mb-3">
       <input
         v-model="formattedSalary"
@@ -117,9 +120,8 @@
   </div>
 </template>
 
-
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 
@@ -134,9 +136,28 @@ const productType = ref('all')
 const term = ref('')
 const recommendations = ref([])
 const fetched = ref(false)
-
 const userProfile = ref(null)
 
+// 프로필 불러오기 (초기 로드용)
+// onMounted(async () => {
+//   try {
+//     const profileRes = await axios.get('http://localhost:8000/api/finance/check-profile/')
+//     console.log('프로필 응답:', profileRes.data)
+//     if (profileRes.data.has_profile) {
+//       userProfile.value = profileRes.data.profile
+//       console.log('userProfile 값:', userProfile.value)
+//     }
+//   } catch (error) {
+//     if (error.response?.status === 401) {
+//       alert('로그인이 필요합니다.')
+//       router.push('/signin')
+//     } else {
+//       console.error('프로필 로드 실패:', error)
+//     }
+//   }
+// })
+
+// 숫자 형식 관련
 const salaryPlaceholder = computed(() => '연봉을 입력해주세요')
 const allowancePlaceholder = computed(() => '매달 사용하는 용돈을 입력해주세요')
 
@@ -186,7 +207,7 @@ const fetchRecommendations = async () => {
       return
     }
 
-    userProfile.value = profileRes.data.profile 
+    userProfile.value = profileRes.data.profile
 
     const params = new URLSearchParams({
       monthly_income: monthlyIncome.value,
@@ -210,23 +231,18 @@ const fetchRecommendations = async () => {
 }
 
 function calculateTax(income) {
-  if (income <= 14000000) return income * 0.06;
-  else if (income <= 50000000) return 840000 + (income - 14000000) * 0.15;
-  else if (income <= 88000000) return 6240000 + (income - 50000000) * 0.24;
-  else if (income <= 150000000) return 15360000 + (income - 88000000) * 0.35;
-  else if (income <= 300000000) return 37060000 + (income - 150000000) * 0.38;
-  else if (income <= 500000000) return 94060000 + (income - 300000000) * 0.40;
-  else if (income <= 1000000000) return 174060000 + (income - 500000000) * 0.42;
-  else return 384060000 + (income - 1000000000) * 0.45;
+  if (income <= 14000000) return income * 0.06
+  else if (income <= 50000000) return 840000 + (income - 14000000) * 0.15
+  else if (income <= 88000000) return 6240000 + (income - 50000000) * 0.24
+  else if (income <= 150000000) return 15360000 + (income - 88000000) * 0.35
+  else if (income <= 300000000) return 37060000 + (income - 150000000) * 0.38
+  else if (income <= 500000000) return 94060000 + (income - 300000000) * 0.40
+  else if (income <= 1000000000) return 174060000 + (income - 500000000) * 0.42
+  else return 384060000 + (income - 1000000000) * 0.45
 }
 </script>
 
 <style scoped>
-.input {
-  border: 1px solid #ccc;
-  padding: 4px 8px;
-  width: 100%;
-}
 .btn {
   background-color: #2563eb;
   color: white;

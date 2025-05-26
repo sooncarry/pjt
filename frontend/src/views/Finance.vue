@@ -4,7 +4,7 @@
     <!-- 상단 배너 -->
     <section class="hero-section border-bottom">
       <div class="container">
-        <p class="text-primary fw-semibold mb-3" style="font-size: 1.3rem;">금융 상품 소개</p>
+        <p class="text-primary fw-semibold mb-3">금융 상품 소개</p>
         <h2 class="fw-bold mb-4">🪙 금융 상품</h2>
         <p class="h4 text-muted">
           금융 상품에 대한 정보를 검색하고 맞춤형 상품을 추천받아보세요.
@@ -60,10 +60,10 @@ export default {
     return {
       activeTab: 'tab1',
       tabs: [
-        { key: 'tab1', label: '금융 상품 알아보기' },
+        { key: 'tab1', label: '맞춤형상품추천' },
         { key: 'tab2', label: '예금정보조회' },
         { key: 'tab3', label: '적금정보조회' },
-        { key: 'tab4', label: '맞춤형상품추천' },
+        // { key: 'tab4', label: '금융 상품 알아보기' },
         { key: 'tab5', label: '근처은행위치 조회' },
       ],
     }
@@ -71,10 +71,10 @@ export default {
   computed: {
     activeTabComponent() {
       return {
-        tab1: Tab1ProductIntro,
+        tab1: Tab4ProductRecommend,
         tab2: Tab2DepositInfo,
         tab3: Tab3SavingInfo,
-        tab4: Tab4ProductRecommend,
+        // tab4: Tab1ProductIntro,
         tab5: Tab5NearbyBanks,
       }[this.activeTab]
     },
@@ -82,13 +82,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .hero-section {
   background-color: #E6DEFF;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 120px 0;
+  padding: 100px 0; /* 기본 높이용 패딩 */
 }
 
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 40px 0;
+  }
+}
 </style>

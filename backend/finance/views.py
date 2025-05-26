@@ -222,17 +222,30 @@ class SavingProductData(APIView):
         return Response({"baseList": final_list}, status=status.HTTP_200_OK)
 
 
+from accounts.serializers import FinancialProfileSerializer  # 상단에 추가
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def check_financial_profile(request):
     try:
         profile = FinancialProfile.objects.get(user=request.user)
-        return Response({
-            "has_profile": profile.checklist_submitted,
-            **({"title": profile.title} if profile.checklist_submitted else {})
-        })
+        if profile.checklist_submitted:
+            serializer = FinancialProfileSerializer(profile)
+            return Response({
+                "has_profile": True,
+                "profile": serializer.data  # ✅ 핵심: 프론트에서 기대하는 구조
+            })
+        else:
+            return Response({
+                "has_profile": False,
+                "profile": None
+            })
     except FinancialProfile.DoesNotExist:
-        return Response({"has_profile": False})
+        return Response({
+            "has_profile": False,
+            "profile": None
+        })
+
 
 
 class RecommendProducts(APIView):
