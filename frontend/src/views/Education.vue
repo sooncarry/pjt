@@ -3,9 +3,9 @@
     <!-- 📌 상단 설명 영역 -->
     <section class="hero-section border-bottom">
       <div class="container">
-        <p class="text-primary fw-semibold mb-3">금융 교육 콘텐츠</p>
-        <h2 class="fw-bold mb-4">📘 금융 교육</h2>
-        <p class="text-muted">
+        <p class="text-primary fw-semibold mb-3">금융 지식 콘텐츠</p>
+        <h2 class="fw-bold mb-4">📘 금융 지식</h2>
+        <p class="h4 text-muted">
           금융 지식을 키우고 다양한 상품과 뉴스, 퀴즈를 통해 실력을 쌓아보세요.
         </p>
       </div>
@@ -14,7 +14,7 @@
     <!-- 경로 -->
     <div class="bg-light py-2 border-bottom text-muted text-sm">
       <div class="container">
-        홈 &gt; 금융 교육
+        홈 &gt; 지식
       </div>
     </div>
 
@@ -73,11 +73,20 @@ const activeTabComponent = computed(() => {
 
 <style scoped>
 .hero-section {
-  background-color: #edeaff;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 120px 0;
+  background-color: #f1efff;
+  padding: 100px 0; /* 기본 높이용 패딩 */
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 40px 0;
+  }
 }
 
 </style>

@@ -76,10 +76,18 @@ export default {
 <style scoped>
 .hero-section {
   background-color: #D9D5FF;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 120px 0;
+  padding: 100px 0; /* 기본 높이용 패딩 */
 }
 
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 40px 0;
+  }
+}
 </style>

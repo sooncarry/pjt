@@ -1,6 +1,19 @@
 <template>
   <div class="container my-4">
     <h2 class="fw-semibold mb-4">💡 맞춤형 상품 추천</h2>
+    <p class="text-muted mb-4">
+      단순히 금리만 높은 상품이 아닌, <strong>“나에게 얼마나 잘 맞는지”</strong>를 기준으로 추천해드려요. <br />
+      나의 <strong>재무 성향</strong>과 <strong>소비 습관</strong>을 분석해, 안정형이라면 예금 중심, 공격형이라면 고금리 적금 중심으로!<br />
+      불편한 조건의 상품은 자동 제외되어, 진짜 나에게 딱 맞는 금융상품을 추천받을 수 있습니다.
+    </p>
+    <div v-if="userProfile" class="mt-4 mb-2 p-3 bg-light rounded-3">
+      <p class="mb-1">
+        <strong class="text-primary">{{ userProfile.title }}</strong>
+      </p>
+      <p class="mb-0 text-muted small">
+        소비 성향: {{ userProfile.spending_style }} / 저축 성향: {{ userProfile.saving_style }}
+      </p>
+    </div>
 
     <!-- 입력 방식 선택 -->
     <div class="mb-3">
@@ -122,6 +135,8 @@ const term = ref('')
 const recommendations = ref([])
 const fetched = ref(false)
 
+const userProfile = ref(null)
+
 const salaryPlaceholder = computed(() => '연봉을 입력해주세요')
 const allowancePlaceholder = computed(() => '매달 사용하는 용돈을 입력해주세요')
 
@@ -170,6 +185,8 @@ const fetchRecommendations = async () => {
       router.push('/mypage')
       return
     }
+
+    userProfile.value = profileRes.data.profile 
 
     const params = new URLSearchParams({
       monthly_income: monthlyIncome.value,

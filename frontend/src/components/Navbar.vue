@@ -3,10 +3,10 @@
     <div class="container d-flex justify-content-between align-items-center">
       <!-- 왼쪽 네비게이션 -->
       <div class="d-flex gap-4">
-        <RouterLink to="/" class="nav-link fw-semibold text-primary">홈</RouterLink>
+        <RouterLink to="/" class="nav-link fw-bold text-primary border border-primary rounded-pill px-3">티끌</RouterLink>
         <RouterLink to="/finance" class="nav-link fw-semibold text-primary">금융</RouterLink>
         <RouterLink to="/stock" class="nav-link fw-semibold text-primary">주식</RouterLink>
-        <RouterLink to="/education" class="nav-link fw-semibold text-primary">금융 교육</RouterLink>
+        <RouterLink to="/education" class="nav-link fw-semibold text-primary">지식</RouterLink>
         <RouterLink to="/saving" class="nav-link fw-semibold text-primary">저축</RouterLink>
         <RouterLink to="/community" class="nav-link fw-semibold text-primary">커뮤니티</RouterLink>
       </div>
