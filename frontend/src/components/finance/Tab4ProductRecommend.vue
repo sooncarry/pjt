@@ -1,6 +1,6 @@
 <template>
   <div class="container my-4">
-    <h2 class="h5 fw-semibold mb-4">💡 맞춤형 상품 추천</h2>
+    <h2 class="fw-semibold mb-4">💡 맞춤형 상품 추천</h2>
 
     <!-- 입력 방식 선택 -->
     <div class="mb-3">

@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-4">
-    <h2 class="h5 fw-semibold mb-4">📄 정기예금 상품 목록</h2>
+    <h2 class="fw-semibold mb-4">📄 정기예금 상품 목록</h2>
 
     <!-- 데이터 있을 경우 -->
     <div v-if="!isLoading && products.length">
@@ -16,10 +16,10 @@
           </thead>
           <tbody>
             <tr v-for="item in products" :key="item.fin_prdt_cd">
-              <td>{{ item.kor_co_nm }}</td>
-              <td>{{ item.fin_prdt_nm }}</td>
-              <td>{{ item.join_way }}</td>
-              <td>{{ item.mtrt_int }}</td>
+              <td style="color: #444444; font-size: 1.2rem">{{ item.kor_co_nm }}</td>
+              <td style="color: #5a45ff; font-size: 1.2rem">{{ item.fin_prdt_nm }}</td>
+              <td style="color: #444444; font-size: 1.0rem">{{ item.join_way }}</td>
+              <td style="color: #444444; font-size: 1.0rem">{{ item.mtrt_int }}</td>
             </tr>
           </tbody>
         </table>

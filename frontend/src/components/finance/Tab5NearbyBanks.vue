@@ -1,6 +1,6 @@
 <template>
   <div class="container my-4">
-    <h2 class="h5 fw-semibold mb-4">📍 근처 은행 찾기</h2>
+    <h2 class="fw-semibold mb-4">📍 근처 은행 찾기</h2>
 
     <div class="row gy-2 align-items-end mb-4">
       <div class="col-md-3">

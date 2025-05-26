@@ -1,10 +1,14 @@
 <template>
   <div>
     <!-- 메인 헤더 영역 -->
-    <section class="text-white text-center py-5 shadow-sm" :style="{ background: `url(${bgImage}) no-repeat center / cover` }">
+    <section class="hero-section text-white text-center shadow-sm">
       <div class="container">
-        <h1 class="display-5 fw-bold mb-3">지금, 금융 습관을 바꾸세요</h1>
-        <p class="lead">차근차근 모으는 힘, 우리 함께해요</p>
+        <h1 class="display-5 fw-bold mb-3">지금, 티끌로 금융 습관을 바꿔보세요</h1>
+        <p class="lead">
+          <strong>티끌 모아 태산!</strong><br />
+          작은 습관 하나, 큰 변화의 시작이에요.<br />
+          우리의 금융 습관, 이제 슬쩍 교정해볼까요?
+        </p>
         <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
           <RouterLink to="/saving" class="btn btn-light btn-lg rounded-pill px-4 fw-semibold">
             💰 저축 챌린지 시작하기
@@ -15,6 +19,8 @@
         </div>
       </div>
     </section>
+
+
 
     <!-- 주요 서비스 안내 (이모지) -->
     <section class="container py-5">
@@ -43,7 +49,7 @@
       <div class="feature-row" :style="{ background: '#E6DEFF' }">
         <div class="container d-flex justify-content-between align-items-center flex-wrap py-5">
           <div>
-            <h4 class="fw-bold text-dark">금융상품 비교</h4>
+            <h3 class="fw-bold text-dark py-2">금융상품 비교</h3>
             <p class="text-dark mb-0">예금, 적금, 대출까지<br />나에게 딱 맞는 상품을 추천해드려요.</p>
           </div>
           <RouterLink to="/finance" class="btn btn-outline-dark rounded-pill px-4">바로가기</RouterLink>
@@ -54,7 +60,7 @@
       <div class="feature-row" :style="{ background: '#D9D5FF' }">
         <div class="container d-flex justify-content-between align-items-center flex-wrap py-5">
           <div>
-            <h4 class="fw-bold text-dark">주식 정보 탐색</h4>
+            <h3 class="fw-bold text-dark py-2">주식 정보 탐색</h3>
             <p class="text-dark mb-0">차근차근 배우고<br />종목도 쉽게 비교할 수 있어요.</p>
           </div>
           <RouterLink to="/stock" class="btn btn-outline-dark rounded-pill px-4">바로가기</RouterLink>
@@ -65,7 +71,7 @@
       <div class="feature-row" :style="{ background: '#F1F3F5' }">
         <div class="container d-flex justify-content-between align-items-center flex-wrap py-5">
           <div>
-            <h4 class="fw-bold">금융 교육 콘텐츠</h4>
+            <h3 class="fw-bold py-2">금융 교육 콘텐츠</h3>
             <p class="mb-0">기초 개념부터 퀴즈까지<br />재미있게 배우는 금융 지식!</p>
           </div>
           <RouterLink to="/education" class="btn btn-outline-dark rounded-pill px-4">바로가기</RouterLink>
@@ -76,7 +82,7 @@
       <div class="feature-row" :style="{ background: '#5a45ff' }">
         <div class="container d-flex justify-content-between align-items-center flex-wrap py-5 text-white" >
           <div>
-            <h4 class="fw-bold">저축 챌린지</h4>
+            <h3 class="fw-bold py-2">저축 챌린지</h3>
             <p class="mb-0">목표형 저축 습관을 만들고<br />달성해보세요.</p>
           </div>
           <RouterLink to="/saving" class="btn btn-outline-light rounded-pill px-4">바로가기</RouterLink>
@@ -87,7 +93,7 @@
       <div class="feature-row" :style="{ background: '#F1F3F5' }">
         <div class="container d-flex justify-content-between align-items-center flex-wrap py-5">
           <div>
-            <h4 class="fw-bold text-dark">커뮤니티</h4>
+            <h3 class="fw-bold text-dark py-2">커뮤니티</h3>
             <p class="text-dark mb-0">재테크 이야기부터 꿀팁까지<br />함께 나누고 성장해요.</p>
           </div>
           <RouterLink to="/community" class="btn btn-outline-dark rounded-pill px-4">바로가기</RouterLink>
@@ -98,15 +104,26 @@
 </template>
 
 <script setup>
-import bgImage from '@/assets/your_bg_image.png'
-import bg1 from '@/assets/lightpurple1.png'
-import bg2 from '@/assets/lightpurple2.png'
-import bg3 from '@/assets/green.png'
-import bg4 from '@/assets/lightgreen.png'
+
+
 </script>
 
 <style scoped>
 h1, h5 {
   font-family: 'Cafe24Simplehae', 'Noto Sans KR', sans-serif;
+}
+.hero-section {
+  background-image: url('@/assets/your_bg_image.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 120px 0;
+}
+
+/* 모바일 배경 이미지 */
+@media (max-width: 768px) {
+  .hero-section {
+    background-image: url('@/assets/your_bg_image_mobile.png');
+  }
 }
 </style>

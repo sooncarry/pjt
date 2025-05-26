@@ -32,16 +32,16 @@ $input-padding-x: 1rem;
 body {
   font-family: 'Cafe24Simplehae', sans-serif;
   font-weight: bold;
-  font-size: 1rem; // 기본 16px
+  font-size: 0.75rem; // 기본 16px
   line-height: 1.6;
   color: #212529;
   
   @media (min-width: 768px) {
-    font-size: 1.125rem; // 18px
+    font-size: 1.025rem; // 18px
   }
 
   @media (min-width: 1200px) {
-    font-size: 1.55rem; 
+    font-size: 1.35rem; 
   }
 }
 
@@ -83,9 +83,14 @@ h3 {
 }
 
 // 버튼 등 주요 UI 글자도 통일
-button, input, select, textarea {
-  font-family: 'Cafe24Simplehae', sans-serif;
-  font-weight: bold;
-  font-size: inherit;
+button,
+input,
+select,
+textarea,
+.card-title,
+.nav-link,
+.btn {
+  font-family: 'Cafe24Simplehae', 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size: inherit; // body에 맞춰 감
 }
-

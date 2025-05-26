@@ -2,11 +2,11 @@
   <div class="finance-view">
 
     <!-- 상단 배너 -->
-    <section class="bg-white py-5 border-bottom">
+    <section class="hero-section border-bottom">
       <div class="container">
-        <p class="text-primary fw-semibold mb-1" style="font-size: 0.9rem;">금융 상품 소개</p>
-        <h2 class="h3 fw-bold mb-2">🪙 금융 상품</h2>
-        <p class="text-muted">
+        <p class="text-primary fw-semibold mb-3" style="font-size: 1.3rem;">금융 상품 소개</p>
+        <h2 class="fw-bold mb-4">🪙 금융 상품</h2>
+        <p class="h4 text-muted">
           금융 상품에 대한 정보를 검색하고 맞춤형 상품을 추천받아보세요.
         </p>
       </div>
@@ -81,3 +81,14 @@ export default {
   },
 }
 </script>
+
+<style>
+.hero-section {
+  background-color: #E6DEFF;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 120px 0;
+}
+
+</style>
