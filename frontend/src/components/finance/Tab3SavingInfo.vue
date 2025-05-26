@@ -84,7 +84,6 @@
         <select
           v-model="filter.sortBy"
           class="form-select form-select-sm rounded-pill border me-2 w-auto"
-          style="min-width:5.5rem; white-space: nowrap;"
         >
           <option value="kor_co_nm">은행명</option>
           <option value="basicRate">기본금리</option>
@@ -93,7 +92,6 @@
         <select
           v-model="filter.sortOrder"
           class="form-select form-select-sm rounded-pill border me-3 w-auto"
-          style="min-width:5.5rem; white-space: nowrap;"
         >
           <option value="asc">오름차순</option>
           <option value="desc">내림차순</option>
@@ -121,15 +119,14 @@
 
       <!-- 데이터 테이블 -->
       <div v-else-if="products.length" class="table-responsive">
-        <table class="table table-bordered align-middle">
+        <table class="table table-bordered align-top">
           <thead class="table-light text-center">
             <tr>
               <th>은행명</th>
               <th>상품명</th>
               <th>가입방법</th>
-              <th>
-                만기 후 이자율<br/>
-                <small>(우대 / 기본)</small>
+              <th style="min-width:200px;">
+                만기 후 이자율<br/><small>(안내 문구)</small>
               </th>
             </tr>
           </thead>
@@ -145,26 +142,26 @@
                   {{ item.fin_prdt_nm }}
                 </td>
                 <td class="text-center">{{ item.join_way }}</td>
-                <td class="text-center">
-                  <div>
-                    <strong>{{ item.intr_rate2 ?? item.intr_rate }}%</strong>
-                  </div>
-                  <div style="font-size:.75rem; color:#666;">
-                    (기본 {{ item.intr_rate ?? '-' }}%)
-                  </div>
+                <td style="white-space: pre-wrap; line-height:1.4;">
+                  {{ item.mtrt_int }}
                 </td>
               </tr>
+              <!-- 🎯 토글 상세정보 (수정된 부분) -->
               <tr v-if="expanded[item.fin_prdt_cd]">
                 <td colspan="4" class="bg-light text-start">
                   <ul class="mb-0 py-2 px-3">
-                    <li
-                      v-for="key in detailFields"
-                      :key="key"
-                      v-if="item[key] !== undefined && item[key] !== ''"
-                    >
-                      <strong>{{ detailLabels[key] }}:</strong>
-                      <span>{{ item[key] }}</span>
+                    <li><strong>상품 코드:</strong> {{ item.fin_prdt_cd }}</li>
+                    <li><strong>공시월:</strong> {{ item.dcls_month }}</li>
+                    <li><strong>계약 기간:</strong> {{ item.save_trm }}개월</li>
+                    <li><strong>이자 종류:</strong> {{ item.intr_rate_type_nm }}</li>
+                    <li><strong>기본 금리:</strong> {{ item.intr_rate }}%</li>
+                    <li><strong>우대 금리:</strong> {{ item.intr_rate2 }}%</li>
+                    <li v-if="item.spcl_cnd"><strong>우대 조건:</strong> {{ item.spcl_cnd }}</li>
+                    <li v-if="item.join_member"><strong>가입 대상:</strong> {{ item.join_member }}</li>
+                    <li v-if="item.max_limit !== null">
+                      <strong>최대 한도:</strong> {{ item.max_limit.toLocaleString() }}원
                     </li>
+                    <li v-if="item.etc_note"><strong>기타 안내:</strong> {{ item.etc_note }}</li>
                   </ul>
                 </td>
               </tr>
@@ -190,6 +187,11 @@ import axios from 'axios'
 import qs from 'qs'
 import BaseAlert from '@/components/BaseAlert.vue'
 
+const products = ref([])
+const isLoading = ref(false)
+const showResults = ref(false)
+const expanded = reactive({})
+
 // 필터 상태
 const filter = reactive({
   banks: [],
@@ -200,10 +202,6 @@ const filter = reactive({
   sortOrder: 'asc'
 })
 const allBanksSelected = ref(false)
-const products = ref([])
-const isLoading = ref(false)
-const showResults = ref(false)
-const expanded = reactive({})
 
 // 옵션 데이터
 const banks = [
@@ -230,27 +228,10 @@ const joinWays = [
   { label: '전체', value: '' },
   { label: '영업점', value: '영업점' },
   { label: '인터넷', value: '인터넷' },
-  { label: '스마트폰', value: '스마트폰' },
+  { label: '스마트폰', value: '스마트' },
   { label: '전화', value: '전화' },
   { label: '기타', value: '기타' }
 ]
-
-// 상세 필드 & 레이블
-const detailFields = [
-  'save_trm','intr_rate_type_nm','spcl_cnd','join_member',
-  'join_deny','max_limit','dcls_strt_day','dcls_end_day','etc_note'
-]
-const detailLabels = {
-  save_trm:          '만기(개월)',
-  intr_rate_type_nm: '이자종류',
-  spcl_cnd:          '우대조건',
-  join_member:       '가입대상',
-  join_deny:         '가입제한',
-  max_limit:         '최대한도',
-  dcls_strt_day:     '공시시작일',
-  dcls_end_day:      '공시종료일',
-  etc_note:          '설명'
-}
 
 // 전체 토글
 watch(allBanksSelected, v => filter.banks = v ? [...banks] : [])
@@ -264,7 +245,7 @@ function toggleRow(code) {
   expanded[code] = !expanded[code]
 }
 
-// API 호출 + 필터/정렬
+// API 호출 (SavingProducts 탭과 거의 동일)
 async function fetchSavings(params = {}) {
   isLoading.value = true
   try {
@@ -278,7 +259,6 @@ async function fetchSavings(params = {}) {
   }
 }
 
-// 검색 & 전체보기
 async function onSearch() {
   showResults.value = true
   Object.keys(expanded).forEach(k => delete expanded[k])
@@ -286,8 +266,8 @@ async function onSearch() {
 }
 async function onShowAll() {
   Object.assign(filter, {
-    banks: [], calcType: '', term: '', joinWay: '',
-    sortBy: 'kor_co_nm', sortOrder: 'asc'
+    banks: [], calcType:'', term:'', joinWay:'',
+    sortBy:'kor_co_nm', sortOrder:'asc'
   })
   allBanksSelected.value = false
   showResults.value = true
@@ -295,7 +275,7 @@ async function onShowAll() {
   products.value = await fetchSavings({})
 }
 
-// 초기 로드 (결과 숨김)
+// 초기 로드 숨김
 fetchSavings({}).then(() => {})
 </script>
 
