@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'education.apps.EducationConfig',
     'savings',
     'stock',
-    'boards',
+    'boards.apps.BoardsConfig',
     'finance',
     'rest_framework',
     'corsheaders',

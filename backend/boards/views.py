@@ -3,15 +3,20 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 class PostListCreateView(generics.ListCreateAPIView):
     queryset = Post.objects.all().order_by('-created_at')
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
-
+        
 class PostRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer

@@ -1,0 +1,1302 @@
+[
+    {
+        "model": "boards.post",
+        "pk": 1,
+        "fields": {
+            "title": "LG화학 배터리 사업 전망",
+            "content": "LG화학의 배터리 부문이 앞으로 어떻게 성장할지 투자 포인트가 궁금합니다.",
+            "category": "stock",
+            "author": "4",
+            "created_at": "2025-05-03T17:07:12.801564",
+            "updated_at": "2025-05-26T17:07:12.801596",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 2,
+        "fields": {
+            "title": "네이버 vs 카카오, 어떤 플랫폼이 더 유망할까요?",
+            "content": "메타버스 사업 확대 측면에서 두 기업 중 어디가 좋을지 고민입니다.",
+            "category": "stock",
+            "author": "1",
+            "created_at": "2025-05-22T17:07:12.801609",
+            "updated_at": "2025-05-26T17:07:12.801619",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 3,
+        "fields": {
+            "title": "삼성전자 주가 전망 어떠세요?",
+            "content": "반도체 업황이 개선된다고 하는데 삼성전자 주식 계속 가져가도 될까요? 의견 나눠주세요.",
+            "category": "stock",
+            "author": "5",
+            "created_at": "2025-05-20T17:07:12.801627",
+            "updated_at": "2025-05-26T17:07:12.801635",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 4,
+        "fields": {
+            "title": "삼성전자 주가 전망 어떠세요?",
+            "content": "반도체 업황이 개선된다고 하는데 삼성전자 주식 계속 가져가도 될까요? 의견 나눠주세요.",
+            "category": "stock",
+            "author": "4",
+            "created_at": "2025-05-13T17:07:12.801642",
+            "updated_at": "2025-05-26T17:07:12.801650",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 5,
+        "fields": {
+            "title": "LG화학 배터리 사업 전망",
+            "content": "LG화학의 배터리 부문이 앞으로 어떻게 성장할지 투자 포인트가 궁금합니다.",
+            "category": "stock",
+            "author": "3",
+            "created_at": "2025-05-20T17:07:12.801657",
+            "updated_at": "2025-05-26T17:07:12.801665",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 6,
+        "fields": {
+            "title": "삼성전자 주가 전망 어떠세요?",
+            "content": "반도체 업황이 개선된다고 하는데 삼성전자 주식 계속 가져가도 될까요? 의견 나눠주세요.",
+            "category": "stock",
+            "author": "5",
+            "created_at": "2025-05-17T17:07:12.801673",
+            "updated_at": "2025-05-26T17:07:12.801680",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 7,
+        "fields": {
+            "title": "LG화학 배터리 사업 전망",
+            "content": "LG화학의 배터리 부문이 앞으로 어떻게 성장할지 투자 포인트가 궁금합니다.",
+            "category": "stock",
+            "author": "1",
+            "created_at": "2025-05-09T17:07:12.801688",
+            "updated_at": "2025-05-26T17:07:12.801696",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 8,
+        "fields": {
+            "title": "삼성전자 주가 전망 어떠세요?",
+            "content": "반도체 업황이 개선된다고 하는데 삼성전자 주식 계속 가져가도 될까요? 의견 나눠주세요.",
+            "category": "stock",
+            "author": "2",
+            "created_at": "2025-05-08T17:07:12.801707",
+            "updated_at": "2025-05-26T17:07:12.801721",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 9,
+        "fields": {
+            "title": "네이버 vs 카카오, 어떤 플랫폼이 더 유망할까요?",
+            "content": "메타버스 사업 확대 측면에서 두 기업 중 어디가 좋을지 고민입니다.",
+            "category": "stock",
+            "author": "5",
+            "created_at": "2025-05-18T17:07:12.801729",
+            "updated_at": "2025-05-26T17:07:12.801737",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 10,
+        "fields": {
+            "title": "SK하이닉스, 지금 투자 괜찮을까요?",
+            "content": "DDR5 수요가 늘어난다고 해서 관심이 갑니다. 여러분 생각은 어떠세요?",
+            "category": "stock",
+            "author": "2",
+            "created_at": "2025-05-24T17:07:12.801746",
+            "updated_at": "2025-05-26T17:07:12.801754",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 11,
+        "fields": {
+            "title": "현대차 전기차 전략 어떻게 보세요?",
+            "content": "아이오닉 시리즈가 테슬라와 경쟁할 수 있을까요?",
+            "category": "stock",
+            "author": "5",
+            "created_at": "2025-04-28T17:07:12.801762",
+            "updated_at": "2025-05-26T17:07:12.801770",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 12,
+        "fields": {
+            "title": "네이버 vs 카카오, 어떤 플랫폼이 더 유망할까요?",
+            "content": "메타버스 사업 확대 측면에서 두 기업 중 어디가 좋을지 고민입니다.",
+            "category": "stock",
+            "author": "5",
+            "created_at": "2025-05-02T17:07:12.801777",
+            "updated_at": "2025-05-26T17:07:12.801804",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 13,
+        "fields": {
+            "title": "현대차 전기차 전략 어떻게 보세요?",
+            "content": "아이오닉 시리즈가 테슬라와 경쟁할 수 있을까요?",
+            "category": "stock",
+            "author": "2",
+            "created_at": "2025-05-26T17:07:12.801815",
+            "updated_at": "2025-05-26T17:07:12.801824",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 14,
+        "fields": {
+            "title": "네이버 vs 카카오, 어떤 플랫폼이 더 유망할까요?",
+            "content": "메타버스 사업 확대 측면에서 두 기업 중 어디가 좋을지 고민입니다.",
+            "category": "stock",
+            "author": "5",
+            "created_at": "2025-05-25T17:07:12.801831",
+            "updated_at": "2025-05-26T17:07:12.801838",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 15,
+        "fields": {
+            "title": "SK하이닉스, 지금 투자 괜찮을까요?",
+            "content": "DDR5 수요가 늘어난다고 해서 관심이 갑니다. 여러분 생각은 어떠세요?",
+            "category": "stock",
+            "author": "4",
+            "created_at": "2025-05-15T17:07:12.801846",
+            "updated_at": "2025-05-26T17:07:12.801853",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 16,
+        "fields": {
+            "title": "LG화학 배터리 사업 전망",
+            "content": "LG화학의 배터리 부문이 앞으로 어떻게 성장할지 투자 포인트가 궁금합니다.",
+            "category": "stock",
+            "author": "5",
+            "created_at": "2025-05-21T17:07:12.801860",
+            "updated_at": "2025-05-26T17:07:12.801867",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 17,
+        "fields": {
+            "title": "현대차 전기차 전략 어떻게 보세요?",
+            "content": "아이오닉 시리즈가 테슬라와 경쟁할 수 있을까요?",
+            "category": "stock",
+            "author": "2",
+            "created_at": "2025-05-04T17:07:12.801874",
+            "updated_at": "2025-05-26T17:07:12.801881",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 18,
+        "fields": {
+            "title": "네이버 vs 카카오, 어떤 플랫폼이 더 유망할까요?",
+            "content": "메타버스 사업 확대 측면에서 두 기업 중 어디가 좋을지 고민입니다.",
+            "category": "stock",
+            "author": "3",
+            "created_at": "2025-05-01T17:07:12.801893",
+            "updated_at": "2025-05-26T17:07:12.801902",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 19,
+        "fields": {
+            "title": "LG화학 배터리 사업 전망",
+            "content": "LG화학의 배터리 부문이 앞으로 어떻게 성장할지 투자 포인트가 궁금합니다.",
+            "category": "stock",
+            "author": "1",
+            "created_at": "2025-05-20T17:07:12.801909",
+            "updated_at": "2025-05-26T17:07:12.801917",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 20,
+        "fields": {
+            "title": "현대차 전기차 전략 어떻게 보세요?",
+            "content": "아이오닉 시리즈가 테슬라와 경쟁할 수 있을까요?",
+            "category": "stock",
+            "author": "1",
+            "created_at": "2025-05-21T17:07:12.801924",
+            "updated_at": "2025-05-26T17:07:12.801931",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 21,
+        "fields": {
+            "title": "요즘 정기예금 금리 제일 좋은 은행 어디인가요?",
+            "content": "최근에 금리 높게 준다는 은행 추천 부탁드립니다!",
+            "category": "deposit",
+            "author": "3",
+            "created_at": "2025-05-21T17:07:12.801941",
+            "updated_at": "2025-05-26T17:07:12.801948",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 22,
+        "fields": {
+            "title": "예금할 때 우대금리 받는 팁 있나요?",
+            "content": "은행에서 우대금리 혜택받기 위한 팁 공유해주세요!",
+            "category": "deposit",
+            "author": "5",
+            "created_at": "2025-04-29T17:07:12.801955",
+            "updated_at": "2025-05-26T17:07:12.801963",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 23,
+        "fields": {
+            "title": "예금할 때 우대금리 받는 팁 있나요?",
+            "content": "은행에서 우대금리 혜택받기 위한 팁 공유해주세요!",
+            "category": "deposit",
+            "author": "3",
+            "created_at": "2025-05-22T17:07:12.801970",
+            "updated_at": "2025-05-26T17:07:12.801978",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 24,
+        "fields": {
+            "title": "인터넷은행 예금, 안전할까요?",
+            "content": "카카오뱅크나 케이뱅크 같은 인터넷은행 예금이 괜찮은지 고민입니다.",
+            "category": "deposit",
+            "author": "4",
+            "created_at": "2025-05-08T17:07:12.801985",
+            "updated_at": "2025-05-26T17:07:12.801992",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 25,
+        "fields": {
+            "title": "인터넷은행 예금, 안전할까요?",
+            "content": "카카오뱅크나 케이뱅크 같은 인터넷은행 예금이 괜찮은지 고민입니다.",
+            "category": "deposit",
+            "author": "2",
+            "created_at": "2025-05-15T17:07:12.801999",
+            "updated_at": "2025-05-26T17:07:12.802007",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 26,
+        "fields": {
+            "title": "인터넷은행 예금, 안전할까요?",
+            "content": "카카오뱅크나 케이뱅크 같은 인터넷은행 예금이 괜찮은지 고민입니다.",
+            "category": "deposit",
+            "author": "5",
+            "created_at": "2025-05-22T17:07:12.802014",
+            "updated_at": "2025-05-26T17:07:12.802021",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 27,
+        "fields": {
+            "title": "예금할 때 우대금리 받는 팁 있나요?",
+            "content": "은행에서 우대금리 혜택받기 위한 팁 공유해주세요!",
+            "category": "deposit",
+            "author": "2",
+            "created_at": "2025-04-28T17:07:12.802028",
+            "updated_at": "2025-05-26T17:07:12.802035",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 28,
+        "fields": {
+            "title": "예금할 때 우대금리 받는 팁 있나요?",
+            "content": "은행에서 우대금리 혜택받기 위한 팁 공유해주세요!",
+            "category": "deposit",
+            "author": "1",
+            "created_at": "2025-05-06T17:07:12.802043",
+            "updated_at": "2025-05-26T17:07:12.802051",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 29,
+        "fields": {
+            "title": "단기 예금상품 추천해주세요",
+            "content": "3개월에서 6개월 정도로 예금하려는데 어떤 상품이 좋은가요?",
+            "category": "deposit",
+            "author": "1",
+            "created_at": "2025-05-10T17:07:12.802059",
+            "updated_at": "2025-05-26T17:07:12.802066",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 30,
+        "fields": {
+            "title": "인터넷은행 예금, 안전할까요?",
+            "content": "카카오뱅크나 케이뱅크 같은 인터넷은행 예금이 괜찮은지 고민입니다.",
+            "category": "deposit",
+            "author": "1",
+            "created_at": "2025-04-27T17:07:12.802074",
+            "updated_at": "2025-05-26T17:07:12.802082",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 31,
+        "fields": {
+            "title": "인터넷은행 예금, 안전할까요?",
+            "content": "카카오뱅크나 케이뱅크 같은 인터넷은행 예금이 괜찮은지 고민입니다.",
+            "category": "deposit",
+            "author": "4",
+            "created_at": "2025-05-20T17:07:12.802090",
+            "updated_at": "2025-05-26T17:07:12.802097",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 32,
+        "fields": {
+            "title": "단기 예금상품 추천해주세요",
+            "content": "3개월에서 6개월 정도로 예금하려는데 어떤 상품이 좋은가요?",
+            "category": "deposit",
+            "author": "1",
+            "created_at": "2025-05-09T17:07:12.802104",
+            "updated_at": "2025-05-26T17:07:12.802215",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 33,
+        "fields": {
+            "title": "요즘 정기예금 금리 제일 좋은 은행 어디인가요?",
+            "content": "최근에 금리 높게 준다는 은행 추천 부탁드립니다!",
+            "category": "deposit",
+            "author": "2",
+            "created_at": "2025-05-06T17:07:12.802236",
+            "updated_at": "2025-05-26T17:07:12.802248",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 34,
+        "fields": {
+            "title": "요즘 정기예금 금리 제일 좋은 은행 어디인가요?",
+            "content": "최근에 금리 높게 준다는 은행 추천 부탁드립니다!",
+            "category": "deposit",
+            "author": "5",
+            "created_at": "2025-05-26T17:07:12.802257",
+            "updated_at": "2025-05-26T17:07:12.802265",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 35,
+        "fields": {
+            "title": "인터넷은행 예금, 안전할까요?",
+            "content": "카카오뱅크나 케이뱅크 같은 인터넷은행 예금이 괜찮은지 고민입니다.",
+            "category": "deposit",
+            "author": "5",
+            "created_at": "2025-05-02T17:07:12.802273",
+            "updated_at": "2025-05-26T17:07:12.802280",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 36,
+        "fields": {
+            "title": "인터넷은행 예금, 안전할까요?",
+            "content": "카카오뱅크나 케이뱅크 같은 인터넷은행 예금이 괜찮은지 고민입니다.",
+            "category": "deposit",
+            "author": "1",
+            "created_at": "2025-05-06T17:07:12.802305",
+            "updated_at": "2025-05-26T17:07:12.802314",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 37,
+        "fields": {
+            "title": "단기 예금상품 추천해주세요",
+            "content": "3개월에서 6개월 정도로 예금하려는데 어떤 상품이 좋은가요?",
+            "category": "deposit",
+            "author": "3",
+            "created_at": "2025-05-23T17:07:12.802321",
+            "updated_at": "2025-05-26T17:07:12.802333",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 38,
+        "fields": {
+            "title": "인터넷은행 예금, 안전할까요?",
+            "content": "카카오뱅크나 케이뱅크 같은 인터넷은행 예금이 괜찮은지 고민입니다.",
+            "category": "deposit",
+            "author": "4",
+            "created_at": "2025-04-30T17:07:12.802341",
+            "updated_at": "2025-05-26T17:07:12.802349",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 39,
+        "fields": {
+            "title": "예금할 때 우대금리 받는 팁 있나요?",
+            "content": "은행에서 우대금리 혜택받기 위한 팁 공유해주세요!",
+            "category": "deposit",
+            "author": "5",
+            "created_at": "2025-05-25T17:07:12.802356",
+            "updated_at": "2025-05-26T17:07:12.802364",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 40,
+        "fields": {
+            "title": "예금할 때 우대금리 받는 팁 있나요?",
+            "content": "은행에서 우대금리 혜택받기 위한 팁 공유해주세요!",
+            "category": "deposit",
+            "author": "2",
+            "created_at": "2025-05-06T17:07:12.802372",
+            "updated_at": "2025-05-26T17:07:12.802379",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 41,
+        "fields": {
+            "title": "매달 50만원씩 저축, 추천하는 방법 있나요?",
+            "content": "효율적으로 목돈 만들기 위한 저축 방법 좀 알려주세요.",
+            "category": "saving",
+            "author": "3",
+            "created_at": "2025-05-02T17:07:12.802389",
+            "updated_at": "2025-05-26T17:07:12.802396",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 42,
+        "fields": {
+            "title": "연금저축펀드 가입할만한가요?",
+            "content": "노후 준비를 위해 연금저축펀드 고민중인데, 수익률 괜찮은 편인가요?",
+            "category": "saving",
+            "author": "2",
+            "created_at": "2025-05-06T17:07:12.802404",
+            "updated_at": "2025-05-26T17:07:12.802410",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 43,
+        "fields": {
+            "title": "사회초년생 저축 금액 얼마가 적당할까요?",
+            "content": "첫 직장에서 얼마정도 저축하는 게 현실적일까요?",
+            "category": "saving",
+            "author": "4",
+            "created_at": "2025-05-20T17:07:12.802418",
+            "updated_at": "2025-05-26T17:07:12.802432",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 44,
+        "fields": {
+            "title": "청년우대형 청약통장 가입 조건 궁금합니다",
+            "content": "청년우대형 청약통장 가입 조건이나 혜택 잘 아시는 분 있나요?",
+            "category": "saving",
+            "author": "4",
+            "created_at": "2025-05-04T17:07:12.802439",
+            "updated_at": "2025-05-26T17:07:12.802446",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 45,
+        "fields": {
+            "title": "저축습관 들이는 방법 좀 알려주세요",
+            "content": "자꾸 저축에 실패하는데 좋은 습관 들이는 방법 없을까요?",
+            "category": "saving",
+            "author": "2",
+            "created_at": "2025-05-15T17:07:12.802454",
+            "updated_at": "2025-05-26T17:07:12.802461",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 46,
+        "fields": {
+            "title": "청년우대형 청약통장 가입 조건 궁금합니다",
+            "content": "청년우대형 청약통장 가입 조건이나 혜택 잘 아시는 분 있나요?",
+            "category": "saving",
+            "author": "2",
+            "created_at": "2025-04-30T17:07:12.802468",
+            "updated_at": "2025-05-26T17:07:12.802475",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 47,
+        "fields": {
+            "title": "연금저축펀드 가입할만한가요?",
+            "content": "노후 준비를 위해 연금저축펀드 고민중인데, 수익률 괜찮은 편인가요?",
+            "category": "saving",
+            "author": "2",
+            "created_at": "2025-05-08T17:07:12.802482",
+            "updated_at": "2025-05-26T17:07:12.802490",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 48,
+        "fields": {
+            "title": "저축습관 들이는 방법 좀 알려주세요",
+            "content": "자꾸 저축에 실패하는데 좋은 습관 들이는 방법 없을까요?",
+            "category": "saving",
+            "author": "2",
+            "created_at": "2025-05-16T17:07:12.802497",
+            "updated_at": "2025-05-26T17:07:12.802504",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 49,
+        "fields": {
+            "title": "매달 50만원씩 저축, 추천하는 방법 있나요?",
+            "content": "효율적으로 목돈 만들기 위한 저축 방법 좀 알려주세요.",
+            "category": "saving",
+            "author": "3",
+            "created_at": "2025-05-06T17:07:12.802510",
+            "updated_at": "2025-05-26T17:07:12.802518",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 50,
+        "fields": {
+            "title": "매달 50만원씩 저축, 추천하는 방법 있나요?",
+            "content": "효율적으로 목돈 만들기 위한 저축 방법 좀 알려주세요.",
+            "category": "saving",
+            "author": "4",
+            "created_at": "2025-05-13T17:07:12.802525",
+            "updated_at": "2025-05-26T17:07:12.802535",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 51,
+        "fields": {
+            "title": "사회초년생 저축 금액 얼마가 적당할까요?",
+            "content": "첫 직장에서 얼마정도 저축하는 게 현실적일까요?",
+            "category": "saving",
+            "author": "4",
+            "created_at": "2025-05-20T17:07:12.802542",
+            "updated_at": "2025-05-26T17:07:12.802550",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 52,
+        "fields": {
+            "title": "사회초년생 저축 금액 얼마가 적당할까요?",
+            "content": "첫 직장에서 얼마정도 저축하는 게 현실적일까요?",
+            "category": "saving",
+            "author": "1",
+            "created_at": "2025-05-06T17:07:12.802557",
+            "updated_at": "2025-05-26T17:07:12.802564",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 53,
+        "fields": {
+            "title": "저축습관 들이는 방법 좀 알려주세요",
+            "content": "자꾸 저축에 실패하는데 좋은 습관 들이는 방법 없을까요?",
+            "category": "saving",
+            "author": "3",
+            "created_at": "2025-05-02T17:07:12.802571",
+            "updated_at": "2025-05-26T17:07:12.802578",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 54,
+        "fields": {
+            "title": "저축습관 들이는 방법 좀 알려주세요",
+            "content": "자꾸 저축에 실패하는데 좋은 습관 들이는 방법 없을까요?",
+            "category": "saving",
+            "author": "1",
+            "created_at": "2025-05-06T17:07:12.802607",
+            "updated_at": "2025-05-26T17:07:12.802616",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 55,
+        "fields": {
+            "title": "사회초년생 저축 금액 얼마가 적당할까요?",
+            "content": "첫 직장에서 얼마정도 저축하는 게 현실적일까요?",
+            "category": "saving",
+            "author": "4",
+            "created_at": "2025-04-29T17:07:12.802624",
+            "updated_at": "2025-05-26T17:07:12.802631",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 56,
+        "fields": {
+            "title": "매달 50만원씩 저축, 추천하는 방법 있나요?",
+            "content": "효율적으로 목돈 만들기 위한 저축 방법 좀 알려주세요.",
+            "category": "saving",
+            "author": "4",
+            "created_at": "2025-04-30T17:07:12.802639",
+            "updated_at": "2025-05-26T17:07:12.802646",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 57,
+        "fields": {
+            "title": "사회초년생 저축 금액 얼마가 적당할까요?",
+            "content": "첫 직장에서 얼마정도 저축하는 게 현실적일까요?",
+            "category": "saving",
+            "author": "5",
+            "created_at": "2025-05-05T17:07:12.802652",
+            "updated_at": "2025-05-26T17:07:12.802660",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 58,
+        "fields": {
+            "title": "연금저축펀드 가입할만한가요?",
+            "content": "노후 준비를 위해 연금저축펀드 고민중인데, 수익률 괜찮은 편인가요?",
+            "category": "saving",
+            "author": "4",
+            "created_at": "2025-05-20T17:07:12.802666",
+            "updated_at": "2025-05-26T17:07:12.802675",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 59,
+        "fields": {
+            "title": "연금저축펀드 가입할만한가요?",
+            "content": "노후 준비를 위해 연금저축펀드 고민중인데, 수익률 괜찮은 편인가요?",
+            "category": "saving",
+            "author": "3",
+            "created_at": "2025-05-18T17:07:12.802682",
+            "updated_at": "2025-05-26T17:07:12.802689",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 60,
+        "fields": {
+            "title": "매달 50만원씩 저축, 추천하는 방법 있나요?",
+            "content": "효율적으로 목돈 만들기 위한 저축 방법 좀 알려주세요.",
+            "category": "saving",
+            "author": "3",
+            "created_at": "2025-05-13T17:07:12.802696",
+            "updated_at": "2025-05-26T17:07:12.802703",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 61,
+        "fields": {
+            "title": "주말에 가볼만한 카페 알려주세요",
+            "content": "분위기 좋은 서울 카페 추천 좀 부탁합니다.",
+            "category": "free",
+            "author": "5",
+            "created_at": "2025-05-18T17:07:12.802712",
+            "updated_at": "2025-05-26T17:07:12.802720",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 62,
+        "fields": {
+            "title": "요즘 보는 넷플릭스 드라마 추천해주세요",
+            "content": "시간 날 때 볼만한 드라마나 영화 있으면 추천 부탁드려요!",
+            "category": "free",
+            "author": "5",
+            "created_at": "2025-05-05T17:07:12.802727",
+            "updated_at": "2025-05-26T17:07:12.802734",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 63,
+        "fields": {
+            "title": "혼자 여행하기 좋은 국내 도시 어디가 있을까요?",
+            "content": "힐링할 겸 혼자 여행 가려고 하는데, 추천 좀 해주세요.",
+            "category": "free",
+            "author": "4",
+            "created_at": "2025-04-26T17:07:12.802741",
+            "updated_at": "2025-05-26T17:07:12.802748",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 64,
+        "fields": {
+            "title": "혼자 여행하기 좋은 국내 도시 어디가 있을까요?",
+            "content": "힐링할 겸 혼자 여행 가려고 하는데, 추천 좀 해주세요.",
+            "category": "free",
+            "author": "5",
+            "created_at": "2025-05-25T17:07:12.802755",
+            "updated_at": "2025-05-26T17:07:12.802763",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 65,
+        "fields": {
+            "title": "운동할 때 듣기 좋은 음악 추천해주세요",
+            "content": "러닝이나 헬스할 때 들으면 좋은 음악 있으면 공유해주세요!",
+            "category": "free",
+            "author": "2",
+            "created_at": "2025-05-13T17:07:12.802772",
+            "updated_at": "2025-05-26T17:07:12.802779",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 66,
+        "fields": {
+            "title": "혼자 여행하기 좋은 국내 도시 어디가 있을까요?",
+            "content": "힐링할 겸 혼자 여행 가려고 하는데, 추천 좀 해주세요.",
+            "category": "free",
+            "author": "3",
+            "created_at": "2025-04-28T17:07:12.802786",
+            "updated_at": "2025-05-26T17:07:12.802793",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 67,
+        "fields": {
+            "title": "최근에 읽었던 책 중에 인상 깊었던 책 있나요?",
+            "content": "책 한 권 읽고 싶은데, 추천 좀 해주세요!",
+            "category": "free",
+            "author": "4",
+            "created_at": "2025-05-07T17:07:12.802800",
+            "updated_at": "2025-05-26T17:07:12.802807",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 68,
+        "fields": {
+            "title": "요즘 보는 넷플릭스 드라마 추천해주세요",
+            "content": "시간 날 때 볼만한 드라마나 영화 있으면 추천 부탁드려요!",
+            "category": "free",
+            "author": "2",
+            "created_at": "2025-05-05T17:07:12.802814",
+            "updated_at": "2025-05-26T17:07:12.802821",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 69,
+        "fields": {
+            "title": "요즘 보는 넷플릭스 드라마 추천해주세요",
+            "content": "시간 날 때 볼만한 드라마나 영화 있으면 추천 부탁드려요!",
+            "category": "free",
+            "author": "3",
+            "created_at": "2025-05-01T17:07:12.802828",
+            "updated_at": "2025-05-26T17:07:12.802835",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 70,
+        "fields": {
+            "title": "요즘 보는 넷플릭스 드라마 추천해주세요",
+            "content": "시간 날 때 볼만한 드라마나 영화 있으면 추천 부탁드려요!",
+            "category": "free",
+            "author": "2",
+            "created_at": "2025-04-30T17:07:12.802842",
+            "updated_at": "2025-05-26T17:07:12.802850",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 71,
+        "fields": {
+            "title": "최근에 읽었던 책 중에 인상 깊었던 책 있나요?",
+            "content": "책 한 권 읽고 싶은데, 추천 좀 해주세요!",
+            "category": "free",
+            "author": "4",
+            "created_at": "2025-05-24T17:07:12.802856",
+            "updated_at": "2025-05-26T17:07:12.802864",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 72,
+        "fields": {
+            "title": "주말에 가볼만한 카페 알려주세요",
+            "content": "분위기 좋은 서울 카페 추천 좀 부탁합니다.",
+            "category": "free",
+            "author": "4",
+            "created_at": "2025-05-17T17:07:12.802871",
+            "updated_at": "2025-05-26T17:07:12.802878",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 73,
+        "fields": {
+            "title": "주말에 가볼만한 카페 알려주세요",
+            "content": "분위기 좋은 서울 카페 추천 좀 부탁합니다.",
+            "category": "free",
+            "author": "4",
+            "created_at": "2025-05-15T17:07:12.802884",
+            "updated_at": "2025-05-26T17:07:12.802892",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 74,
+        "fields": {
+            "title": "최근에 읽었던 책 중에 인상 깊었던 책 있나요?",
+            "content": "책 한 권 읽고 싶은데, 추천 좀 해주세요!",
+            "category": "free",
+            "author": "3",
+            "created_at": "2025-05-11T17:07:12.803093",
+            "updated_at": "2025-05-26T17:07:12.803106",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 75,
+        "fields": {
+            "title": "요즘 보는 넷플릭스 드라마 추천해주세요",
+            "content": "시간 날 때 볼만한 드라마나 영화 있으면 추천 부탁드려요!",
+            "category": "free",
+            "author": "1",
+            "created_at": "2025-05-26T17:07:12.803113",
+            "updated_at": "2025-05-26T17:07:12.803120",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 76,
+        "fields": {
+            "title": "운동할 때 듣기 좋은 음악 추천해주세요",
+            "content": "러닝이나 헬스할 때 들으면 좋은 음악 있으면 공유해주세요!",
+            "category": "free",
+            "author": "2",
+            "created_at": "2025-05-13T17:07:12.803127",
+            "updated_at": "2025-05-26T17:07:12.803134",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 77,
+        "fields": {
+            "title": "요즘 보는 넷플릭스 드라마 추천해주세요",
+            "content": "시간 날 때 볼만한 드라마나 영화 있으면 추천 부탁드려요!",
+            "category": "free",
+            "author": "3",
+            "created_at": "2025-05-18T17:07:12.803140",
+            "updated_at": "2025-05-26T17:07:12.803150",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 78,
+        "fields": {
+            "title": "운동할 때 듣기 좋은 음악 추천해주세요",
+            "content": "러닝이나 헬스할 때 들으면 좋은 음악 있으면 공유해주세요!",
+            "category": "free",
+            "author": "2",
+            "created_at": "2025-04-29T17:07:12.803157",
+            "updated_at": "2025-05-26T17:07:12.803164",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 79,
+        "fields": {
+            "title": "요즘 보는 넷플릭스 드라마 추천해주세요",
+            "content": "시간 날 때 볼만한 드라마나 영화 있으면 추천 부탁드려요!",
+            "category": "free",
+            "author": "1",
+            "created_at": "2025-05-25T17:07:12.803170",
+            "updated_at": "2025-05-26T17:07:12.803177",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 80,
+        "fields": {
+            "title": "주말에 가볼만한 카페 알려주세요",
+            "content": "분위기 좋은 서울 카페 추천 좀 부탁합니다.",
+            "category": "free",
+            "author": "5",
+            "created_at": "2025-05-21T17:07:12.803184",
+            "updated_at": "2025-05-26T17:07:12.803190",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 81,
+        "fields": {
+            "title": "점심 도시락 메뉴 추천해주세요",
+            "content": "회사에 싸가기 좋은 간단한 도시락 메뉴 뭐 있을까요?",
+            "category": "worker",
+            "author": "5",
+            "created_at": "2025-05-24T17:07:12.803198",
+            "updated_at": "2025-05-26T17:07:12.803206",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 82,
+        "fields": {
+            "title": "재택근무 효율 높이는 방법 공유해주세요",
+            "content": "재택근무할 때 집중 잘되는 방법 있나요?",
+            "category": "worker",
+            "author": "2",
+            "created_at": "2025-05-16T17:07:12.803212",
+            "updated_at": "2025-05-26T17:07:12.803221",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 83,
+        "fields": {
+            "title": "이직 준비할 때 가장 먼저 뭘 해야 할까요?",
+            "content": "이직 경험 있으신 분들 조언 부탁드립니다!",
+            "category": "worker",
+            "author": "5",
+            "created_at": "2025-05-09T17:07:12.803227",
+            "updated_at": "2025-05-26T17:07:12.803233",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 84,
+        "fields": {
+            "title": "이직 준비할 때 가장 먼저 뭘 해야 할까요?",
+            "content": "이직 경험 있으신 분들 조언 부탁드립니다!",
+            "category": "worker",
+            "author": "5",
+            "created_at": "2025-05-05T17:07:12.803240",
+            "updated_at": "2025-05-26T17:07:12.803246",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 85,
+        "fields": {
+            "title": "직장 내 인간관계 스트레스 관리법",
+            "content": "직장 내 인간관계로 힘들 때 어떻게 극복하셨나요?",
+            "category": "worker",
+            "author": "2",
+            "created_at": "2025-05-22T17:07:12.803252",
+            "updated_at": "2025-05-26T17:07:12.803259",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 86,
+        "fields": {
+            "title": "직장인 영어 공부 어떻게 하시나요?",
+            "content": "퇴근 후 영어 공부 방법 궁금합니다.",
+            "category": "worker",
+            "author": "5",
+            "created_at": "2025-05-04T17:07:12.803266",
+            "updated_at": "2025-05-26T17:07:12.803273",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 87,
+        "fields": {
+            "title": "직장 내 인간관계 스트레스 관리법",
+            "content": "직장 내 인간관계로 힘들 때 어떻게 극복하셨나요?",
+            "category": "worker",
+            "author": "2",
+            "created_at": "2025-05-08T17:07:12.803279",
+            "updated_at": "2025-05-26T17:07:12.803286",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 88,
+        "fields": {
+            "title": "직장인 영어 공부 어떻게 하시나요?",
+            "content": "퇴근 후 영어 공부 방법 궁금합니다.",
+            "category": "worker",
+            "author": "2",
+            "created_at": "2025-05-12T17:07:12.803293",
+            "updated_at": "2025-05-26T17:07:12.803300",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 89,
+        "fields": {
+            "title": "점심 도시락 메뉴 추천해주세요",
+            "content": "회사에 싸가기 좋은 간단한 도시락 메뉴 뭐 있을까요?",
+            "category": "worker",
+            "author": "4",
+            "created_at": "2025-05-03T17:07:12.803307",
+            "updated_at": "2025-05-26T17:07:12.803314",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 90,
+        "fields": {
+            "title": "직장 내 인간관계 스트레스 관리법",
+            "content": "직장 내 인간관계로 힘들 때 어떻게 극복하셨나요?",
+            "category": "worker",
+            "author": "2",
+            "created_at": "2025-04-28T17:07:12.803321",
+            "updated_at": "2025-05-26T17:07:12.803328",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 91,
+        "fields": {
+            "title": "이직 준비할 때 가장 먼저 뭘 해야 할까요?",
+            "content": "이직 경험 있으신 분들 조언 부탁드립니다!",
+            "category": "worker",
+            "author": "5",
+            "created_at": "2025-05-23T17:07:12.803334",
+            "updated_at": "2025-05-26T17:07:12.803342",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 92,
+        "fields": {
+            "title": "직장 내 인간관계 스트레스 관리법",
+            "content": "직장 내 인간관계로 힘들 때 어떻게 극복하셨나요?",
+            "category": "worker",
+            "author": "1",
+            "created_at": "2025-05-11T17:07:12.803349",
+            "updated_at": "2025-05-26T17:07:12.803355",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 93,
+        "fields": {
+            "title": "직장 내 인간관계 스트레스 관리법",
+            "content": "직장 내 인간관계로 힘들 때 어떻게 극복하셨나요?",
+            "category": "worker",
+            "author": "3",
+            "created_at": "2025-05-07T17:07:12.803362",
+            "updated_at": "2025-05-26T17:07:12.803370",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 94,
+        "fields": {
+            "title": "직장인 영어 공부 어떻게 하시나요?",
+            "content": "퇴근 후 영어 공부 방법 궁금합니다.",
+            "category": "worker",
+            "author": "3",
+            "created_at": "2025-05-09T17:07:12.803377",
+            "updated_at": "2025-05-26T17:07:12.803385",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 95,
+        "fields": {
+            "title": "직장인 영어 공부 어떻게 하시나요?",
+            "content": "퇴근 후 영어 공부 방법 궁금합니다.",
+            "category": "worker",
+            "author": "3",
+            "created_at": "2025-04-29T17:07:12.803391",
+            "updated_at": "2025-05-26T17:07:12.803398",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 96,
+        "fields": {
+            "title": "점심 도시락 메뉴 추천해주세요",
+            "content": "회사에 싸가기 좋은 간단한 도시락 메뉴 뭐 있을까요?",
+            "category": "worker",
+            "author": "4",
+            "created_at": "2025-04-30T17:07:12.803405",
+            "updated_at": "2025-05-26T17:07:12.803412",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 97,
+        "fields": {
+            "title": "직장인 영어 공부 어떻게 하시나요?",
+            "content": "퇴근 후 영어 공부 방법 궁금합니다.",
+            "category": "worker",
+            "author": "5",
+            "created_at": "2025-05-21T17:07:12.803419",
+            "updated_at": "2025-05-26T17:07:12.803426",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 98,
+        "fields": {
+            "title": "이직 준비할 때 가장 먼저 뭘 해야 할까요?",
+            "content": "이직 경험 있으신 분들 조언 부탁드립니다!",
+            "category": "worker",
+            "author": "5",
+            "created_at": "2025-05-21T17:07:12.803433",
+            "updated_at": "2025-05-26T17:07:12.803440",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 99,
+        "fields": {
+            "title": "직장 내 인간관계 스트레스 관리법",
+            "content": "직장 내 인간관계로 힘들 때 어떻게 극복하셨나요?",
+            "category": "worker",
+            "author": "2",
+            "created_at": "2025-05-13T17:07:12.803447",
+            "updated_at": "2025-05-26T17:07:12.803454",
+            "likes": []
+        }
+    },
+    {
+        "model": "boards.post",
+        "pk": 100,
+        "fields": {
+            "title": "이직 준비할 때 가장 먼저 뭘 해야 할까요?",
+            "content": "이직 경험 있으신 분들 조언 부탁드립니다!",
+            "category": "worker",
+            "author": "1",
+            "created_at": "2025-05-14T17:07:12.803460",
+            "updated_at": "2025-05-26T17:07:12.803467",
+            "likes": []
+        }
+    }
+]
