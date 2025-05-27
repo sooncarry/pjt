@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-4">
+  <div class="container my-4" style="padding-top: 120px;">
     <h2 class="fw-semibold mb-4">💡 맞춤형 상품 추천</h2>
     <p class="text-muted mb-4">
       단순히 금리만 높은 상품이 아닌, <strong>“나에게 얼마나 잘 맞는지”</strong>를 기준으로 추천해드려요. <br />
@@ -138,30 +138,17 @@ const recommendations = ref([])
 const fetched = ref(false)
 const userProfile = ref(null)
 
-// 프로필 불러오기 (초기 로드용)
 onMounted(async () => {
   try {
     const profileRes = await axios.get('http://localhost:8000/api/finance/check-profile/')
-    console.log('✅ 프로필 응답:', profileRes.data)
-
-    // 프로필이 있는 경우에만 저장 (없으면 아무 처리 안 함)
     if (profileRes.data.has_profile && profileRes.data.profile) {
       userProfile.value = profileRes.data.profile
-      console.log('📌 userProfile 저장됨:', userProfile.value)
-    } else {
-      console.log('ℹ️ 프로필 없음: 표시 생략')
     }
   } catch (error) {
-    if (error.response?.status === 401) {
-      // 로그인 안 한 경우도 그냥 넘어감 (경고 X)
-      console.log('ℹ️ 비로그인 상태: 프로필 표시 안 함')
-    } else {
-      console.error('❌ 프로필 로드 실패:', error)
-    }
+    if (!(error.response?.status === 401)) console.error('프로필 로드 실패:', error)
   }
 })
 
-// 숫자 형식 관련
 const salaryPlaceholder = computed(() => '연봉을 입력해주세요')
 const allowancePlaceholder = computed(() => '매달 사용하는 용돈을 입력해주세요')
 
@@ -210,7 +197,6 @@ const fetchRecommendations = async () => {
       router.push('/mypage')
       return
     }
-
     userProfile.value = profileRes.data.profile
 
     const params = new URLSearchParams({
@@ -222,9 +208,10 @@ const fetchRecommendations = async () => {
     const { data } = await axios.get(`http://localhost:8000/api/finance/recommend-products/?${params}`)
     recommendations.value = data
   } catch (error) {
-    if (error.response && error.response.status === 401) {
+    if (error.response?.status === 401) {
       alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.')
-      router.push('/signin')
+      router.push('/login')                   // ← 수정된 부분
+      // router.push({ name: 'Login' })       // ← 또는 이렇게 이름으로도 이동 가능합니다
     } else {
       console.error('추천 API 호출 실패:', error)
       recommendations.value = []
@@ -254,5 +241,14 @@ function calculateTax(income) {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+}
+
+/* input 높이 및 글씨 크기 조정 (form-select는 건드리지 않음) */
+input.form-control,
+input.form-control-sm {
+  height: 3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
 }
 </style>

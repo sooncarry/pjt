@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-5 text-center">
+  <div class="container my-5 text-center"style="padding-top: 120px;">
     <h2 class="h4 fw-bold mb-4">🔥 여러 챌린지를 선택해 시작해보세요</h2>
 
     <div class="row justify-content-center g-4">

@@ -27,9 +27,24 @@
 
         <div v-if="errorMessage" class="text-danger small">{{ errorMessage }}</div>
 
-        <button type="submit" class="btn btn-primary btn-sm rounded-pill mt-2">
-          로그인
-        </button>
+        <!-- 버튼 둘을 가로로 나란히 배치 -->
+        <div class="d-flex gap-2 mt-2">
+          <!-- 로그인: 좌측 절반 -->
+          <button
+            type="submit"
+            class="btn btn-primary rounded-pill flex-fill"
+          >
+            로그인
+          </button>
+          <!-- 회원가입: 우측 절반 -->
+          <button
+            type="button"
+            class="btn btn-outline-secondary rounded-pill flex-fill"
+            @click="goSignup"
+          >
+            회원가입
+          </button>
+        </div>
       </form>
     </div>
   </div>
@@ -39,6 +54,7 @@
 import { reactive, ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+
 const router = useRouter()
 
 const form = reactive({
@@ -69,6 +85,11 @@ const handleLogin = async () => {
     errorMessage.value = '❌ 로그인 실패: 아이디 또는 비밀번호를 확인하세요.'
     console.error(err)
   }
+}
+
+// 회원가입으로 이동하는 메서드
+const goSignup = () => {
+  router.push({ name: 'Signup' }) // 또는 path: '/signup'
 }
 </script>
 

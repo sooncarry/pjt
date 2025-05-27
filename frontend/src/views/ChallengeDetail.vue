@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-5">
+  <div class="container my-5" style="padding-top: 120px;">
     <h2 class="h4 fw-bold mb-4">💰 진행 중인 저축 챌린지</h2>
 
     <!-- 챌린지 추가 버튼 -->

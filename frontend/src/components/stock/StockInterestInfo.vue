@@ -1,3 +1,4 @@
+<!-- StockInterestInfo.vue -->
 <template>
   <div class="container my-4" @click.self="hideSuggestions">
     <h2 class="h5 fw-semibold mb-4">📢 공시 정보 검색</h2>
@@ -12,7 +13,7 @@
           @focus="showSuggestions = true"
           type="text"
           placeholder="기업명을 입력하세요"
-          class="form-control form-control-sm rounded-3"
+          class="form-control rounded-3 search-input"
         />
         <!-- 자동완성 드롭다운 -->
         <ul
@@ -79,7 +80,10 @@
     </div>
 
     <!-- 페이지네이션 -->
-    <div v-if="!loading && totalPages > 1" class="mt-5 d-flex justify-content-center flex-wrap gap-2">
+    <div
+      v-if="!loading && totalPages > 1"
+      class="mt-5 d-flex justify-content-center flex-wrap gap-2"
+    >
       <button
         v-if="pageGroup > 1"
         @click="prevPageGroup"
@@ -242,9 +246,25 @@ export default {
 </script>
 
 <style scoped>
+/* 입력창 포커스 효과 */
 input:focus {
   outline: none;
   border-color: #3b82f6;
   box-shadow: 0 0 0 1px #3b82f6;
+}
+
+/* ───── 커스텀 – 검색창 크기 보정 ───── */
+.search-input {
+  height: 34px;        /* btn-sm 높이와 맞춤 */
+  padding: 0 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 576px) {
+  .search-input {
+    height: 38px;      /* 데스크톱에서 살짝 확장 */
+    font-size: 0.95rem;
+  }
 }
 </style>

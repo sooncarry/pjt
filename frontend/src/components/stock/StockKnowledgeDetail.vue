@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-4">
+  <div class="container my-4"style="padding-top: 120px;" >
     <button
       @click="goBack"
       class="btn btn-outline-primary btn-sm rounded-pill mb-4 px-4"

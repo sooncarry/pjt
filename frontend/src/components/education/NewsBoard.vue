@@ -1,7 +1,9 @@
+<!-- BreakingNews.vue -->
 <template>
   <div class="container my-5">
     <h2 class="h5 fw-bold mb-4">🚨 최신 금융 뉴스</h2>
 
+    <!-- 📰 뉴스 카드들 -->
     <div class="d-flex flex-column gap-4">
       <a
         v-for="item in newsList"
@@ -31,6 +33,7 @@
       </a>
     </div>
 
+    <!-- 📎 더보기 -->
     <div class="text-center mt-4">
       <button
         v-if="hasMore"
@@ -42,10 +45,20 @@
       </button>
     </div>
   </div>
+
+  <!-- ⬆️ 맨 위로 버튼 (고정) -->
+  <button
+    v-if="showTopBtn"
+    class="scroll-top-btn btn btn-primary rounded-circle"
+    @click="scrollToTop"
+    aria-label="맨 위로"
+  >
+    ↑
+  </button>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
 
 const newsList = ref([])
@@ -53,6 +66,7 @@ const loading  = ref(false)
 const cursor   = ref(null)    // { before, last_id }
 const hasMore  = ref(true)
 
+/* 🕮 날짜 포맷 ---------------------------------------------------- */
 const formatPublishedAt = isoString => {
   if (!isoString) return ''
   const date = new Date(isoString)
@@ -67,44 +81,65 @@ const formatPublishedAt = isoString => {
   })
 }
 
+/* 📑 페이지네이션 -------------------------------------------------- */
 async function fetchPage() {
   if (!hasMore.value || loading.value) return
   loading.value = true
 
   try {
     const params = { page_size: 20 }
-    if (cursor.value) {
-      params.before  = cursor.value.before
-      params.last_id = cursor.value.last_id
-    }
+    if (cursor.value) Object.assign(params, cursor.value)
 
     const { data } = await axios.get('/api/education/breaking-news/', { params })
 
-    if (!cursor.value) {
-      newsList.value = data.results
-    } else {
-      newsList.value.push(...data.results)
-    }
-
-    hasMore.value = data.has_more
     cursor.value  = data.cursor
-
+    hasMore.value = data.has_more
+    newsList.value.push(...data.results)
   } catch (err) {
     console.error('뉴스 로딩 실패:', err)
   } finally {
     loading.value = false
   }
 }
+const loadMore = () => fetchPage()
 
-function loadMore() {
-  fetchPage()
+/* ⬆️ 맨 위로 버튼 -------------------------------------------------- */
+const showTopBtn = ref(false)
+
+const checkScroll = () => {
+  showTopBtn.value = window.scrollY > 400   // 400px 이상이면 표시
 }
 
-onMounted(fetchPage)
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+/* 라이프사이클 ---------------------------------------------------- */
+onMounted(() => {
+  fetchPage()
+  window.addEventListener('scroll', checkScroll)
+  checkScroll()          // 초기 진입 시 판단
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', checkScroll)
+})
 </script>
 
 <style scoped>
-a {
-  color: inherit; /* 텍스트도 어두운색 유지 */
+/* 카드 링크 색상 유지 */
+a { color: inherit; }
+
+/* ⬆️ 맨 위로 버튼 스타일 */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 44px;
+  height: 44px;
+  font-size: 1.25rem;
+  line-height: 1;
+  z-index: 1080;          /* 카드·모달 위에 표시 */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
 }
 </style>

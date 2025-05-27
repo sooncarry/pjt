@@ -1,3 +1,4 @@
+<!-- FinanceKeywords.vue -->
 <template>
   <div class="container my-5">
     <!-- 🔍 검색 입력 -->
@@ -9,7 +10,7 @@
           @focus="showSuggestions = true"
           @keydown.enter="handleEnterKey"
           type="text"
-          class="form-control form-control-sm rounded-pill px-4"
+          class="form-control search-input rounded-pill px-4"
           placeholder="🔍 금융 용어 검색"
         />
 
@@ -38,7 +39,7 @@
             :key="idx"
             class="badge rounded-pill bg-light text-dark border"
             @click="searchQuery = item; fetchTerms(); showSuggestions = false"
-            style="cursor: pointer"
+            style="cursor: pointer;"
           >
             {{ item }}
           </span>
@@ -56,7 +57,10 @@
       >
         <div class="fw-semibold text-primary">
           {{ term.title }}
-          <span class="text-muted small">({{ term.eng_title || 'N/A' }})</span>
+          <!-- ✅ 영문명이 있을 때만 괄호 포함해서 출력 -->
+          <span v-if="term.eng_title" class="text-muted small">
+            ({{ term.eng_title }})
+          </span>
         </div>
         <div
           v-if="activeIndex === index"
@@ -103,15 +107,15 @@
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 
-const searchQuery = ref('')
-const terms = ref([])
-const suggestions = ref([])
+const searchQuery   = ref('')
+const terms         = ref([])
+const suggestions   = ref([])
 const showSuggestions = ref(false)
-const activeIndex = ref(null)
-const currentPage = ref(1)
-const itemsPerPage = 20
+const activeIndex   = ref(null)
+const currentPage   = ref(1)
+const itemsPerPage  = 20
 
-// ✅ 최근 검색어
+/* ✅ 최근 검색어 --------------------------------------- */
 const recentSearches = ref(JSON.parse(localStorage.getItem('recentSearches') || '[]'))
 const saveRecentSearch = (term) => {
   const updated = [term, ...recentSearches.value.filter(t => t !== term)].slice(0, 8)
@@ -119,12 +123,13 @@ const saveRecentSearch = (term) => {
   localStorage.setItem('recentSearches', JSON.stringify(updated))
 }
 
+/* 📡 API 호출 ----------------------------------------- */
 const fetchTerms = async () => {
   try {
-    const res = await axios.get('/api/education/finance-terms/', {
+    const { data } = await axios.get('/api/education/finance-terms/', {
       params: { q: searchQuery.value }
     })
-    terms.value = res.data
+    terms.value = data
     activeIndex.value = null
     currentPage.value = 1
     if (searchQuery.value.trim()) saveRecentSearch(searchQuery.value)
@@ -133,11 +138,9 @@ const fetchTerms = async () => {
   }
 }
 
+/* 🔤 입력 처리 ---------------------------------------- */
 const onInput = () => {
-  if (!searchQuery.value.trim()) {
-    suggestions.value = []
-    return
-  }
+  if (!searchQuery.value.trim()) { suggestions.value = []; return }
   suggestions.value = terms.value.filter(term =>
     term.title.includes(searchQuery.value) ||
     (term.eng_title && term.eng_title.toLowerCase().includes(searchQuery.value.toLowerCase()))
@@ -155,30 +158,31 @@ const handleEnterKey = () => {
   fetchTerms()
 }
 
+/* 🔄 상세 토글 ---------------------------------------- */
 const toggleDetail = (index) => {
   activeIndex.value = activeIndex.value === index ? null : index
 }
 
+/* 📑 페이지네이션 ------------------------------------- */
 const paginatedTerms = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage
-  const end = start + itemsPerPage
-  return terms.value.slice(start, end)
+  return terms.value.slice(start, start + itemsPerPage)
 })
 
-const totalPages = computed(() => Math.ceil(terms.value.length / itemsPerPage))
-const pageGroupSize = 5
+const totalPages       = computed(() => Math.ceil(terms.value.length / itemsPerPage))
+const pageGroupSize    = 5
 const currentPageGroup = computed(() => Math.ceil(currentPage.value / pageGroupSize))
-const totalPageGroups = computed(() => Math.ceil(totalPages.value / pageGroupSize))
+const totalPageGroups  = computed(() => Math.ceil(totalPages.value / pageGroupSize))
 
 const visiblePageNumbers = computed(() => {
   const start = (currentPageGroup.value - 1) * pageGroupSize + 1
-  return Array.from({ length: Math.min(pageGroupSize, totalPages.value - start + 1) }, (_, i) => start + i)
+  return Array.from(
+    { length: Math.min(pageGroupSize, totalPages.value - start + 1) },
+    (_, i) => start + i
+  )
 })
 
-const changePage = (page) => {
-  currentPage.value = page
-  activeIndex.value = null
-}
+const changePage = (page) => { currentPage.value = page; activeIndex.value = null }
 const prevPageGroup = () => {
   if (currentPageGroup.value > 1) {
     currentPage.value = (currentPageGroup.value - 2) * pageGroupSize + 1
@@ -196,7 +200,20 @@ onMounted(fetchTerms)
 </script>
 
 <style scoped>
-.cursor-pointer {
-  cursor: pointer;
+.cursor-pointer { cursor: pointer; }
+
+/* 🔍 검색 입력창 크기 / 폰트 확대 */
+.search-input {
+  height: 46px;
+  font-size: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .search-input {
+    height: 50px;
+    font-size: 1.05rem;
+  }
 }
 </style>
