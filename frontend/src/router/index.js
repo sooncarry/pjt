@@ -7,9 +7,6 @@ import Signup from '../views/Signup.vue'
 import MyPage from '../views/MyPage.vue'
 import ChecklistPage from '@/views/ChecklistPage.vue'
 
-
-
-
 // 주요 기능 페이지
 import Finance from '../views/Finance.vue'
 import Stock from '../views/Stock.vue'
@@ -25,24 +22,22 @@ import Tab4ProductRecommend from '@/components/finance/Tab4ProductRecommend.vue'
 import StockKnowledge from '@/components/stock/StockKnowledge.vue'
 import StockKnowledgeDetail from '@/components/stock/StockKnowledgeDetail.vue'
 
-import SamplePage from '@/views/SamplePage.vue' //디자인 테스트
+import SamplePage from '@/views/SamplePage.vue' // 디자인 테스트
 
 import FinanceGlossary from '@/components/education/FinanceGlossary.vue'
 import ProductKnowledge from '@/components/education/ProductKnowledge.vue'
 import NewsBoard from '@/components/education/NewsBoard.vue'
 import QuizBoard from '@/components/education/QuizBoard.vue'
 
-
 const routes = [
   // 기본
-  { path: '/sample', name: 'SamplePage', component: SamplePage }, //디자인 테스트
+  { path: '/sample', name: 'SamplePage', component: SamplePage }, // 디자인 테스트
 
   { path: '/', name: 'Home', component: Home },
   { path: '/login', name: 'Login', component: Login },
   { path: '/signup', name: 'Signup', component: Signup },
   { path: '/mypage', name: 'MyPage', component: MyPage, meta: { requiresAuth: true } },
   { path: '/checklist', name: 'Checklist', component: ChecklistPage },
-
 
   // 주요 기능
   { path: '/finance', name: 'Finance', component: Finance },
@@ -78,18 +73,25 @@ const routes = [
   { path: '/knowledge', component: StockKnowledge },
   { path: '/knowledge/:id', component: StockKnowledgeDetail, name: 'KnowledgeDetail' },
 
+  // 교육
   { path: '/education/glossary', name: 'Glossary', component: FinanceGlossary },
   { path: '/education/products', name: 'ProductKnowledge', component: ProductKnowledge },
   { path: '/education/stocks', name: 'StockKnowledge', component: StockKnowledge },
   { path: '/education/news', name: 'NewsBoard', component: NewsBoard },
   { path: '/education/quiz', name: 'QuizBoard', component: QuizBoard },
-
 ]
-
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    // savedPosition이 있으면(뒤로가기/앞으로가기) 해당 위치로, 아니면 최상단으로 이동
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { left: 0, top: 0 }
+    }
+  }
 })
 
 // 인증이 필요한 페이지 보호

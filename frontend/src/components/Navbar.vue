@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-light bg-white border-bottom shadow-sm py-3">
+  <nav class="navbar fixed-top border-bottom shadow-sm py-3">
     <div class="container d-flex justify-content-between align-items-center">
       <!-- 왼쪽 네비게이션 -->
       <div class="d-flex gap-1">
@@ -28,20 +28,12 @@
   </nav>
 </template>
 
-
-
-
-
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const hover = ref(false)
-
-const isLoggedIn = computed(() => {
-  return !!localStorage.getItem('access_token')
-})
+const isLoggedIn = computed(() => !!localStorage.getItem('access_token'))
 
 const logout = () => {
   localStorage.removeItem('access_token')
@@ -49,10 +41,19 @@ const logout = () => {
   router.push('/login')
   window.location.reload()
 }
-
 </script>
 
 <style scoped>
+.navbar.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1030;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(10px);
+}
+
 .btn {
   font-size: 1.025rem;
 }
@@ -70,4 +71,10 @@ const logout = () => {
   text-decoration: none;
 }
 
+/* ↓ 여기가 핵심: active 상태일 때도 색깔이 바뀌지 않도록 강제 override */
+::v-deep .router-link-active.custom-nav-link,
+::v-deep .router-link-exact-active.custom-nav-link {
+  color: #5A45FF !important;
+  background-color: transparent !important;
+}
 </style>

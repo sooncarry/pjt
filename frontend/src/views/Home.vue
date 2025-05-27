@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-light">
     <section
       :class="[
         'hero-section text-white text-center shadow-sm position-relative overflow-hidden',
@@ -48,8 +48,12 @@
 
 
     <!-- 주요 서비스 안내 (이모지) -->
-    <section class="container py-5">
+    <section class="container py-5 bg-light">
       <div class="row text-center">
+        <h3 class="highlight-text">주요 서비스 안내</h3>
+        <br>
+        <br>
+        <br>
         <div class="col-md-4 mb-4">
           <div class="display-4 mb-2">📈</div>
           <h5 class="fw-bold">저축 챌린지</h5>
@@ -148,5 +152,12 @@ h1, h5 {
 .intro-logo {
   width: 240px;
   height: auto;
+}
+
+.highlight-text {
+  background: linear-gradient(to top, #dbe4ff 50%, transparent 50%);
+  color: #5A45FF;
+  padding: 0 4px;
+  border-radius: 2px;
 }
 </style>

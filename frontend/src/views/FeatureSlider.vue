@@ -1,5 +1,5 @@
 <template>
-  <section class="py-5 position-relative">
+  <section class="py-5 position-relative bg-light">
     <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center p-5" style="min-height: 600px;">
 
         <div class="swiper-button-prev custom-nav-btn">
@@ -163,10 +163,10 @@ const features = [
 }
 
 .swiper-button-prev {
-  left: 500px;
+  left: 300px;
 }
 
 .swiper-button-next {
-  right: 500px;
+  right: 300px;
 }
 </style>
