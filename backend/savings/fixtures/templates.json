@@ -31,5 +31,71 @@
     "default_total_units": 30,
     "default_unit": "day"
   }
-}
+},
+{
+    "model": "savings.challengetemplate",
+    "pk": 4,
+    "fields": {
+      "name": "와이프 몰래 비상금 챌린지",
+      "description": "티 안 나게 매주 2만원씩 모아 반년도 안 돼서 50만원을 마련",
+      "default_goal_amount": 500000,
+      "default_total_units": 25,
+      "default_unit": "week"
+    }
+  },
+  {
+    "model": "savings.challengetemplate",
+    "pk": 5,
+    "fields": {
+      "name": "52주 계단식 적금 챌린지",
+      "description": "1주 차 1천원부터 52주 차 5만2천원까지 매주 1천원씩 올려 넣어 총 137만8천원 달성",
+      "default_goal_amount": 1378000,
+      "default_total_units": 52,
+      "default_unit": "week"
+    }
+  },
+  {
+    "model": "savings.challengetemplate",
+    "pk": 10,
+    "fields": {
+      "name": "여름 휴가비 챌린지",
+      "description": "휴가철 전 10주 동안 매주 10만원씩 모아 100만원 확보",
+      "default_goal_amount": 1000000,
+      "default_total_units": 10,
+      "default_unit": "week"
+    }
+  },
+  {
+    "model": "savings.challengetemplate",
+    "pk": 7,
+    "fields": {
+      "name": "주말 무지출 챌린지",
+      "description": "8주 동안 주말마다 지출 대신 2만원을 저축해 총 16만원 모으기",
+      "default_goal_amount": 160000,
+      "default_total_units": 8,
+      "default_unit": "week"
+    }
+  },
+  {
+    "model": "savings.challengetemplate",
+    "pk": 11,
+    "fields": {
+      "name": "햄버거 단품 먹기 챌린지",
+      "description": "8주 동안 세트 대신 단품 구매로 주 6천원씩 절약하여 4만8천원 모으기",
+      "default_goal_amount": 48000,
+      "default_total_units": 8,
+      "default_unit": "week"
+    }
+  },
+  {
+    "model": "savings.challengetemplate",
+    "pk": 12,
+    "fields": {
+      "name": "배달 말고 포장 챌린지",
+      "description": "12주 동안 배달비 대신 포장으로 주 6천원 절약해 7만2천원 저축",
+      "default_goal_amount": 72000,
+      "default_total_units": 12,
+      "default_unit": "week"
+    }
+  }
 ]

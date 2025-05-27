@@ -20,7 +20,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # 기존 앱들
     'education.apps.EducationConfig',
-    'savings',
+    "savings.apps.SavingsConfig",
     'stock.apps.StockConfig',
     'boards.apps.BoardsConfig',
     'finance',
