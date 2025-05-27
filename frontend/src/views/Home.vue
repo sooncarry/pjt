@@ -50,7 +50,7 @@
     <!-- 주요 서비스 안내 (이모지) -->
     <section class="container py-5 bg-light">
       <div class="row text-center">
-        <h3 class="highlight-text">주요 서비스 안내</h3>
+        <h2><span class="highlight-box">주요 서비스 안내</span></h2>
         <br>
         <br>
         <br>
@@ -61,8 +61,8 @@
         </div>
         <div class="col-md-4 mb-4">
           <div class="display-4 mb-2">💳</div>
-          <h5 class="fw-bold">예적금 금리 비교</h5>
-          <p class="text-muted">내 월급 기준으로 가장 이득인 상품 추천</p>
+          <h5 class="fw-bold">맞춤형 상품 추천</h5>
+          <p class="text-muted">내 월급과 재무 성향을 기준으로<br> 가장 이득인 상품 추천</p>
         </div>
         <div class="col-md-4 mb-4">
           <div class="display-4 mb-2">💬</div>
@@ -108,7 +108,7 @@ h1, h5 {
 .hero-section {
   background-color: #5A45FF;
   min-height: 520px;
-  padding: 120px 0;
+  padding: 140px 0;
   position: relative;
   overflow: hidden;
 }
@@ -154,10 +154,11 @@ h1, h5 {
   height: auto;
 }
 
-.highlight-text {
-  background: linear-gradient(to top, #dbe4ff 50%, transparent 50%);
+.highlight-box {
+  background: linear-gradient(to top, #dbe4ff 40%, transparent 40%);
   color: #5A45FF;
-  padding: 0 4px;
-  border-radius: 2px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.2;
 }
 </style>

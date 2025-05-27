@@ -4,7 +4,13 @@
       <!-- 왼쪽 네비게이션 -->
       <div class="d-flex gap-1">
         <RouterLink to="/" class="nav-link fw-bold custom-nav-link px-3">
-          <img src="@/assets/logo_tiggle.png" alt="Tiggle 로고" style="height: 22px;" />
+          <img
+            :src="logoSrc"
+            alt="Tiggle 로고"
+            style="height: 22px; transition: 0.3s;"
+            @mouseenter="toggleLogo(true)"
+            @mouseleave="toggleLogo(false)"
+          />
         </RouterLink>
         <RouterLink to="/finance" class="nav-link fw-semibold custom-nav-link">금융</RouterLink>
         <RouterLink to="/stock" class="nav-link fw-semibold custom-nav-link">주식</RouterLink>
@@ -31,9 +37,19 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+
+const logoDefault = new URL('@/assets/logo_tiggle.png', import.meta.url).href
+const logoWhite = new URL('@/assets/logo_tiggle_white.png', import.meta.url).href
+
+const logoSrc = ref(logoDefault)
 
 const router = useRouter()
 const isLoggedIn = computed(() => !!localStorage.getItem('access_token'))
+
+const toggleLogo = (hovering) => {
+  logoSrc.value = hovering ? logoWhite : logoDefault
+}
 
 const logout = () => {
   localStorage.removeItem('access_token')
