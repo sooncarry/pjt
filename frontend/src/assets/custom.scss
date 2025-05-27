@@ -1,3 +1,8 @@
+/* --------------------------------------------------------------------------
+   GLOBAL THEME STYLES  (custom variables → Bootstrap import → base styles)
+   -------------------------------------------------------------------------- */
+
+/* === 1) Fonts === */
 @font-face {
   font-family: 'SCDream6';
   src: url('@/assets/SCDream6.otf') format('otf');
@@ -12,77 +17,69 @@
   font-style: normal;
 }
 
-// ==== SCSS 변수 ====
-$primary: #5A45FF;
-$secondary: #F1F3F5;
-$success: #00C471;
-$danger: #FF4D4F;
+/* === 2) Color & UI variables (override BEFORE Bootstrap import) === */
+$primary:   #5A45FF;   /* 브랜드 보라 */
+$secondary: #6C757D;   /* 더 진한 회색 ─ 기존 #F1F3F5 보다 대비 ↑ */
+$success:   #00C471;
+$danger:    #FF4D4F;
 
+/* 버튼·배지 등 부트스트랩 내부 변수 덮어쓰기 */
+$btn-secondary-color:            #fff;
+$btn-secondary-bg:               $secondary;
+$btn-secondary-border:           $secondary;
+
+$btn-outline-secondary-color:    $secondary;
+$btn-outline-secondary-border:   $secondary;
+/* 살짝 투명 배경으로 hover 효과 */
+$btn-outline-secondary-hover-bg: rgba($secondary, 0.1);
+$btn-outline-secondary-hover-color: $secondary;
+
+/* Typography & spacing */
 $font-family-sans-serif: 'SCDream6', 'Noto Sans KR', sans-serif;
-$headings-font-family: 'SCDream6', 'Noto Sans KR', sans-serif;
-$headings-font-weight: 500;
-$border-radius: 0.75rem;
-$input-padding-y: 0.5rem;
-$input-padding-x: 1rem;
+$headings-font-family:  'SCDream6', 'Noto Sans KR', sans-serif;
+$headings-font-weight:  500;
+$border-radius:         0.75rem;
+$input-padding-y:       0.5rem;
+$input-padding-x:       1rem;
 
-// === Bootstrap 마지막에 import ===
+/* === 3) IMPORT BOOTSTRAP (after our variable overrides) === */
 @import "bootstrap/scss/bootstrap";
 
-// === 기본 폰트 설정 ===
+/* --------------------------------------------------------------------------
+   4) Base element styles
+   -------------------------------------------------------------------------- */
+
+/* 기본 폰트 설정 */
 body {
   font-family: 'SCDream6', sans-serif;
-  // font-weight: bold;
-  font-size: 0.75rem; // 기본 16px
+  font-size: 0.75rem; /* 모바일 기준 12px */
   line-height: 1.6;
   color: #212529;
-  
-  @media (min-width: 768px) {
-    font-size: 1.025rem; // 18px
-  }
 
-  @media (min-width: 1200px) {
-    font-size: 1.35rem; 
-  }
+  @media (min-width: 768px)  { font-size: 1.025rem; }  /* 태블릿 ~16px */
+  @media (min-width: 1200px) { font-size: 1.35rem;  }  /* 데스크톱 ~22px */
 }
 
-// === 제목 크기 반응형 ===
+/* 반응형 제목 크기 */
 h1 {
   font-size: 2rem;
-
-  @media (min-width: 768px) {
-    font-size: 2.5rem;
-  }
-
-  @media (min-width: 1200px) {
-    font-size: 3.5rem;
-  }
+  @media (min-width: 768px)  { font-size: 2.5rem; }
+  @media (min-width: 1200px) { font-size: 3.5rem; }
 }
 
 h2 {
   font-size: 1.75rem;
-
-  @media (min-width: 768px) {
-    font-size: 2.125rem;
-  }
-
-  @media (min-width: 1200px) {
-    font-size: 3.0rem;
-  }
+  @media (min-width: 768px)  { font-size: 2.125rem; }
+  @media (min-width: 1200px) { font-size: 3rem; }
 }
 
 h3 {
   font-size: 1.5rem;
-
-  @media (min-width: 768px) {
-    font-size: 1.75rem;
-  }
-
-  @media (min-width: 1200px) {
-    font-size: 2.5rem;
-  }
+  @media (min-width: 768px)  { font-size: 1.75rem; }
+  @media (min-width: 1200px) { font-size: 2.5rem; }
 }
 
-// 버튼 등 주요 UI 글자도 통일
+/* 폼 요소 & 네비게이션 통일 글꼴 */
 input,
 select,
 textarea,
@@ -90,18 +87,13 @@ textarea,
 .nav-link {
   font-family: 'SCDream6', 'Noto Sans KR', sans-serif;
   font-weight: 700;
-  font-size: inherit; // body에 맞춰 감
+  font-size: inherit; /* body 기준 */
 }
 
+/* 버튼 폰트 크기 */
 button,
 .btn {
   font-size: 1.025rem;
-
-  @media (min-width: 768px) {
-    font-size: 1.05rem;
-  }
-
-  @media (min-width: 1200px) {
-    font-size: 1.25rem;
-  }
+  @media (min-width: 768px)  { font-size: 1.05rem; }
+  @media (min-width: 1200px) { font-size: 1.25rem; }
 }
