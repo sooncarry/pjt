@@ -1,5 +1,6 @@
 <template>
-  <div class="container my-5 d-flex justify-content-center">
+  <!-- NAVBAR 아래 여백 확보 (login과 동일하게 120px) -->
+  <div class="container my-5 d-flex justify-content-center" style="padding-top: 120px;">
     <BaseAlert v-if="alertMsg" :message="alertMsg" :type="alertType" />
     <div class="card p-4 shadow-sm border-0 rounded-4" style="width: 100%; max-width: 600px">
       <h1 class="fw-bold mb-4 text-center">👤 회원가입</h1>
@@ -89,7 +90,6 @@
           <input v-model="form.phone" type="tel" class="form-control form-control-ml" />
         </div>
 
-
         <!-- 직업 -->
         <div>
           <label class="form-label">직업</label>
@@ -102,7 +102,6 @@
             <option>기타</option>
           </select>
         </div>
-
 
         <!-- 가입 버튼 -->
         <button type="submit" class="btn btn-primary btn-sm rounded-pill mt-3">가입하기</button>
@@ -210,7 +209,7 @@ onMounted(async () => {
         ...savedForm,
         uidb64,
         token,
-        name: savedForm.name || ''  // 👈 name으로 전달
+        name: savedForm.name || ''
       })
       emailVerified.value = true
       alertMsg.value = '✅ 이메일 인증 완료! 가입 정보를 확인하고 제출해주세요.'
@@ -242,8 +241,8 @@ const handleSubmit = async () => {
     return
   }
   const birth_date = (form.birthYear && form.birthMonth && form.birthDay)
-  ? `${form.birthYear}-${String(form.birthMonth).padStart(2, '0')}-${String(form.birthDay).padStart(2, '0')}`
-  : null
+    ? `${form.birthYear}-${String(form.birthMonth).padStart(2, '0')}-${String(form.birthDay).padStart(2, '0')}`
+    : null
 
   const signupData = {
     name: form.name,
@@ -270,5 +269,3 @@ const handleSubmit = async () => {
   }
 }
 </script>
-
-

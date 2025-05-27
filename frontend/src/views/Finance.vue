@@ -5,7 +5,7 @@
     <section class="hero-section border-bottom">
       <div class="container">
         <p class="text-primary fw-semibold mb-3">금융 상품 소개</p>
-        <h2 class="fw-bold mb-4">🪙 금융 상품</h2>
+        <h2 class="fw-bold mb-4">💰 금융 상품</h2>
         <p class="h4 text-muted">
           금융 상품에 대한 정보를 검색하고 맞춤형 상품을 추천받아보세요.
         </p>

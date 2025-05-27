@@ -1,5 +1,6 @@
 <template>
-  <div class="container my-5">
+  <!-- 상단 네비게이션(NAVBAR) 아래 여백 추가 -->
+  <div class="container my-5" style="padding-top: 80px;">
     <div class="row">
       <!-- 사이드바 -->
       <div class="col-md-3 mb-4">
@@ -40,7 +41,7 @@
 
       <!-- 상세 콘텐츠 -->
       <div class="col-md-9">
-        <!-- 뒤로가기: 항상 히스토리 백으로 -->
+        <!-- 뒤로가기 -->
         <button
           @click="goBack"
           class="btn btn-outline-secondary btn-sm mb-3"
@@ -93,19 +94,22 @@
               <div
                 v-for="comment in post.comments"
                 :key="comment.id"
-                class="mb-3 p-3 bg-light rounded-3"
+                class="mb-3 p-3 bg-light rounded-3 position-relative"
               >
+                <!-- 삭제용 X 아이콘 -->
+                <span
+                  v-if="isLoggedIn && isMine(comment.author_username)"
+                  class="position-absolute top-0 end-0 m-2"
+                  style="cursor: pointer; color: #dc3545; font-size: 1.2rem;"
+                  @click="deleteComment(comment.id)"
+                >
+                  ×
+                </span>
+
                 <p class="mb-1">
                   <strong>{{ comment.author_username }}</strong>:
                   <span>{{ comment.content }}</span>
                 </p>
-                <button
-                  v-if="isLoggedIn && isMine(comment.author_username)"
-                  class="btn btn-sm btn-outline-danger btn-xs rounded-pill mt-2"
-                  @click="deleteComment(comment.id)"
-                >
-                  삭제
-                </button>
               </div>
             </div>
             <div v-else class="text-muted">댓글이 없습니다.</div>
@@ -123,7 +127,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div><!-- /.container -->
 </template>
 
 <script setup>
@@ -141,7 +145,7 @@ const isLoggedIn = !!localStorage.getItem('access_token')
 const liked = ref(false)
 const likesCount = ref(0)
 
-// 사이드바용 카테고리 이름 매핑
+// 사이드바 카테고리 이름 매핑
 const categoryDisplayName = {
   stock: '주식방',
   deposit: '예적금방',
@@ -150,33 +154,29 @@ const categoryDisplayName = {
   worker: '직장인방'
 }
 
-// 뒤로가기: 이전 히스토리로 무조건 이동
+// 뒤로가기
 const goBack = () => {
   router.back()
 }
 
-// 상세 게시글 조회
+// 게시글 로드
 onMounted(async () => {
   try {
-    const res = await axios.get(`/api/boards/${route.params.id}/`, {
-      headers: { Authorization: undefined }
-    })
+    const res = await axios.get(`/api/boards/${route.params.id}/`)
     post.value = res.data
     liked.value = post.value.likes?.includes(currentUsername)
     likesCount.value = post.value.likes_count
   } catch (err) {
-    console.error('❌ 게시글 상세 요청 실패:', err)
+    console.error('게시글 조회 실패:', err)
   }
 })
 
-const isMine = (author) => author === currentUsername
+const isMine = author => author === currentUsername
 
-// 편집 페이지로
 const goEdit = () => {
   router.push({ name: 'PostEdit', params: { id: route.params.id } })
 }
 
-// 삭제하고 뒤로
 const deletePost = async () => {
   if (confirm('정말 삭제하시겠습니까?')) {
     await axios.delete(`/api/boards/${route.params.id}/`)
@@ -184,7 +184,6 @@ const deletePost = async () => {
   }
 }
 
-// 댓글 등록
 const submitComment = async (parentId, content) => {
   if (!content.trim()) return
   await axios.post('/api/boards/comments/', {
@@ -192,24 +191,17 @@ const submitComment = async (parentId, content) => {
     content,
     parent: parentId
   })
-  const updated = await axios.get(`/api/boards/${route.params.id}/`, {
-    headers: { Authorization: undefined }
-  })
+  const updated = await axios.get(`/api/boards/${route.params.id}/`)
   post.value = updated.data
 }
 
-// 댓글 삭제
-const deleteComment = async (id) => {
-  if (confirm('댓글을 삭제할까요?')) {
-    await axios.delete(`/api/boards/comments/${id}/`)
-    const updated = await axios.get(`/api/boards/${route.params.id}/`, {
-      headers: { Authorization: undefined }
-    })
-    post.value = updated.data
-  }
+const deleteComment = async id => {
+  if (!confirm('해당 댓글을 삭제하시겠습니까?')) return
+  await axios.delete(`/api/boards/comments/${id}/`)
+  const updated = await axios.get(`/api/boards/${route.params.id}/`)
+  post.value = updated.data
 }
 
-// 좋아요 토글
 const toggleLike = async () => {
   if (!isLoggedIn) {
     alert('로그인 후 이용 가능합니다.')

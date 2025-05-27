@@ -1,5 +1,6 @@
 <template>
-  <div class="container my-5">
+  <!-- NAVBAR 아래 여백 확보 -->
+  <div class="container my-5" style="padding-top: 50px;">
     <!-- 재무 성향 -->
     <div class="card p-4 mb-4 shadow-sm border-0 rounded-4">
       <h4 class="fw-bold mb-3">📊 나의 재무 성향</h4>

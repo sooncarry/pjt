@@ -1,6 +1,6 @@
 // ChecklistPage.vue
 <template>
-  <div class="container my-5">
+  <div class="container my-5" style="padding-top: 50px;">
     <BaseAlert v-if="alertMsg" :message="alertMsg" :type="alertType" />
 
     <div class="card p-4 shadow-sm border-0 rounded-4">

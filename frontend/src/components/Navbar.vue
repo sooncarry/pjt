@@ -84,6 +84,13 @@ const logout = () => {
   padding: 0.4rem 1rem;
 }
 
+/* active 상태에서도 기본 색상을 유지하도록 override */
+.custom-nav-link.router-link-active,
+.custom-nav-link.active {
+  color: #5A45FF !important;
+  background-color: transparent !important;
+}
+
 .custom-nav-link:hover {
   background-color: #5A45FF;
   color: white;
@@ -110,8 +117,6 @@ const logout = () => {
 }
 
 .logo-wrapper:hover .logo-img {
-  filter: brightness(10); /* 이미지가 하얗게 변할 때 대비되도록 */
+  filter: brightness(10);
 }
-
-
 </style>

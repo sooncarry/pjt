@@ -1,5 +1,6 @@
 <template>
-  <div class="container my-5 d-flex justify-content-center">
+  <!-- NAVBAR 아래 여백 확보 (조금 더 내려서 120px) -->
+  <div class="container my-5 d-flex justify-content-center" style="padding-top: 120px;">
     <div class="card p-4 shadow-sm border-0 rounded-4" style="max-width: 400px; width: 100%;">
       <h1 class="fw-bold mb-4 text-center">🔐 로그인</h1>
 
@@ -62,7 +63,7 @@ const handleLogin = async () => {
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`
 
-    // ✅ 홈으로 이동 + 새로고침
+    // 홈으로 이동 (새로고침)
     window.location.href = '/'
   } catch (err) {
     errorMessage.value = '❌ 로그인 실패: 아이디 또는 비밀번호를 확인하세요.'
