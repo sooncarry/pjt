@@ -83,6 +83,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 .hero-section {
   background-color: #E6DEFF;
   padding: 100px 0; /* 기본 높이용 패딩 */
@@ -99,4 +101,5 @@ export default {
     padding: 40px 0;
   }
 }
+
 </style>

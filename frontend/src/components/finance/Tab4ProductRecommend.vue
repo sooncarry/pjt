@@ -139,23 +139,27 @@ const fetched = ref(false)
 const userProfile = ref(null)
 
 // 프로필 불러오기 (초기 로드용)
-// onMounted(async () => {
-//   try {
-//     const profileRes = await axios.get('http://localhost:8000/api/finance/check-profile/')
-//     console.log('프로필 응답:', profileRes.data)
-//     if (profileRes.data.has_profile) {
-//       userProfile.value = profileRes.data.profile
-//       console.log('userProfile 값:', userProfile.value)
-//     }
-//   } catch (error) {
-//     if (error.response?.status === 401) {
-//       alert('로그인이 필요합니다.')
-//       router.push('/signin')
-//     } else {
-//       console.error('프로필 로드 실패:', error)
-//     }
-//   }
-// })
+onMounted(async () => {
+  try {
+    const profileRes = await axios.get('http://localhost:8000/api/finance/check-profile/')
+    console.log('✅ 프로필 응답:', profileRes.data)
+
+    // 프로필이 있는 경우에만 저장 (없으면 아무 처리 안 함)
+    if (profileRes.data.has_profile && profileRes.data.profile) {
+      userProfile.value = profileRes.data.profile
+      console.log('📌 userProfile 저장됨:', userProfile.value)
+    } else {
+      console.log('ℹ️ 프로필 없음: 표시 생략')
+    }
+  } catch (error) {
+    if (error.response?.status === 401) {
+      // 로그인 안 한 경우도 그냥 넘어감 (경고 X)
+      console.log('ℹ️ 비로그인 상태: 프로필 표시 안 함')
+    } else {
+      console.error('❌ 프로필 로드 실패:', error)
+    }
+  }
+})
 
 // 숫자 형식 관련
 const salaryPlaceholder = computed(() => '연봉을 입력해주세요')

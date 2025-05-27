@@ -3,7 +3,9 @@
     <div class="container d-flex justify-content-between align-items-center">
       <!-- 왼쪽 네비게이션 -->
       <div class="d-flex gap-1">
-        <RouterLink to="/" class="nav-link fw-bold custom-nav-link border border-primary rounded-pill px-3">티끌</RouterLink>
+        <RouterLink to="/" class="nav-link fw-bold custom-nav-link px-3">
+          <img src="@/assets/logo_tiggle.png" alt="Tiggle 로고" style="height: 22px;" />
+        </RouterLink>
         <RouterLink to="/finance" class="nav-link fw-semibold custom-nav-link">금융</RouterLink>
         <RouterLink to="/stock" class="nav-link fw-semibold custom-nav-link">주식</RouterLink>
         <RouterLink to="/education" class="nav-link fw-semibold custom-nav-link">지식</RouterLink>

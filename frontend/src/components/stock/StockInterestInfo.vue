@@ -63,7 +63,7 @@
       <div v-for="(item, index) in pagedDisclosures" :key="index" class="col">
         <div class="card h-100 shadow-sm border-0 rounded-4">
           <div class="card-body">
-            <h5 class="card-title text-primary fw-semibold mb-2">{{ item.title }}</h5>
+            <h5 class="card-title text-dark fw-semibold mb-2">{{ item.title }}</h5>
             <p class="card-subtitle mb-1 text-muted small">📅 {{ formatDate(item.date) }}</p>
             <p class="card-subtitle mb-2 text-muted small">🏢 {{ item.corp_name }}</p>
             <a
