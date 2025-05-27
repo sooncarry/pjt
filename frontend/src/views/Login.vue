@@ -1,7 +1,7 @@
 <template>
   <div class="container my-5 d-flex justify-content-center">
     <div class="card p-4 shadow-sm border-0 rounded-4" style="max-width: 400px; width: 100%;">
-      <h1 class="h5 fw-bold mb-4 text-center">🔐 로그인</h1>
+      <h1 class="fw-bold mb-4 text-center">🔐 로그인</h1>
 
       <form @submit.prevent="handleLogin" class="d-flex flex-column gap-3">
         <div>

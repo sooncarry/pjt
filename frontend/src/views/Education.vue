@@ -52,8 +52,8 @@ import QuizBoard from '@/components/education/QuizBoard.vue'
 
 const tabs = [
   { key: 'glossary', label: '금융 핵심 키워드' },
-  { key: 'products', label: '금융 상품에 대한 지식' },
-  { key: 'stocks', label: '주식에 대한 지식' },
+  // { key: 'products', label: '금융 상품에 대한 지식' },
+  // { key: 'stocks', label: '주식에 대한 지식' },
   { key: 'news', label: '최신 금융 뉴스' },
   { key: 'quiz', label: '금융 퀴즈' },
 ]

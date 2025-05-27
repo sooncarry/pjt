@@ -4,8 +4,8 @@
       :class="[
         'hero-section text-white text-center shadow-sm position-relative overflow-hidden',
         { 'with-bg': !showIntro }
-      ]"
->
+      ]">
+
       <!-- 인트로 애니메이션 -->
       <div
         v-if="showIntro"
@@ -69,67 +69,13 @@
     </section>
 
     <!-- 전체 너비 섹션 (카드 5개 각각 한 줄씩) -->
-    <section class="py-0">
-    <!-- 금융 -->
-      <div class="feature-row" :style="{ background: '#E6DEFF' }">
-        <div class="container d-flex justify-content-between align-items-center flex-wrap py-5">
-          <div>
-            <h3 class="fw-bold text-dark py-2">금융상품 비교</h3>
-            <p class="text-dark mb-0">예금, 적금, 대출까지<br />나에게 딱 맞는 상품을 추천해드려요.</p>
-          </div>
-          <RouterLink to="/finance" class="btn btn-outline-dark rounded-pill px-4">바로가기</RouterLink>
-        </div>
-      </div>
-
-      <!-- 주식 -->
-      <div class="feature-row" :style="{ background: '#D9D5FF' }">
-        <div class="container d-flex justify-content-between align-items-center flex-wrap py-5">
-          <div>
-            <h3 class="fw-bold text-dark py-2">주식 정보 탐색</h3>
-            <p class="text-dark mb-0">차근차근 배우고<br />종목도 쉽게 비교할 수 있어요.</p>
-          </div>
-          <RouterLink to="/stock" class="btn btn-outline-dark rounded-pill px-4">바로가기</RouterLink>
-        </div>
-      </div>
-
-      <!-- 교육 -->
-      <div class="feature-row" :style="{ background: '#F1F3F5' }">
-        <div class="container d-flex justify-content-between align-items-center flex-wrap py-5">
-          <div>
-            <h3 class="fw-bold py-2">금융 교육 콘텐츠</h3>
-            <p class="mb-0">기초 개념부터 퀴즈까지<br />재미있게 배우는 금융 지식!</p>
-          </div>
-          <RouterLink to="/education" class="btn btn-outline-dark rounded-pill px-4">바로가기</RouterLink>
-        </div>
-      </div>
-
-      <!-- 저축 -->
-      <div class="feature-row" :style="{ background: '#5a45ff' }">
-        <div class="container d-flex justify-content-between align-items-center flex-wrap py-5 text-white" >
-          <div>
-            <h3 class="fw-bold py-2">저축 챌린지</h3>
-            <p class="mb-0">목표형 저축 습관을 만들고<br />달성해보세요.</p>
-          </div>
-          <RouterLink to="/saving" class="btn btn-outline-light rounded-pill px-4">바로가기</RouterLink>
-        </div>
-      </div>
-
-      <!-- 커뮤니티 -->
-      <div class="feature-row" :style="{ background: '#F1F3F5' }">
-        <div class="container d-flex justify-content-between align-items-center flex-wrap py-5">
-          <div>
-            <h3 class="fw-bold text-dark py-2">커뮤니티</h3>
-            <p class="text-dark mb-0">재테크 이야기부터 꿀팁까지<br />함께 나누고 성장해요.</p>
-          </div>
-          <RouterLink to="/community" class="btn btn-outline-dark rounded-pill px-4">바로가기</RouterLink>
-        </div>
-      </div>
-    </section>
+    <FeatureSlider />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import FeatureSlider from './FeatureSlider.vue'
 
 const showIntro = ref(true)
 const showLogo = ref(false)
