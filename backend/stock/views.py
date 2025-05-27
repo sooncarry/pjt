@@ -1,21 +1,34 @@
+# stock/views.py
+
+import os
+import sys
+import certifi
+import requests
+import pandas as pd
+
+from datetime import datetime
 from django.http import JsonResponse
 from django.conf import settings
 from django.views.decorators.http import require_GET
-import requests
-from datetime import datetime
-import pandas as pd
-import os
+
+from rest_framework import status, generics
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
-from rest_framework import status
 from rest_framework.permissions import AllowAny
-import yfinance as yf
-from .utils.stock_compare import get_stock_comparison_data
-from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
+
 from .models import StockKnowledge
 from .serializers import StockKnowledgeSerializer
+from .utils.stock_compare import get_stock_comparison_data
 
-# CSV 로드 함수
+# ✅ SSL 인증서 설정 (curl 등에서 사용하는 certifi)
+os.environ['SSL_CERT_FILE'] = certifi.where()
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CSV 로드 및 검색용 데이터 준비
+# ─────────────────────────────────────────────────────────────────────────────
+
 def load_corp_codes():
     path = os.path.join(os.path.dirname(__file__), 'utils', 'corp_codes.csv')
     if not os.path.exists(path):
@@ -25,11 +38,14 @@ def load_corp_codes():
 CORP_CODE_DF = load_corp_codes()
 CORP_CODE_MAP = dict(zip(CORP_CODE_DF['corp_name'], CORP_CODE_DF['corp_code']))
 
-# 기업명으로 corp_code 조회
 def get_corp_code(name):
     return CORP_CODE_MAP.get(name)
 
-# 🔍 자동완성용 검색 API
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 자동완성 검색 API
+# ─────────────────────────────────────────────────────────────────────────────
+
 @require_GET
 def search_stock_autocomplete(request):
     query = request.GET.get('query', '').strip()
@@ -52,7 +68,11 @@ def search_stock_autocomplete(request):
     ]
     return JsonResponse(result, safe=False)
 
-# 📄 공시정보 API
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 공시 정보 조회 API (/api/education/disclosures/)
+# ─────────────────────────────────────────────────────────────────────────────
+
 @require_GET
 def disclosures_view(request):
     query = request.GET.get('query', '').strip()
@@ -62,10 +82,10 @@ def disclosures_view(request):
 
     bgn_de = request.GET.get('bgn_de', '')
     end_de = request.GET.get('end_de', datetime.today().strftime('%Y%m%d'))
-
     page_group = int(request.GET.get('page_group', '1'))
     page_count = 100 * page_group
     page_no = int(request.GET.get('page_no', '1'))
+
     params = {
         'crtfc_key': settings.DART_API_KEY,
         'bgn_de': bgn_de,
@@ -97,6 +117,11 @@ def disclosures_view(request):
 
     return JsonResponse({'disclosures': result})
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 주식 비교 API (/api/stock/compare/)
+# ─────────────────────────────────────────────────────────────────────────────
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def compare_stocks(request):
@@ -105,8 +130,10 @@ def compare_stocks(request):
     end_date = request.data.get('end_date')
 
     if not codes or not start_date or not end_date:
-        return Response({'error': 'codes, start_date, end_date are required.'},
-                        status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {'error': 'codes, start_date, end_date are required.'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
     result = []
     for code in codes:
@@ -135,6 +162,10 @@ def compare_stocks(request):
     return Response(result, status=status.HTTP_200_OK)
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# 주식명 검색 API (/api/stock/search-name/)
+# ─────────────────────────────────────────────────────────────────────────────
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def search_stock_name(request):
@@ -143,22 +174,33 @@ def search_stock_name(request):
         return Response({'error': '코드가 제공되지 않았습니다.'}, status=400)
 
     matched = CORP_CODE_DF[
-        CORP_CODE_DF['stock_code'].notna() &
-        (CORP_CODE_DF['stock_code'] != '') &
-        (CORP_CODE_DF['stock_code'] != '0') &
         (CORP_CODE_DF['stock_code'] == code.zfill(6))
     ]
-
     if matched.empty:
         return Response({'error': '일치하는 기업이 없습니다.'}, status=404)
 
     corp_name = matched.iloc[0]['corp_name']
     return Response({'name': corp_name})
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 주식 기초 지식 목록 & 상세 API (DRF Generic Views)
+# ─────────────────────────────────────────────────────────────────────────────
+
 class StockKnowledgeListView(generics.ListAPIView):
+    """
+    GET /api/stock/knowledge/
+    모든 StockKnowledge 레코드를 페이지네이션 없이(=한 번에 모두) 내려줍니다.
+    """
     queryset = StockKnowledge.objects.all()
     serializer_class = StockKnowledgeSerializer
+    pagination_class = None     # ← 이 설정으로 페이지네이션 OFF
+
 
 class StockKnowledgeDetailView(generics.RetrieveAPIView):
+    """
+    GET /api/stock/knowledge/<pk>/
+    단일 StockKnowledge 레코드 상세 조회
+    """
     queryset = StockKnowledge.objects.all()
     serializer_class = StockKnowledgeSerializer

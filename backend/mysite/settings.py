@@ -21,7 +21,7 @@ INSTALLED_APPS = [
     # 기존 앱들
     'education.apps.EducationConfig',
     'savings',
-    'stock',
+    'stock.apps.StockConfig',
     'boards.apps.BoardsConfig',
     'finance',
     'rest_framework',
