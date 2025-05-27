@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 
 class PostListCreateView(generics.ListCreateAPIView):
     queryset = Post.objects.all().order_by('-created_at')
@@ -20,17 +20,11 @@ class PostListCreateView(generics.ListCreateAPIView):
 class PostRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def perform_update(self, serializer):
-        if self.request.user != self.get_object().author:
-            raise PermissionError("수정 권한 없음")
-        serializer.save()
-
-    def perform_destroy(self, instance):
-        if self.request.user != instance.author:
-            raise PermissionError("삭제 권한 없음")
-        instance.delete()
+    def get_permissions(self):
+        if self.request.method in ['GET']:
+            return [AllowAny()]
+        return [IsAuthenticatedOrReadOnly()]
 
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])

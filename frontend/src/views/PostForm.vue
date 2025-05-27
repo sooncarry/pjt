@@ -4,21 +4,6 @@
       <h1 class="h5 fw-bold mb-4">{{ isEdit ? '게시글 수정' : '게시글 작성' }}</h1>
 
       <form @submit.prevent="handleSubmit" class="d-flex flex-column gap-3">
-        <input
-          v-model="form.title"
-          placeholder="제목을 입력하세요"
-          class="form-control form-control-sm rounded-3"
-          required
-        />
-
-        <textarea
-          v-model="form.content"
-          placeholder="내용을 입력하세요"
-          class="form-control form-control-sm rounded-3"
-          rows="6"
-          required
-        ></textarea>
-
         <select
           v-model="form.category"
           class="form-select form-select-sm rounded-3"
@@ -31,6 +16,22 @@
           <option value="free">자유이야기방</option>
           <option value="worker">직장인방</option>
         </select>
+        <input
+          v-model="form.title"
+          placeholder="제목을 입력하세요"
+          class="form-control form-control-sm rounded-3"
+          required
+        />
+        
+        <textarea
+          v-model="form.content"
+          placeholder="내용을 입력하세요"
+          class="form-control form-control-sm rounded-3"
+          rows="6"
+          required
+        ></textarea>
+
+        
 
         <button type="submit" class="btn btn-primary btn-sm rounded-pill align-self-end px-4">
           {{ isEdit ? '수정' : '작성' }}

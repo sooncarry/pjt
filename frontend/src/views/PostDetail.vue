@@ -76,11 +76,18 @@ const liked = ref(false)
 const likesCount = ref(0)
 const isLoggedIn = !!localStorage.getItem('access_token')
 
+// ✅ GET 요청 시 인증 헤더 제거
 onMounted(async () => {
-  const res = await axios.get(`/api/boards/${route.params.id}/`)
-  post.value = res.data
-  liked.value = post.value.likes?.includes(currentUsername)
-  likesCount.value = post.value.likes_count
+  try {
+    const res = await axios.get(`/api/boards/${route.params.id}/`, {
+      headers: { Authorization: undefined }
+    })
+    post.value = res.data
+    liked.value = post.value.likes?.includes(currentUsername)
+    likesCount.value = post.value.likes_count
+  } catch (err) {
+    console.error('❌ 게시글 상세 요청 실패:', err)
+  }
 })
 
 const isMine = (author) => author === currentUsername
@@ -100,14 +107,18 @@ const submitComment = async (parentId = null, content = '') => {
     content: content,
     parent: parentId
   })
-  const updated = await axios.get(`/api/boards/${route.params.id}/`)
+  const updated = await axios.get(`/api/boards/${route.params.id}/`, {
+    headers: { Authorization: undefined }
+  })
   post.value = updated.data
 }
 
 const deleteComment = async (id) => {
   if (confirm('댓글을 삭제할까요?')) {
     await axios.delete(`/api/boards/comments/${id}/`)
-    const updated = await axios.get(`/api/boards/${route.params.id}/`)
+    const updated = await axios.get(`/api/boards/${route.params.id}/`, {
+      headers: { Authorization: undefined }
+    })
     post.value = updated.data
   }
 }

@@ -14,9 +14,15 @@ class CommentSerializer(serializers.ModelSerializer):
         children = obj.replies.all()
         return CommentSerializer(children, many=True).data
 
+
 class PostSerializer(serializers.ModelSerializer):
     author_username = serializers.ReadOnlyField(source='author.username')
     likes_count = serializers.SerializerMethodField()
+    likes = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='username'  # ✅ 좋아요 누른 사람들의 username 목록
+    )
     comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
