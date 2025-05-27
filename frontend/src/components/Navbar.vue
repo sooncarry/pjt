@@ -3,13 +3,16 @@
     <div class="container d-flex justify-content-between align-items-center">
       <!-- 왼쪽 네비게이션 -->
       <div class="d-flex gap-1">
-        <RouterLink to="/" class="nav-link fw-bold custom-nav-link px-3">
+        <RouterLink
+          to="/"
+          class="nav-link fw-bold custom-nav-link px-3 logo-wrapper"
+          @mouseenter="toggleLogo(true)"
+          @mouseleave="toggleLogo(false)"
+        >
           <img
             :src="logoSrc"
             alt="Tiggle 로고"
-            style="height: 22px; transition: 0.3s;"
-            @mouseenter="toggleLogo(true)"
-            @mouseleave="toggleLogo(false)"
+            class="logo-img"
           />
         </RouterLink>
         <RouterLink to="/finance" class="nav-link fw-semibold custom-nav-link">금융</RouterLink>
@@ -87,10 +90,28 @@ const logout = () => {
   text-decoration: none;
 }
 
-/* ↓ 여기가 핵심: active 상태일 때도 색깔이 바뀌지 않도록 강제 override */
-::v-deep .router-link-active.custom-nav-link,
-::v-deep .router-link-exact-active.custom-nav-link {
-  color: #5A45FF !important;
-  background-color: transparent !important;
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: auto;
+  border-radius: 1.5rem;
+  transition: background-color 0.3s ease;
 }
+
+.logo-img {
+  height: 22px;
+  transition: filter 0.3s ease;
+}
+
+.logo-wrapper:hover {
+  background-color: #5A45FF;
+}
+
+.logo-wrapper:hover .logo-img {
+  filter: brightness(10); /* 이미지가 하얗게 변할 때 대비되도록 */
+}
+
+
 </style>
